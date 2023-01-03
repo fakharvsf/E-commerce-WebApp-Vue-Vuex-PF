@@ -96,7 +96,7 @@ export default {
   methods: {
     getLatestProducts() {
       const alpha = axios
-        .get('https://dummyjson.com/products?limit=10')
+        .get('https://dummyjson.com/products?limit=9')
         .then((response) => {
           // if (response.data.products.id < 10) {
           this.latestProducts = response.data.products;

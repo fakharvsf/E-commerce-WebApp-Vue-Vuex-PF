@@ -1,92 +1,157 @@
 <template>
-  <div class="main-footer">
-    <div class="second-footer">
-      <a
-        href="https://best.aliexpress.com/?af=cb8655b2a2101b7970f3361b35fbdc5a&msclkid=cb8655b2a2101b7970f3361b35fbdc5a&aff_fcid=6479f9d2abf24b0b9557cdb72debdb5c-1672058862424-01878-_DchxlF5&tt=CPS_NORMAL&aff_fsk=_DchxlF5&aff_platform=portals-promotion&sk=_DchxlF5&aff_trace_key=6479f9d2abf24b0b9557cdb72debdb5c-1672058862424-01878-_DchxlF5&terminal_id=84c330c9e4aa47859341b2ce71f8ccdc"
-        >Connect With Us</a
-      >
-    </div>
-    <div>
-      <footer class="base-footer">
-        <div class="customer-care">
-          <div class="care">
-            <br />
-            <h4>Customer Care</h4>
-            <br />
-            <div>
-              <a class="anker">Help Center</a>
-              <a class="anker">How to Buy</a>
-              <a class="anker">Corporate & Bulk Purchasing</a>
-              <a class="anker">Returns & Refunds</a>
-              <a class="anker">Shop</a>
-              <a class="anker">Contact Us</a>
-              <a class="anker">Purchase Protection</a>
-              <a class="anker">Daraz Pick up Points</a>
-            </div>
+  <div>
+    <footer>
+      <div class="main">
+        <div class="col1">
+          <h3 class="heading">About the store</h3>
+          <ul>
+            <li>
+              <a href="#"> Home </a>
+            </li>
+            <li>
+              <a href="#"> Become a customer </a>
+            </li>
+            <li>
+              <a href="#"> About us </a>
+            </li>
+            <li>
+              <a href="#"> FAQ </a>
+            </li>
+            <li>
+              <a href="#"> Return policy </a>
+            </li>
+            <li>
+              <a href="#"> Contact us </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col2">
+          <h3 class="heading">Language</h3>
+          <div class="languages">
+            <a href="#">Deutsch</a>
+            <a href="#">English</a>
+            <a href="#">Espaṅol</a>
+            <a href="#">Français</a>
+            <a href="#">Indonesian</a>
+            <a href="#">Italian</a>
           </div>
         </div>
-        <div class="care">
-          <div class="care">
-            <br />
-            <h4>Customer Care</h4>
-            <br />
-            <div>
-              <a class="anker">About Us</a>
-              <a class="anker">Digital Payments</a>
-              <a class="anker"> Cares</a>
-              <a class="anker">Blog</a>
-              <a class="anker">Terms & Conditions</a>
-              <a class="anker">Privacy Policy</a>
-              <a class="anker">NTN Number : 4012118-6</a>
-              <a class="anker">Online Shopping App</a>
-              <a class="anker">Online Grocery Shopping</a>
-              <a class="anker">Exclusive</a>
-              <a class="anker">How to shop on</a>
-            </div>
+
+        <div class="col3">
+          <h3 class="heading">Get in touch</h3>
+          <div class="social">
+            <a href="#">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+            <a href="#">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+            <a href="#">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a>
           </div>
         </div>
-      </footer>
-    </div>
+      </div>
+
+      <p class="terms">
+        <a href="#">Terms of purchase</a>
+        <a href="#">Security and privacy</a>
+        <a href="#">Newsletter</a>
+      </p>
+    </footer>
   </div>
 </template>
 <style scoped>
 /* -----------------FOOTER DSIGN--------------- */
-.main-footer {
-  display: flex;
-}
-.second-footer {
-  margin: auto 0;
-  width: 30%;
-}
-.anker {
-  font-weight: lighter;
-  font-size: small;
-}
-.base-footer {
-  display: flex;
-  justify-content: space-around;
-  padding-top: 22px;
-  padding-bottom: 30px;
-  gap: 3rem;
-}
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
-.base-footer,
-.main-footer {
-  background-color: #3d008d;
-  color: white;
-}
-
-.second-footer a,
-.base-footer a {
+* {
+  box-sizing: border-box;
+  font-family: open sans;
+  transition: ease 0.5s;
   text-decoration: none;
   color: white;
-  display: block;
+  list-style-type: none;
 }
 
-.care-last {
-  margin-right: 12rem;
+footer {
+  background: #1e3161;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 50px;
+  border-radius: 15px;
+  box-shadow: #2f4374 0 10px 20px 5px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
 }
-.bar-code {
-  width: 6.25rem;
+
+.main {
+  width: 100%;
+  display: flex;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+.heading {
+  margin-bottom: 15px;
+}
+.col1 {
+  flex: 1;
+  min-width: 200px;
+}
+.col2 {
+  flex: 2;
+  min-width: 300px;
+}
+.col3 {
+  flex: 1;
+  min-width: 200px;
+}
+
+.col1 a {
+  display: inline-block;
+  padding: 7px 0;
+  font-size: 14px;
+}
+.col1 a:hover {
+  color: #58bed5;
+}
+
+.col2 .languages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 14px;
+}
+.col2 a {
+  display: inline-block;
+  padding: 3px 5px;
+  border-radius: 3px;
+}
+.col2 a:hover {
+  background: #58bed5;
+}
+
+.social {
+  display: flex;
+  gap: 20px;
+}
+.col3 ion-icon {
+  font-size: 30px;
+}
+.social a:hover ion-icon {
+  color: #5ac1d8;
+}
+
+.terms {
+  display: flex;
+  gap: 20px;
+  font-size: 12px;
+}
+.terms a {
+  color: #7783a0;
 }
 </style>
