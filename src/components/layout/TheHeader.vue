@@ -29,6 +29,7 @@
                   type="search"
                   placeholder="Search for anything"
                   id="feed-search"
+                  v-model="searchQuerry"
                 />
               </div>
               <div>
@@ -36,6 +37,7 @@
                   class="btn btn-outline-success my-2 my-sm-0"
                   id="btn__override"
                   type="submit"
+                  @click.prevent="getQuery"
                 >
                   Search
                 </button>
@@ -60,24 +62,28 @@
                 >
               </li>
               <li class="d-flex">
-                <div>
-                  <a
-                    class="nav-link"
-                    href="#"
-                    id="navbarDropdownMenuLink"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <img
-                      src="../../assets/Images/HomePage/Shopping cart circle icon.png"
-                      width="50"
-                      height="50"
-                      class="rounded-circle"
-                    /><strong>(0)</strong>
-                  </a>
-                </div>
+                <router-link to="/cart">
+                  <div>
+                    <a
+                      class="nav-link cart-anker"
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <img
+                        src="../../assets/Images/HomePage/Shopping cart circle icon.png"
+                        width="50"
+                        height="50"
+                        class="rounded-circle"
+                      /><strong class="cart-count">{{
+                        cartTotalLength
+                      }}</strong>
+                    </a>
+                  </div></router-link
+                >
                 <!-- <router-link> -->
                 <div class="collapse navbar-collapse" id="navbar-list-4">
                   <ul class="navbar-nav">
@@ -125,10 +131,12 @@
 export default {
   data() {
     return {
+      searchQuerry: null,
       // showMenu: true,
       // showMobileMenu: false,
     };
   },
+
   // created() {
   //   window.addEventListener('resize', this.CheckDisplay);
   // },
@@ -136,6 +144,12 @@ export default {
   //   window.removeEventListener('resize', this.CheckDisplay);
   // },
   methods: {
+    getQuery() {
+      this.$router.push({
+        name: 'SearchPage',
+        params: { qr: this.searchQuerry },
+      });
+    },
     // showMe() {
     //   this.showMenu = !this.showMenu;
     //   this.showMobileMenu = !this.showMobileMenu;
@@ -199,6 +213,21 @@ input[type='search'] {
 
 .d-flex {
   gap: 1rem;
+}
+.cart-anker {
+  position: relative;
+}
+.cart-count {
+  background: red;
+  color: white;
+  border-radius: 0.8rem;
+  font-size: 0.7rem;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0.1rem 0.4rem;
+  position: absolute;
+  top: 0.5rem;
+  right: 01rem;
 }
 .Form-content {
   display: flex;

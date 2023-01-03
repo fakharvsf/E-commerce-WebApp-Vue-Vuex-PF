@@ -15,11 +15,12 @@
     "bulma": "^0.9.4",
     "vue": "^3.2.45",
     "vue-router": "^4.0.13",
-    "vueperslides": "^3.5.1",
-    "vuetify": "^3.0.6"
+    "vuetify": "^3.0.6",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
+    "unplugin-vue-components": "^0.22.12",
     "vite": "^4.0.0"
   }
 }

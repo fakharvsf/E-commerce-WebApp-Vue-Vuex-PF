@@ -59,7 +59,7 @@
               <button
                 class="btn btn-dark text-uppercase details-bbtn"
                 @click="getIds"
-                @focus="productId = product.id"
+                @focus="productid = product.id"
               >
                 View Details
               </button>
@@ -78,34 +78,34 @@
     </div>
   </main-products>
 </template>
-  
   <script>
 import axios from 'axios';
 
 export default {
+  name: 'SearchPage',
+
   data: () => ({
     show: false,
     latestProducts: [],
-    imagesrc: [],
-    productId: null,
     showModal: false,
-    prodCata: null,
+    prodQuerry: null,
+    productid: null,
   }),
   mounted() {
     this.getLatestProducts();
   },
   created() {
-    this.prodCata = this.$route.params.productCata;
-    console.log(this.prodCata, 'wwwwwwww');
+    this.prodQuerry = this.$route.params.qr;
+    console.log(this.prodQuerry);
   },
   methods: {
     getLatestProducts() {
       const alpha = axios
-        .get(`https://dummyjson.com/products/category/${this.prodCata}`)
+        .get(`https://dummyjson.com/products/search?q=${this.prodQuerry}`)
         .then((response) => {
           // if (response.data.products.id < 10) {
           this.latestProducts = response.data.products;
-          console.log(response.data.products);
+          console.log(this.latestProducts[6]);
           // }
         })
         .catch((error) => {
@@ -113,16 +113,17 @@ export default {
         });
     },
     getIds() {
-      console.log(this.productId, this.prodCata);
+      // this.productid = this.latestProducts.id;
+      console.log(this.latestProducts.id, this.productid);
       this.$router.push({
         name: 'ProductPage',
-        params: { data: this.productId },
+        params: { data: this.productid },
       });
     },
   },
 };
 </script>
-  <style scoped>
+<style scoped>
 img {
   width: 100%;
 }
@@ -225,3 +226,4 @@ img {
   height: 45vh;
 }
 </style>
+

@@ -21,7 +21,7 @@
               id="username"
               placeholder=" "
               required="yes"
-              ref="userName"
+              v-model="userName"
             />
             <div class="label">
               <label for="username">Username</label>
@@ -34,12 +34,17 @@
               id="password"
               placeholder=" "
               required="yes"
-              ref="Password"
+              v-model="Password"
             />
             <div class="label">
               <label for="password">Password</label>
             </div>
           </div>
+          <v-alert dense outlined type="error">
+            I'm a dense alert with the <strong>outlined</strong> prop and a
+            <strong>type</strong> of error
+          </v-alert>
+
           <button type="submit">Login</button>
         </div>
       </form>
@@ -47,42 +52,51 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
       userName: '',
       Password: '',
+      errors: [],
       // verificationData: [],
     };
   },
   methods: {
-    logIn() {
-      this.userName = this.$refs.userName.value;
-      this.Password = this.$refs.Password.value;
-      //   .catch((err) => console.log(err.message));
-      fetch('https://dummyjson.com/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          // username: "kminchelle",
-          // password: "0lelplR",
-          username: this.userName,
-          password: this.Password,
-          expiresInMins: 1, // optional
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          localStorage.setItem('token', JSON.stringify(data.token));
-          localStorage.setItem('username', JSON.stringify(data.username));
+    async logIn() {
+      axios.defaults.headers.common['Authorization'] = '';
+      localStorage.removeItem('token');
+      const formData = {
+        username: this.username,
+        password: this.password,
+      };
 
-          // console.log(this.verificationData);
-          if (data.message != 'Invalid credentials') {
-            console.log(data);
-            this.$router.replace({ path: '/home' });
-          }
+      await axios
+        .post('https://dummyjson.com/auth/login', formData)
+        .then((response) => {
+          const token = response.data.auth_token;
+          this.$store.commit('setToken', token);
+
+          axios.defaults.headers.common['Authorization'] = 'Token ' + token;
+          console.log(response);
+
+          localStorage.setItem('token', token);
+          const toPath = this.$route.query.to || '/cart';
+          this.$router.push(toPath);
         })
-        .catch((err) => console.log(err.message));
+        .catch((error) => {
+          if (error.response) {
+            for (const property in error.response.data) {
+              this.errors.push(`${property}: ${error.response.data[property]}`);
+            }
+          } else {
+            this.errors.push('Something went wrong. Please try again');
+
+            console.log(JSON.stringify(error));
+          }
+        });
+
+      // console.log(this.verificationData);
 
       // console.log(this.verificationData);
     },

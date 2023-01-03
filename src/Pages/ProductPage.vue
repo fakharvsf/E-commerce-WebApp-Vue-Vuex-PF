@@ -71,14 +71,7 @@
                   <div>
                     <del class="text-danger">{{ '$' + product.price }}</del>
                   </div>
-                  <strong style="color: green"
-                    >${{
-                      Math.round(
-                        product.price -
-                          (product.discountPercentage * product.price) / 100
-                      )
-                    }}</strong
-                  >
+                  <strong style="color: green">${{ actualPrice }}</strong>
                 </div>
               </h4>
               <button
@@ -89,13 +82,19 @@
               >
                 Buy Now
               </button>
-              <button
-                type="button"
-                class="btn btn-outline-success"
-                style="margin-top: 15px; margin-bottom: 20px"
-              >
-                Add to Cart
-              </button>
+              <div class="mb-3">
+                <input type="number" v-model="productQuantity" />
+                <button
+                  type="button"
+                  aria-describedby="button-addon2"
+                  class="btn btn-outline-success"
+                  style="margin-top: 15px; margin-bottom: 20px"
+                  @click="addToCart"
+                >
+                  Add to Cart
+                </button>
+              </div>
+
               <div>
                 <h4 style="font-weight: 400">Delivery Description</h4>
                 <hr />
@@ -249,6 +248,9 @@ export default {
       product: {},
       prodId: 1,
       quantity: 1,
+      totalExpense: null,
+      productQuantity: null,
+      desprice: null,
     };
   },
   created() {
@@ -257,6 +259,18 @@ export default {
   },
   mounted() {
     this.getProduct();
+  },
+  computed: {
+    actualPrice() {
+      const price = Math.round(
+        this.product.price -
+          (this.product.discountPercentage * this.product.price) / 100
+      );
+      this.desprice = price;
+      console.log(price, this.desprice);
+
+      return this.desprice;
+    },
   },
   methods: {
     getProduct() {
@@ -275,11 +289,39 @@ export default {
           console.log(error);
         });
     },
+
+    ShopatCart() {
+      this.totalExpense = this.desprice * this.productQuantity;
+      this.$router.push({
+        name: 'CartPage',
+        params: {
+          ProdQant: this.productQuantity,
+          totalPrice: this.totalExpense,
+        },
+      });
+    },
+    addToCart() {
+      if (isNaN(this.productQuantity) || this.productQuantity < 1) {
+        this.productQuantity = 1;
+      }
+      const item = {
+        id: this.product.id,
+        product: this.product.title,
+        quantity: this.productQuantity,
+      };
+      this.$store.commit('Cart/addToCart', item);
+    },
   },
 };
 </script>
 <style scoped>
 .discount-text {
   column-gap: 1rem;
+}
+input[type='number'] {
+  border-bottom: 1px solid black;
+  width: 6rem;
+  height: auto;
+  padding: 0.5rem;
 }
 </style>
