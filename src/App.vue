@@ -20,11 +20,18 @@ export default {
       },
     };
   },
+
   beforeCreate() {
     this.$store.commit('Cart/initializeStore');
   },
   mounted() {
-    this.cart = this.$store.state.cart;
+    this.cart = this.$store.state['Cart/cart'];
+    console.log(this.$store.state['Cart/newProduct'], 'im ne one');
+    console.log(
+      '🚀 ~ file: App.vue:28 ~ mounted ~ this.$store.state.cart.items;',
+      this.$store.state.cart
+    );
+    console.log('🚀 ~ file: App.vue:28 ~ mounted ~ this.cart', this.cart);
   },
   computed: {
     cartTotalLength() {

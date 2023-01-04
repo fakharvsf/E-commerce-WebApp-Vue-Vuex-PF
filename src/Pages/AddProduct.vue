@@ -8,15 +8,17 @@
           class="form-control"
           id="exampleFormControlInput1"
           placeholder="Product Name"
+          v-model="newProduct.title"
         />
       </div>
       <div class="form-group">
-        <label for="exampleFormControlInput2">Product Quantity</label>
+        <label for="exampleFormControlInput2">Product Stock</label>
         <input
           type="number"
           class="form-control"
           id="exampleFormControlInput2"
           placeholder="Product Quantity"
+          v-model="newProduct.stock"
         />
       </div>
       <div class="form-group">
@@ -26,6 +28,17 @@
           class="form-control"
           id="exampleFormControlInput3"
           placeholder="Product Price"
+          v-model="newProduct.price"
+        />
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlInput4">Discount Percentage</label>
+        <input
+          type="number"
+          class="form-control"
+          id="exampleFormControlInput4"
+          placeholder="Product Price"
+          v-model="newProduct.discountPercentage"
         />
       </div>
 
@@ -35,17 +48,23 @@
           class="form-control"
           id="exampleFormControlTextarea1"
           rows="3"
+          v-model="newProduct.description"
         ></textarea>
       </div>
       <div class="form-group">
-        <label for="exampleFormControlFile1">Choose Image</label>
+        <label for="exampleFormControlFile1">Image Url</label>
         <input
-          type="file"
-          class="form-control-file"
+          type="url"
+          class="form-control"
           id="exampleFormControlFile1"
+          v-model="newProduct.thumbnail"
         />
       </div>
-      <button type="submit" class="btn btn-dark">Add A Product</button>
+      <router-link to="/home">
+        <button type="submit" class="btn btn-dark" @click="AddNewProduct">
+          Add A Product
+        </button>
+      </router-link>
     </form>
   </main-products>
 </template>
@@ -57,37 +76,55 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      name: null,
-      quantity: null,
-      price: null,
-      description: null,
+      newProduct: {
+        title: null,
+        stock: null,
+        price: null,
+        description: null,
+        thumbnail: null,
+        discountPercentage: null,
+      },
+
       show: false,
       latestProducts: [],
     };
   },
-  mounted() {
-    this.getLatestProducts();
-  },
+  // mounted() {
+  //   this.getLatestProducts();
+  // },
   methods: {
     getLatestProducts() {
       const alpha = axios
         .post('https://dummyjson.com/products/add', {
-          title: 'BMW Pencil',
+          title: this.newProduct.title,
+          price: this.newProduct.price,
+          thumbnail: this.newProduct.thumbnail,
+          stock: this.newProduct.stock,
+          discountPercentage: this.newProduct.discountPercentage,
         })
         .then((response) => {
-          // if (response.data.products.id < 10) {
           this.latestProducts = response.data;
-          console.log(
-            '🚀 ~ file: AddProduct.vue:80 ~ .then ~ this.latestProducts',
-            this.latestProducts
-          );
+          this.$store.commit({
+            type: 'Cart/newProduct',
+            value: this.latestProducts,
+          });
 
-          // console.log(this.latestProducts[6]);
-          // }
+          // this.$router.push({
+          //   name: 'home',
+          //   // path: '/home',
+          //   params: { NewProduct: this.latestProducts },
+          // });
+          // console.log(
+          //   '🚀 ~ file: AddProduct.vue:80 ~ .then ~ this.latestProducts',
+          //   this.latestProducts
+          // );
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+    AddNewProduct() {
+      this.getLatestProducts();
     },
   },
 };

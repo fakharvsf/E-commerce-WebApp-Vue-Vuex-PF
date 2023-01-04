@@ -7,24 +7,21 @@ export default {
     }
   },
   addToCart(state, item) {
-    console.log('🚀 ~ file: mutations.js:10 ~ addToCart ~ state', state);
-    console.log('🚀 ~ file: mutations.js:10 ~ addToCart ~ item', item);
-
     const exists = state.cart.items.filter(
       (i) => i.id === item.id
       // console.log('🚀 ~ file: mutations.js:10 ~ addToCart', item.id);
       // console.log('🚀 ~ file: mutations.js:10 ~ addToCart i.id', i.id);
     );
-    console.log('🚀 ~ file: mutations.js:18 ~ addToCart ~ exists', exists);
+    // console.log('🚀 ~ file: mutations.js:18 ~ addToCart ~ exists', exists);
     const exists2 = state.cart.items.filter(
       (i) => i.product === item.product
       // console.log('🚀 ~ file: mutations.js:10 ~ addToCart', item.id);
       // console.log('🚀 ~ file: mutations.js:10 ~ addToCart i.id', i.id);
     );
-    console.log('🚀 ~ file: mutations.js:23 ~ addToCart ~ exists2', exists2);
+    // console.log('🚀 ~ file: mutations.js:23 ~ addToCart ~ exists2', exists2);
     // console.log('🚀 ~ file: mutations.js:10 ~ addToCart', item.id);
 
-    console.log('🚀 ~ file: mutations.js:16 ~ addToCart ~ exists', exists);
+    // console.log('🚀 ~ file: mutations.js:16 ~ addToCart ~ exists', exists);
     // console.log(
     // '🚀 ~ file: mutations.js:18 ~ addToCart ~ exists.length',
     // exists.length
@@ -42,5 +39,10 @@ export default {
     // );
 
     localStorage.setItem('cart', JSON.stringify(state.cart));
+  },
+  newProduct(state, payload) {
+    state.newProduct = payload.value;
+    console.log(payload.value.title);
+    console.log(state.newProduct, 'jjj');
   },
 };

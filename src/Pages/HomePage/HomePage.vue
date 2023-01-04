@@ -88,7 +88,23 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  name: 'home',
+  data() {
+    return {
+      addNewProduct: null,
+    };
+  },
+  // created() {
+  //   this.addNewProduct = this.$route.params.NewProduct;
+  //   console.log(this.$route.params.NewProduct, 'addNewProduct');
+  //   console.log(
+  //     '🚀 ~ file: ShopingCard.vue:100 ~ created ~ addNewProduct',
+  //     this.addNewProduct,
+  //     this.$route.params
+  //   );
+  // },
+};
 </script>
 
 <style scoped>

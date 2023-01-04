@@ -89,18 +89,30 @@ export default {
     imagesrc: [],
     productid: null,
     showModal: false,
+    addNewProduct: null,
   }),
   mounted() {
     this.getLatestProducts();
+    this.newProduct;
+  },
+  computed: {
+    newProduct() {
+      this.addNewProduct = this.$store.state['Cart/newProduct'];
+      return this.addNewProduct;
+    },
   },
   methods: {
     getLatestProducts() {
+      console.log(
+        '🚀 ~ file: ShopingCard.vue:999999 ~ created ~ this.addNewProduct',
+        this.$store.state['Cart/newProduct']
+      );
       const alpha = axios
         .get('https://dummyjson.com/products?limit=9')
         .then((response) => {
           // if (response.data.products.id < 10) {
           this.latestProducts = response.data.products;
-          console.log(this.latestProducts[6]);
+          // console.log(this.latestProducts[6]);
           // }
         })
         .catch((error) => {

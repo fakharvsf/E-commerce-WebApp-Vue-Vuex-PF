@@ -4,7 +4,11 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', redirect: '/home' },
-    { path: '/home', component: () => import('./Pages/HomePage/HomePage.vue') },
+    {
+      name: 'home',
+      path: '/home',
+      component: () => import('./Pages/HomePage/HomePage.vue'),
+    },
     {
       path: '/catagories',
       component: () => import('./Pages/Catagories/Catagories.vue'),

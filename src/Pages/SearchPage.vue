@@ -94,12 +94,7 @@ export default {
   watch: {
     prodQuerry(newQuestion, oldQuestion) {
       if (newQuestion !== oldQuestion) {
-        this.prodQuerry = newQuestion;
-
-        console.log(this.prodQuerry, newQuestion);
         this.getLatestProducts();
-
-        // location.reload();
       }
     },
   },
@@ -108,7 +103,7 @@ export default {
   },
   created() {
     this.prodQuerry = this.$route.params.qr;
-    console.log(this.prodQuerry, 'cc');
+    // console.log(this.prodQuerry, 'cc');
   },
   updated() {
     this.prodQuerry = this.$route.params.qr;
