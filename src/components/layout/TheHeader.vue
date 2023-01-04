@@ -136,6 +136,12 @@ export default {
       // showMobileMenu: false,
     };
   },
+  // computed: {
+  //   getStore() {
+  //     console.log(this.$store.state.cart.items.quantity, 'im store');
+  //     return this.$store.state.cart.items.quantity;
+  //   },
+  // },
 
   // created() {
   //   window.addEventListener('resize', this.CheckDisplay);
@@ -143,6 +149,7 @@ export default {
   // destroyed() {
   //   window.removeEventListener('resize', this.CheckDisplay);
   // },
+
   methods: {
     getQuery() {
       this.$router.push({

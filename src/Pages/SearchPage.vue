@@ -6,7 +6,7 @@
         <div
           class="wrapper"
           v-for="product in latestProducts"
-          :key="product.id"
+          :key="product.category"
         >
           <div class="card">
             <span class="off bg-dark"
@@ -91,12 +91,27 @@ export default {
     prodQuerry: null,
     productid: null,
   }),
+  watch: {
+    prodQuerry(newQuestion, oldQuestion) {
+      if (newQuestion !== oldQuestion) {
+        this.prodQuerry = newQuestion;
+
+        console.log(this.prodQuerry, newQuestion);
+        this.getLatestProducts();
+
+        // location.reload();
+      }
+    },
+  },
   mounted() {
     this.getLatestProducts();
   },
   created() {
     this.prodQuerry = this.$route.params.qr;
-    console.log(this.prodQuerry);
+    console.log(this.prodQuerry, 'cc');
+  },
+  updated() {
+    this.prodQuerry = this.$route.params.qr;
   },
   methods: {
     getLatestProducts() {
@@ -105,7 +120,7 @@ export default {
         .then((response) => {
           // if (response.data.products.id < 10) {
           this.latestProducts = response.data.products;
-          console.log(this.latestProducts[6]);
+          // console.log(this.latestProducts[6]);
           // }
         })
         .catch((error) => {

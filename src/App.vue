@@ -32,6 +32,10 @@ export default {
       for (let i = 0; i < this.cart.items.length; i++) {
         totalLength += this.cart.items[i].quantity;
       }
+      console.log(
+        '🚀 ~ file: App.vue:37 ~ cartTotalLength ~ totalLength',
+        totalLength
+      );
       return totalLength;
     },
   },
