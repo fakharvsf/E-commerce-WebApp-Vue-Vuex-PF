@@ -44,7 +44,7 @@ const router = createRouter({
     },
     {
       name: 'CartPage',
-      path: '/cart/:ProdQant/:totalPrice',
+      path: '/cart',
       component: () => import('./Pages/CartPage.vue'),
     },
 

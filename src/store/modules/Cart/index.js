@@ -6,10 +6,11 @@ export default {
   namespaced: true,
   state() {
     return {
-      newProduct: 5,
+      newProduct: null,
       cart: {
         items: [],
       },
+      cartLength: null,
     };
   },
   mutations,

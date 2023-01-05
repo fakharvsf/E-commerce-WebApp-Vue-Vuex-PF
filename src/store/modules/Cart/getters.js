@@ -1,9 +1,13 @@
 export default {
   newAddedProduct(state) {
     console.log(
-      '🚀 ~ file: getters.js:5 ~ newAddedProduct ~ state.newProduct',
+      '🚀 ~ file: getters.js:6 ~ newAddedProduct ~ state.newProduct',
       state.newProduct
     );
+
     return state.newProduct;
+  },
+  CartReturn(state) {
+    return state.cart;
   },
 };

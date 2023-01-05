@@ -245,6 +245,8 @@ export default {
   // props: [''],
   data() {
     return {
+      cartLength: null,
+      cart: null,
       product: {},
       prodId: 1,
       quantity: 1,
@@ -290,16 +292,16 @@ export default {
         });
     },
 
-    ShopatCart() {
-      this.totalExpense = this.desprice * this.productQuantity;
-      this.$router.push({
-        name: 'CartPage',
-        params: {
-          ProdQant: this.productQuantity,
-          totalPrice: this.totalExpense,
-        },
-      });
-    },
+    // ShopatCart() {
+    //   this.totalExpense = this.desprice * this.productQuantity;
+    //   this.$router.push({
+    //     name: 'CartPage',
+    //     params: {
+    //       ProdQant: this.productQuantity,
+    //       totalPrice: this.totalExpense,
+    //     },
+    //   });
+    // },
     addToCart() {
       if (isNaN(this.productQuantity) || this.productQuantity < 1) {
         this.productQuantity = 1;
@@ -310,6 +312,30 @@ export default {
         quantity: this.productQuantity,
       };
       this.$store.commit('Cart/addToCart', item);
+
+      this.cart = this.$store.state.Cart.cart;
+      console.log(this.cart);
+
+      let totalLength = 0;
+
+      for (let i = 0; i < this.cart.items.length; i++) {
+        totalLength += this.cart.items[i].quantity;
+      }
+      this.cartLength = totalLength;
+      console.log(
+        '🚀 ~ file: App.vue:48 ~ cartTotalLength ~ this.cartLength',
+        this.cartLength
+      );
+      this.$store.commit({
+        type: 'Cart/cartLengthUpdate',
+        value: this.cartLength,
+      });
+      // this.$store.commit('', );
+
+      console.log(
+        '🚀 ~ file: App.vue:37 ~ cartTotalLength ~ totalLength',
+        totalLength
+      );
     },
   },
 };

@@ -81,6 +81,7 @@
 
 <script>
 import axios from 'axios';
+import { mapGetters } from 'vuex';
 
 export default {
   data: () => ({
@@ -91,28 +92,45 @@ export default {
     showModal: false,
     addNewProduct: null,
   }),
+  beforeMount() {
+    this.newProduct;
+    console.log(
+      '🚀 ~ file: ShopingCard.vue:98 ~ beforeUnmount ~ this.newProduct;',
+      this.newProduct
+    );
+  },
+
   mounted() {
     this.getLatestProducts();
-    this.newProduct;
+    this.publisgNewProduct();
   },
   computed: {
+    // ...mapGetters(['newAddedProduct']),
     newProduct() {
-      this.addNewProduct = this.$store.state['Cart/newProduct'];
-      return this.addNewProduct;
+      const newProd = this.$store.getters['Cart/newAddedProduct'];
+      this.addNewProduct = newProd;
+      console.log(
+        '🚀 ~ file: ShopingCard.vue:114 ~ newAddedProduct',
+        this.addNewProduct
+      );
+
+      return newProd;
     },
   },
+
   methods: {
     getLatestProducts() {
       console.log(
         '🚀 ~ file: ShopingCard.vue:999999 ~ created ~ this.addNewProduct',
-        this.$store.state['Cart/newProduct']
+        this.addNewProduct
       );
       const alpha = axios
         .get('https://dummyjson.com/products?limit=9')
         .then((response) => {
           // if (response.data.products.id < 10) {
           this.latestProducts = response.data.products;
-          // console.log(this.latestProducts[6]);
+
+          console.log(this.latestProducts);
           // }
         })
         .catch((error) => {
@@ -126,6 +144,9 @@ export default {
         name: 'ProductPage',
         params: { data: this.productid },
       });
+    },
+    publisgNewProduct() {
+      1;
     },
   },
 };

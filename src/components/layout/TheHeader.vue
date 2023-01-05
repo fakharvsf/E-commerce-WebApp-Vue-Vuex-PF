@@ -78,9 +78,9 @@
                         width="50"
                         height="50"
                         class="rounded-circle"
-                      /><strong class="cart-count">{{
-                        cartTotalLength
-                      }}</strong>
+                      /><strong class="cart-count"
+                        >{{ getLength }},{{ length }}</strong
+                      >
                     </a>
                   </div></router-link
                 >
@@ -129,12 +129,39 @@
 </template>
   <script>
 export default {
+  // props: ['length'],
   data() {
     return {
       searchQuerry: null,
+      length: null,
       // showMenu: true,
       // showMobileMenu: false,
     };
+  },
+
+  mounted() {
+    console.log(
+      '🚀 ~ file: TheHeader.vue:151 ~ updated ~ this.getLength',
+      this.getLength
+    );
+  },
+  updated() {
+    console.log(
+      '🚀 ~ file: TheHeader.vue:151 ~ updated ~ this.getLength',
+      this.getLength
+    );
+  },
+
+  computed: {
+    getLength() {
+      this.length = this.$store.state.Cart.cartLength;
+      console.log(
+        '🚀 ~ file: TheHeader.vue:142 ~ getLength ~ this.length',
+        this.length
+      );
+
+      return this.length;
+    },
   },
   // computed: {
   //   getStore() {
@@ -145,6 +172,7 @@ export default {
 
   // created() {
   //   window.addEventListener('resize', this.CheckDisplay);
+  //   console.log(this.length);
   // },
   // destroyed() {
   //   window.removeEventListener('resize', this.CheckDisplay);

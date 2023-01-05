@@ -3,7 +3,7 @@ import LoginModule from './modules/Login/index';
 import CartModule from './modules/Cart/index';
 
 const store = createStore({
-  modules: { Login: LoginModule, Cart: CartModule },
+  modules: { Cart: CartModule, Login: LoginModule },
   state() {
     return {
       isLoading: false,

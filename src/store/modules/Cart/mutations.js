@@ -42,7 +42,16 @@ export default {
   },
   newProduct(state, payload) {
     state.newProduct = payload.value;
-    console.log(payload.value.title);
-    console.log(state.newProduct, 'jjj');
+    console.log(
+      '🚀 ~ file: mutations.js:45 ~ newProduct ~ payload.value',
+      payload.value
+    );
+  },
+  cartLengthUpdate(state, payload) {
+    state.cartLength = payload.value;
+    console.log(
+      '🚀 ~ file: mutations.js:50 ~ cartLengthUpdate ~ state.cartLength',
+      state.cartLength
+    );
   },
 };

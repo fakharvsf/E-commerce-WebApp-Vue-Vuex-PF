@@ -3,7 +3,7 @@ import getters from './getters';
 import mutations from './mutations';
 
 export default {
-  // namespaced: true,
+  namespaced: true,
   state() {
     return {
       isAuthenticated: false,
