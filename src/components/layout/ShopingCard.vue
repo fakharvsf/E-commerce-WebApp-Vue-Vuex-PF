@@ -74,6 +74,8 @@
             </div>
           </div>
         </div>
+
+        <p></p>
       </div>
     </div>
   </main-products>
@@ -81,7 +83,7 @@
 
 <script>
 import axios from 'axios';
-import { mapGetters } from 'vuex';
+// import { mapGetters } from 'vuex';
 
 export default {
   data: () => ({
@@ -92,38 +94,43 @@ export default {
     showModal: false,
     addNewProduct: null,
   }),
-  beforeMount() {
-    this.newProduct;
-    console.log(
-      '🚀 ~ file: ShopingCard.vue:98 ~ beforeUnmount ~ this.newProduct;',
-      this.newProduct
-    );
-  },
-
+  // beforeMount() {
+  //   this.newProduct;
+  //   console.log(
+  //     '🚀 ~ file: ShopingCard.vue:98 ~ beforeUnmount ~ this.newProduct;',
+  //     this.newProduct
+  //   );
+  // },
+  // watch: {
+  //   addNewProduct() {
+  //     this.addNewProductToExisting();
+  //   },
+  //   latestProducts() {
+  //     this.CheckProductAddition();
+  //   },
+  // },
   mounted() {
     this.getLatestProducts();
-    this.publisgNewProduct();
   },
-  computed: {
-    // ...mapGetters(['newAddedProduct']),
-    newProduct() {
-      const newProd = this.$store.getters['Cart/newAddedProduct'];
-      this.addNewProduct = newProd;
-      console.log(
-        '🚀 ~ file: ShopingCard.vue:114 ~ newAddedProduct',
-        this.addNewProduct
-      );
+  // computed: {
+  //   // ...mapGetters(['newAddedProduct']),
+  //   newProducts() {
+  //     const newProd = this.$store.state.Cart.newProduct;
+  //     this.addNewProduct = newProd;
+  //     this.latestProducts.push(newProd);
+  //     console.log(
+  //       '🚀 ~ file: ShopingCard.vue:114 ~ newAddedProduct',
+  //       this.latestProducts,
+  //       this.latestProducts.length,
+  //       'sdd'
+  //     );
 
-      return newProd;
-    },
-  },
+  //     return newProd;
+  //   },
+  // },
 
   methods: {
     getLatestProducts() {
-      console.log(
-        '🚀 ~ file: ShopingCard.vue:999999 ~ created ~ this.addNewProduct',
-        this.addNewProduct
-      );
       const alpha = axios
         .get('https://dummyjson.com/products?limit=9')
         .then((response) => {
@@ -145,9 +152,40 @@ export default {
         params: { data: this.productid },
       });
     },
-    publisgNewProduct() {
-      1;
-    },
+    // newProduct() {
+    //   const newProd = this.$store.state.Cart.newProduct;
+    //   this.addNewProduct = newProd;
+    //   console.log(
+    //     '🚀 ~ file: ShopingCard.vue:158 ~ newProduct ~  this.addNewProduct',
+    //     this.addNewProduct
+    //   );
+    // },
+    // addNewProductToExisting() {
+    //   this.latestProducts.push(newProd);
+    //   console.log(
+    //     '🚀 ~ file: ShopingCard.vue:114 ~ newAddedProduct',
+    //     this.latestProducts,
+    //     this.latestProducts.length,
+    //     'sdd'
+    //   );
+    // },
+    // CheckProductAddition() {
+    //   if (this.latestProducts.length > 0) {
+    //     this.newProduct();
+    //     console.log(
+    //       '🚀 ~ file: ShopingCard.vue:114 ~ newAddedProduct',
+    //       this.latestProducts,
+    //       this.latestProducts.length,
+    //       'sdd'
+    //     );
+    //   } else {
+    //     console.log(
+    //       '🚀 ~ file: ShopingCard.vue:114 ~ newAddedProduct',
+    //       'i am false'
+    //     );
+    //     return false;
+    //   }
+    // },
   },
 };
 </script>

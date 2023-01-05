@@ -40,10 +40,10 @@
               <label for="password">Password</label>
             </div>
           </div>
-          <v-alert dense outlined type="error">
+          <!-- <v-alert dense outlined type="error">
             I'm a dense alert with the <strong>outlined</strong> prop and a
             <strong>type</strong> of error
-          </v-alert>
+          </v-alert> -->
 
           <button type="submit">Login</button>
         </div>

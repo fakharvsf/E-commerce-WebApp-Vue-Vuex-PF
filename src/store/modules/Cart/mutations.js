@@ -44,8 +44,9 @@ export default {
     state.newProduct = payload.value;
     console.log(
       '🚀 ~ file: mutations.js:45 ~ newProduct ~ payload.value',
-      payload.value
+      state.newProduct
     );
+    localStorage.setItem('New Product', JSON.stringify(state.newProduct));
   },
   cartLengthUpdate(state, payload) {
     state.cartLength = payload.value;

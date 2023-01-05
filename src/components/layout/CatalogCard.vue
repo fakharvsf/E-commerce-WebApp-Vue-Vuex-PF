@@ -9,7 +9,7 @@
         <div class="container">
           <div class="row">
             <div
-              class="col-md-4 col-sm-6"
+              class="col-md-4 col-sm-6 catalog-card"
               v-for="catagory in ProductbyCatagories"
               :key="catagory"
             >

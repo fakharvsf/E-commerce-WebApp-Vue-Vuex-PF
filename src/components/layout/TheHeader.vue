@@ -62,35 +62,31 @@
                 >
               </li>
               <li class="d-flex">
-                <router-link to="/cart">
-                  <div>
-                    <a
-                      class="nav-link cart-anker"
-                      href="#"
-                      id="navbarDropdownMenuLink"
-                      role="button"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <img
-                        src="../../assets/Images/HomePage/Shopping cart circle icon.png"
-                        width="50"
-                        height="50"
-                        class="rounded-circle"
-                      /><strong class="cart-count"
-                        >{{ getLength }},{{ length }}</strong
-                      >
-                    </a>
-                  </div></router-link
+                <span
+                  class="nav-link"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false"
                 >
+                  <i
+                    class="fa-solid fa-cart-shopping cart-anker"
+                    @click="toCart"
+                  >
+                    <strong class="cart-count">{{ getLength }}</strong>
+                  </i>
+                </span>
+
+                <!-- <div class="nav-buttons"></div> -->
+
+                <!-- </router-link> -->
+              </li>
+              <li class="ms-1">
                 <!-- <router-link> -->
                 <div class="collapse navbar-collapse" id="navbar-list-4">
                   <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                       <a
                         class="nav-link dropdown-toggle"
-                        href="#"
                         id="navbarDropdownMenuLink"
                         role="button"
                         data-toggle="dropdown"
@@ -116,9 +112,6 @@
                     </li>
                   </ul>
                 </div>
-                <!-- <div class="nav-buttons"></div> -->
-
-                <!-- </router-link> -->
               </li>
             </ul>
           </div>
@@ -129,27 +122,11 @@
 </template>
   <script>
 export default {
-  // props: ['length'],
   data() {
     return {
       searchQuerry: null,
       length: null,
-      // showMenu: true,
-      // showMobileMenu: false,
     };
-  },
-
-  mounted() {
-    console.log(
-      '🚀 ~ file: TheHeader.vue:151 ~ updated ~ this.getLength',
-      this.getLength
-    );
-  },
-  updated() {
-    console.log(
-      '🚀 ~ file: TheHeader.vue:151 ~ updated ~ this.getLength',
-      this.getLength
-    );
   },
 
   computed: {
@@ -179,6 +156,11 @@ export default {
   // },
 
   methods: {
+    toCart() {
+      this.$router.push({
+        path: '/cart',
+      });
+    },
     getQuery() {
       this.$router.push({
         name: 'SearchPage',
@@ -209,6 +191,9 @@ export default {
 };
 </script>
   <style scoped>
+header {
+  box-shadow: 0 8px 8px -4px black;
+}
 #btn__override {
   background-color: #1e3161;
   color: whitesmoke;
@@ -261,8 +246,8 @@ input[type='search'] {
   width: fit-content;
   padding: 0.1rem 0.4rem;
   position: absolute;
-  top: 0.5rem;
-  right: 01rem;
+  top: -0.5rem;
+  right: -01rem;
 }
 .Form-content {
   display: flex;
