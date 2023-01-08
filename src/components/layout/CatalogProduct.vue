@@ -81,6 +81,7 @@
   
   <script>
 import axios from 'axios';
+import { toast } from 'bulma-toast';
 
 export default {
   data: () => ({
@@ -100,16 +101,31 @@ export default {
   },
   methods: {
     getLatestProducts() {
+      this.$store.commit({ type: 'setIsLoading', value: true });
+
       const alpha = axios
         .get(`https://dummyjson.com/products/category/${this.prodCata}`)
         .then((response) => {
           // if (response.data.products.id < 10) {
           this.latestProducts = response.data.products;
-          console.log(response.data.products);
+          this.$store.commit({ type: 'setIsLoading', value: false });
+
+          document.title =
+            this.latestProducts[0].category.toUpperCase() + ' | ShopCart';
+
+          console.log(this.latestProducts[0].category);
           // }
         })
         .catch((error) => {
           console.log(error);
+          toast({
+            message: 'Something went wrong.Please try again! 😒',
+            type: 'is-danger',
+            dismissible: true,
+            pauseOnHover: true,
+            duration: 2000,
+            position: 'bottom-right',
+          });
         });
     },
     getIds() {

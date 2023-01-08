@@ -10,5 +10,14 @@ const store = createStore({
     };
   },
   getters: {},
+  mutations: {
+    setIsLoading(state, payload) {
+      state.isLoading = payload;
+      console.log(
+        '🚀 ~ file: index.js:16 ~ setIsLoading ~ state.isLoading',
+        state.isLoading
+      );
+    },
+  },
 });
 export default store;

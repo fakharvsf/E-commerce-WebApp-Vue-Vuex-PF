@@ -7,7 +7,7 @@ export default {
   state() {
     return {
       isAuthenticated: false,
-      tiken: '',
+      token: '',
     };
   },
   mutations,

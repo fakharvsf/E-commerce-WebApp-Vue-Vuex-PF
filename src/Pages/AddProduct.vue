@@ -106,9 +106,11 @@ export default {
       latestProducts: [],
     };
   },
-  // mounted() {
-  //   this.getLatestProducts();
-  // },
+  mounted() {
+    document.title = 'New Product | ShopCart';
+
+    // this.getLatestProducts();
+  },
   methods: {
     getLatestProducts() {
       const alpha = axios

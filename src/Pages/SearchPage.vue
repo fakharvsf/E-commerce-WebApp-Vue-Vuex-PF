@@ -115,6 +115,8 @@ export default {
         .then((response) => {
           // if (response.data.products.id < 10) {
           this.latestProducts = response.data.products;
+          document.title = this.prodQuerry + ' | ShopCart';
+
           // console.log(this.latestProducts[6]);
           // }
         })

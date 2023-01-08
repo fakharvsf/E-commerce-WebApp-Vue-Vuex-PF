@@ -5,7 +5,7 @@
       <div class="container">
         <div
           class="wrapper"
-          v-for="product in latestProducts"
+          v-for="(product, index) in latestProducts"
           :key="product.id"
         >
           <div class="card">
@@ -66,23 +66,53 @@
               <!-- overlay -->
 
               <div class="add">
-                <span class="product_fav"><i class="fa fa-heart"></i></span>
+                <span class="product_fav"><i class="fas fa-edit"></i></span>
                 <span class="product_fav"
-                  ><i class="fa fa-shopping-cart"></i
+                  ><i
+                    class="fa fa-trash"
+                    @click="deleteFromCart(product.id, index)"
+                  ></i
                 ></span>
               </div>
             </div>
           </div>
         </div>
-
-        <p></p>
       </div>
     </div>
   </main-products>
+  <div class="main-products">
+    <footer>
+      <nav
+        class="pagination is-centered"
+        role="navigation"
+        aria-label="pagination"
+      >
+        <a class="pagination-previous">Previous</a>
+        <a class="pagination-next">Next page</a>
+        <ul class="pagination-list">
+          <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+          <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
+          <li>
+            <a
+              class="pagination-link is-current"
+              aria-label="Page 46"
+              aria-current="page"
+              >46</a
+            >
+          </li>
+          <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+          <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
+        </ul>
+      </nav>
+    </footer>
+  </div>
 </template>
 
 <script>
 import axios from 'axios';
+import { toast } from 'bulma-toast';
 // import { mapGetters } from 'vuex';
 
 export default {
@@ -93,6 +123,7 @@ export default {
     productid: null,
     showModal: false,
     addNewProduct: null,
+    deletedProduct: null,
   }),
   // beforeMount() {
   //   this.newProduct;
@@ -111,6 +142,7 @@ export default {
   // },
   mounted() {
     this.getLatestProducts();
+    document.title = 'Home | ShopCart';
   },
   // computed: {
   //   // ...mapGetters(['newAddedProduct']),
@@ -130,18 +162,50 @@ export default {
   // },
 
   methods: {
-    getLatestProducts() {
-      const alpha = axios
+    async deleteFromCart(prodId, index) {
+      await axios
+        .delete(`https://dummyjson.com/products/${prodId}`)
+        .then((response) => {
+          this.deletedProduct = response;
+
+          console.log(this.deletedProduct);
+          this.latestProducts.splice(index, 1);
+        })
+        .catch((error) => {
+          console.log(error);
+          toast({
+            message: 'Something went wrong.Please try again! 😒',
+            type: 'is-danger',
+            dismissible: true,
+            pauseOnHover: true,
+            duration: 2000,
+            position: 'bottom-right',
+          });
+        });
+    },
+    async getLatestProducts() {
+      this.$store.commit({ type: 'setIsLoading', value: true });
+      await axios
         .get('https://dummyjson.com/products?limit=9')
         .then((response) => {
           // if (response.data.products.id < 10) {
           this.latestProducts = response.data.products;
 
           console.log(this.latestProducts);
+          this.$store.commit({ type: 'setIsLoading', value: false });
+
           // }
         })
         .catch((error) => {
           console.log(error);
+          toast({
+            message: 'Something went wrong.Please try again! 😒',
+            type: 'is-danger',
+            dismissible: true,
+            pauseOnHover: true,
+            duration: 2000,
+            position: 'bottom-right',
+          });
         });
     },
     getIds() {
@@ -190,6 +254,12 @@ export default {
 };
 </script>
 <style scoped>
+.main-products {
+  margin-top: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 img {
   width: 100%;
 }

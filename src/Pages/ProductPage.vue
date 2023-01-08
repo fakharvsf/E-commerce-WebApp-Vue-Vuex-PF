@@ -4,7 +4,7 @@
       <div class="card mb-2 Products-Content flex-wrap">
         <div class="row no-gutters">
           <div class="col-md-4 mt-5">
-            <div>
+            <div class="">
               <figure
                 class="figure-zoom"
                 style="
@@ -22,7 +22,7 @@
 
               <div
                 style="height: 100px"
-                class="d-flex nav nav-tabs flex-nowrap overflow-hidden"
+                class="d-flex nav nav-tabs flex-nowrap overflow-auto"
                 id="nav-image"
                 role="tablist"
               >
@@ -83,7 +83,11 @@
                 Buy Now
               </button>
               <div class="mb-3">
-                <input type="number" v-model="productQuantity" />
+                <input
+                  type="number"
+                  class="text-center"
+                  v-model="productQuantity"
+                />
                 <button
                   type="button"
                   aria-describedby="button-addon2"
@@ -239,6 +243,7 @@
 </template>
 <script>
 import axios from 'axios';
+import { toast } from 'bulma-toast';
 
 export default {
   name: 'ProductPage',
@@ -257,7 +262,7 @@ export default {
   },
   created() {
     this.prodId = this.$route.params.data;
-    console.log(this.prodId);
+    // console.log(this.prodId);
   },
   mounted() {
     this.getProduct();
@@ -269,26 +274,38 @@ export default {
           (this.product.discountPercentage * this.product.price) / 100
       );
       this.desprice = price;
-      console.log(price, this.desprice);
+      // console.log(price, this.desprice);
 
       return this.desprice;
     },
   },
   methods: {
-    getProduct() {
+    async getProduct() {
       // const category_slug = this.$route.params.category;
       // const product_slug = this.$route.params.product;
+      this.$store.commit({ type: 'setIsLoading', value: true });
 
-      axios
+      await axios
         .get(`https://dummyjson.com/products/${this.prodId}`)
         .then((response) => {
           // if (response.data.products.id < 10) {
           this.product = response.data;
-          console.log(this.product);
+          // console.log(this.product);
+          this.$store.commit({ type: 'setIsLoading', value: false });
+
+          document.title = this.product.title + ' | ShopCart';
           // }
         })
         .catch((error) => {
           console.log(error);
+          toast({
+            message: 'Something went wrong.Please try again! 😒',
+            type: 'is-danger',
+            dismissible: true,
+            pauseOnHover: true,
+            duration: 2000,
+            position: 'bottom-right',
+          });
         });
     },
 
@@ -310,32 +327,29 @@ export default {
         id: this.product.id,
         product: this.product.title,
         quantity: this.productQuantity,
+        thumbnail: this.product.thumbnail,
+        category: this.product.category,
+        price: this.product.price,
+        discountPercentage: this.product.discountPercentage,
       };
       this.$store.commit('Cart/addToCart', item);
 
       this.cart = this.$store.state.Cart.cart;
-      console.log(this.cart);
+      // console.log(this.cart);
 
-      let totalLength = 0;
-
-      for (let i = 0; i < this.cart.items.length; i++) {
-        totalLength += this.cart.items[i].quantity;
-      }
-      this.cartLength = totalLength;
-      console.log(
-        '🚀 ~ file: App.vue:48 ~ cartTotalLength ~ this.cartLength',
-        this.cartLength
-      );
-      this.$store.commit({
-        type: 'Cart/cartLengthUpdate',
-        value: this.cartLength,
+      this.$store.dispatch({
+        type: 'Cart/checkCartLength',
       });
-      // this.$store.commit('', );
+      toast({
+        message: 'The Product was added to Cart',
+        type: 'is-success',
+        dismissible: true,
+        pauseOnHover: true,
+        duration: 2000,
+        position: 'bottom-right',
+      });
 
-      console.log(
-        '🚀 ~ file: App.vue:37 ~ cartTotalLength ~ totalLength',
-        totalLength
-      );
+      // this.$store.commit('', );
     },
   },
 };

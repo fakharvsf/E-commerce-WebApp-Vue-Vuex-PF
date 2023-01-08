@@ -57,6 +57,7 @@
 </template>
 <script>
 import axios from 'axios';
+import { toast } from 'bulma-toast';
 
 export default {
   data: () => ({
@@ -77,24 +78,29 @@ export default {
     this.getProductsCatagories();
   },
   methods: {
-    getProductsCatagories() {
-      const ProductsCatagories = axios
+    async getProductsCatagories() {
+      this.$store.commit({ type: 'setIsLoading', value: true });
+
+      await axios
         .get('https://dummyjson.com/products/categories')
         .then((response) => {
           this.ProductCatagories = response.data;
           console.log(this.ProductCatagories);
           this.getProductsByCatagories(this.ProductCatagories);
+          this.$store.commit({ type: 'setIsLoading', value: false });
+
+          document.title = 'Categories | ShopCart';
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    getProductsByCatagories(cat) {
+    async getProductsByCatagories(cat) {
       console.log(cat);
       for (let i = 0; i <= cat.length - 2; i++) {
         console.log(cat);
 
-        const ProductsByCatagories = axios
+        await axios
           .get(`https://dummyjson.com/products/category/${cat[i]}`)
           .then((response) => {
             this.ProductbyCatagories.push(response.data);
@@ -102,6 +108,14 @@ export default {
           })
           .catch((error) => {
             console.log(error);
+            toast({
+              message: 'Something went wrong.Please try again! 😒',
+              type: 'is-danger',
+              dismissible: true,
+              pauseOnHover: true,
+              duration: 2000,
+              position: 'bottom-right',
+            });
           });
       }
     },
@@ -118,6 +132,7 @@ export default {
 </script>
 
 <style scoped>
+@import 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css';
 .mt-100 {
   margin-top: 100px;
 }
@@ -171,6 +186,15 @@ a {
   width: 65%;
   padding: 15px;
   vertical-align: middle;
+}
+.main-img {
+  overflow: hidden;
+}
+.thumblist {
+  overflow: hidden;
+}
+img {
+  transition: transform 0.5s ease;
 }
 img:hover {
   transform: scale(1.5);

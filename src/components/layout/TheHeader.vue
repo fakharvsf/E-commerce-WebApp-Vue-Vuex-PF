@@ -19,7 +19,10 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="navbar-collapse Form-content" id="navbarTogglerDemo02">
+        <div
+          class="navbar-collapse Form-content collapse"
+          id="navbarTogglerDemo02"
+        >
           <!-- :class="{ 'is-active': showMenu }" -->
           <div id="form-Disp">
             <form class="d-flex my-2 my-lg-0">
@@ -84,31 +87,36 @@
                 <!-- <router-link> -->
                 <div class="collapse navbar-collapse" id="navbar-list-4">
                   <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                      <a
-                        class="nav-link dropdown-toggle"
-                        id="navbarDropdownMenuLink"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <img
-                          src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
-                          width="40"
-                          height="40"
-                          class="rounded-circle"
-                        />
-                      </a>
-                      <div
+                    <li class="nav-item">
+                      <div v-if="$store.state.Login.isAuthenticated">
+                        <router-link to="/my-acount" class="nav-link">
+                          <img
+                            src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
+                            width="40"
+                            height="40"
+                            class="rounded-circle"
+                          />
+                        </router-link>
+                      </div>
+                      <div v-else>
+                        <router-link to="/login" class="nav-link">
+                          <button
+                            class="btn btn-outline-success my-2 my-sm-0"
+                            id="btn__override"
+                          >
+                            Login
+                          </button>
+                        </router-link>
+                      </div>
+
+                      <!-- <div
                         class="dropdown-menu"
                         aria-labelledby="navbarDropdownMenuLink"
                       >
                         <button class="dropdown-item" @click="checkAuth">
                           Login
                         </button>
-                        <button class="dropdown-item" href="#">Log Out</button>
-                      </div>
+                      </div> -->
                     </li>
                   </ul>
                 </div>
@@ -120,7 +128,8 @@
     </div>
   </header>
 </template>
-  <script>
+<script>
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -167,6 +176,7 @@ export default {
         params: { qr: this.searchQuerry },
       });
     },
+
     // showMe() {
     //   this.showMenu = !this.showMenu;
     //   this.showMobileMenu = !this.showMobileMenu;
@@ -182,7 +192,9 @@ export default {
     checkAuth() {
       const Token = localStorage.getItem('token');
       if (Token != null) {
-        alert('you are already signned in');
+        this.$router.replace('/login');
+
+        // alert('you are already signned in');
       } else {
         this.$router.replace('/login');
       }

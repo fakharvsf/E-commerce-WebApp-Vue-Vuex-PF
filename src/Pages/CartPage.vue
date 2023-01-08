@@ -21,7 +21,9 @@
                         "
                       >
                         <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
-                        <h6 class="mb-0 text-muted">{{ getLength }} items</h6>
+                        <h6 class="mb-0 text-muted">
+                          {{ cartTotalLength }} items
+                        </h6>
                       </div>
                       <hr class="my-4" />
 
@@ -33,49 +35,107 @@
                           justify-content-between
                           align-items-center
                         "
+                        v-for="(item, index) in cartItems"
+                        :key="item.id"
                       >
                         <div class="col-md-2 col-lg-2 col-xl-2">
                           <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
+                            :src="`${item.thumbnail}`"
                             class="img-fluid rounded-3"
                             alt="Cotton T-shirt"
                           />
                         </div>
                         <div class="col-md-3 col-lg-3 col-xl-3">
-                          <h6 class="text-muted">Shirt</h6>
-                          <h6 class="text-black mb-0">Cotton T-shirt</h6>
+                          <h6 class="text-muted">{{ item.category }}</h6>
+                          <h6 class="text-black mb-0">{{ item.product }}</h6>
                         </div>
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <button
-                            class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                        <div
+                          class="
+                            col-md-3 col-lg-3 col-xl-2
+                            d-flex
+                            justify-content-around
+                            gap-3
+                          "
+                        >
+                          <div
+                            class="
+                              d-flex
+                              flex-column
+                              justify-content-center
+                              align-center
+                            "
                           >
-                            <i class="fas fa-minus"></i>
-                          </button>
+                            <div><strong>Price: </strong></div>
+                            <div>
+                              <sub>
+                                <del class="text-danger">{{
+                                  item.price
+                                }}</del></sub
+                              >
+                              <strong class="text-success">{{
+                                Math.round(
+                                  item.price -
+                                    (item.discountPercentage * item.price) / 100
+                                )
+                              }}</strong>
+                            </div>
+                          </div>
 
-                          <input
+                          <div class="d-flex flex-column align-center">
+                            <div><strong>Quantity:</strong></div>
+                            <div class="d-flex align-center">
+                              <button
+                                class="btn btn-link px-2"
+                                @click.prevent="decrementQuantity(item, index)"
+                              >
+                                <i class="fas fa-minus"></i>
+                              </button>
+                              <span id="form1">{{ item.quantity }}</span>
+                              <button
+                                class="btn btn-link px-2"
+                                @click.prevent="incrementQuantity(item)"
+                              >
+                                <i class="fas fa-plus"></i>
+                              </button>
+                            </div>
+                          </div>
+
+                          <!-- :value="item.quantity" -->
+                          <!-- <input
                             id="form1"
                             min="0"
                             name="quantity"
-                            value="1"
+                            @focus="value = 'item.quantity'"
                             type="number"
+                            v-model="tempValue"
                             class="form-control form-control-sm"
                           />
 
-                          <button
-                            class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                          >
-                            <i class="fas fa-plus"></i>
-                          </button>
+                           -->
                         </div>
                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                          <h6 class="mb-0">$ 44.00</h6>
+                          <h6 class="mb-0">
+                            <div><strong>Total: </strong></div>
+
+                            ${{
+                              Math.round(
+                                item.price -
+                                  (item.discountPercentage * item.price) / 100
+                              ) * item.quantity
+                            }}
+                          </h6>
+                          <!-- <h6>{{ cartTotalLength }}</h6> -->
                         </div>
                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                          <a href="#!" class="text-muted"
-                            ><i class="fas fa-times"></i
-                          ></a>
+                          <!-- <div
+                          v-if="item.isShow"
+                          ></div> -->
+                          <div class="text-muted btn">
+                            <i
+                              class="fas fa-times"
+                              @click="deleteFromCart(index)"
+                            ></i>
+                          </div>
                         </div>
                       </div>
 
@@ -97,8 +157,19 @@
                       <hr class="my-4" />
 
                       <div class="d-flex justify-content-between mb-4">
-                        <h5 class="text-uppercase">items 3</h5>
-                        <h5>$ 132.00</h5>
+                        <h5 class="text-uppercase">
+                          Products {{ cartItems.length }}
+                        </h5>
+                        <h5>
+                          ${{ cartTotalPrice }}
+
+                          <!-- {{
+                            Math.round(
+                              item.price -
+                                (item.discountPercentage * item.price) / 100
+                            ) * 1
+                          }} -->
+                        </h5>
                       </div>
 
                       <h5 class="text-uppercase mb-3">Shipping</h5>
@@ -106,9 +177,6 @@
                       <div class="mb-4 pb-2">
                         <select class="select">
                           <option value="1">Standard-Delivery- $5.00</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                          <option value="4">Four</option>
                         </select>
                       </div>
 
@@ -131,16 +199,17 @@
 
                       <div class="d-flex justify-content-between mb-5">
                         <h5 class="text-uppercase">Total price</h5>
-                        <h5>$ 137.00</h5>
+                        <h5>$ {{ cartTotalPrice + 5 }}</h5>
                       </div>
-
-                      <button
-                        type="button"
-                        class="btn btn-dark btn-block btn-lg"
-                        data-mdb-ripple-color="dark"
-                      >
-                        Register
-                      </button>
+                      <router-link to="/cart/checkout">
+                        <button
+                          type="button"
+                          class="btn btn-dark btn-block btn-lg"
+                          data-mdb-ripple-color="dark"
+                        >
+                          Checkout
+                        </button>
+                      </router-link>
                     </div>
                   </div>
                 </div>
@@ -157,45 +226,124 @@ export default {
   name: 'CartPage',
   data() {
     return {
+      isShow: false,
+      cartItems: null,
       prodQuantity: null,
-      totalValue: null,
       length: null,
+      itemQuant: null,
+      tempValue: null,
     };
   },
-  created() {
-    this.prodQuantity = this.$route.params.ProdQant;
-    this.totalValue = this.$route.params.totalPrice;
-    console.log(this.prodQuantity, this.totalValue);
-  },
-  computed: {
-    getLength() {
-      this.length = this.$store.state.Cart.cartLength;
+  watch: {
+    isShow() {
       console.log(
-        '🚀 ~ file: TheHeader.vue:142 ~ getLength ~ this.length',
-        this.length
+        '🚀 ~ file: CartPage.vue:198 ~ isShow ~ this.isShow',
+        this.isShow
       );
-
-      return this.length;
     },
+  },
+  created() {
+    this.$store.commit({ type: 'setIsLoading', value: true });
+
+    this.cartItems = this.$store.state.Cart.cart.items;
+    this.$store.commit({ type: 'setIsLoading', value: false });
+
+    console.log(
+      '🚀 ~ file: CartPage.vue:175 ~ mounted ~ this.cartItems',
+      this.cartItems.length
+    );
+  },
+  mounted() {
+    document.title = 'Cart | ShopCart';
+
+    this.cartTotalPrice;
+    // this.cartTotalLength;
+    // console.log(
+    //   '🚀 ~ file: CartPage.vue:234 ~ mounted ~     this.cartTotalLength',
+    //   this.cartTotalLength
+    // );
+    console.log(
+      '🚀 ~ file: CartPage.vue:271 ~ mounted ~ this.cartTotalPrice',
+      this.cartTotalLength
+    );
+  },
+
+  computed: {
+    cartTotalLength() {
+      return this.cartItems.reduce((acc, curVal) => {
+        return (acc += curVal.quantity);
+      }, 0);
+    },
+
+    cartTotalPrice() {
+      return this.cartItems.reduce((acc, curVal) => {
+        let Price = Math.round(
+          curVal.price - (curVal.discountPercentage * curVal.price) / 100
+        );
+        return (acc += Price * curVal.quantity);
+      }, 0);
+    },
+  },
+  methods: {
+    deleteFromCart(index) {
+      console.log(this.isShow);
+      this.cartItems.splice(index, 1);
+      this.checkLength();
+      this.updateCart();
+
+      console.log(this.cartItems);
+      // isShow = !isShow;
+      // console.log(index);
+      // this.cartItems[index].this.isShow = !this.cartItems[index].this.isShow;
+      // let isShow = this.isShow;
+      // this.cartItems[index].isShow = !this.cartItems[index].isShow;
+      // console.log(this.isShow);
+      // isShow = this.isShow;
+      // console.log(this.isShow);
+    },
+    incrementQuantity(item) {
+      item.quantity += 1;
+      this.checkLength();
+
+      this.updateCart();
+    },
+    checkLength() {
+      this.$store.dispatch({
+        type: 'Cart/checkCartLength',
+      });
+    },
+    decrementQuantity(item, index) {
+      item.quantity -= 1;
+      this.checkLength();
+      if (item.quantity === 0) {
+        this.checkLength();
+        this.deleteFromCart(index);
+      }
+      this.updateCart();
+    },
+    updateCart() {
+      localStorage.setItem('cart', JSON.stringify(this.$store.state.Cart.cart));
+    },
+    // decreaseCart(index) {
+    //   this.$store.commit({
+    //     type: 'Cart/cartLengthDecrease',
+    //     value: this.itemQuant,
+    //   });
+
+    //   this.tempValue = this.tempValue - 1;
+    //   console.log(
+    //     '🚀 ~ file: CartPage.vue:191 ~ addToCart ~ this.itemQuant',
+    //     this.tempValue,
+    //     index
+    //   );
+    // },
   },
 };
 </script>
 <style scoped>
-.card-registration .select-input.form-control[readonly]:not([disabled]) {
-  font-size: 1rem;
-  line-height: 2.15;
-  padding-left: 0.75em;
-  padding-right: 0.75em;
+#form1 {
+  width: 1.1rem;
 }
-
-.card-registration .select-arrow {
-  top: 13px;
-}
-
-.bg-grey {
-  background-color: #eae8e8;
-}
-
 @media (min-width: 992px) {
   .card-registration-2 .bg-grey {
     border-top-right-radius: 16px;

@@ -53,7 +53,10 @@
 </template>
 <script>
 import axios from 'axios';
+import { toast } from 'bulma-toast';
+
 export default {
+  name: 'Login',
   data() {
     return {
       userName: '',
@@ -62,35 +65,64 @@ export default {
       // verificationData: [],
     };
   },
+  mounted() {
+    document.title = 'Login | ShopCart';
+  },
   methods: {
     async logIn() {
       axios.defaults.headers.common['Authorization'] = '';
       localStorage.removeItem('token');
       const formData = {
-        username: this.username,
-        password: this.password,
+        username: this.userName,
+        password: this.Password,
       };
 
       await axios
         .post('https://dummyjson.com/auth/login', formData)
         .then((response) => {
-          const token = response.data.auth_token;
-          this.$store.commit('setToken', token);
+          const username = response.data.username;
+          const userid = response.data.id;
+          const token = response.data.token;
+          this.$store.commit({
+            type: 'Login/setToken',
+            value: token,
+          });
+          // this.$store.commit('setToken', token);
 
           axios.defaults.headers.common['Authorization'] = 'Token ' + token;
           console.log(response);
 
           localStorage.setItem('token', token);
+          localStorage.setItem('username', username);
+          localStorage.setItem('userid', userid);
+
           const toPath = this.$route.query.to || '/cart';
+
           this.$router.push(toPath);
         })
         .catch((error) => {
           if (error.response) {
             for (const property in error.response.data) {
               this.errors.push(`${property}: ${error.response.data[property]}`);
+              toast({
+                message: 'Something went wrong.Please try again! 😒',
+                type: 'is-danger',
+                dismissible: true,
+                pauseOnHover: true,
+                duration: 2000,
+                position: 'bottom-right',
+              });
             }
           } else {
             this.errors.push('Something went wrong. Please try again');
+            toast({
+              message: 'Something went wrong.Please try again! 😒',
+              type: 'is-danger',
+              dismissible: true,
+              pauseOnHover: true,
+              duration: 2000,
+              position: 'bottom-right',
+            });
 
             console.log(JSON.stringify(error));
           }
@@ -103,7 +135,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style scoped !important>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
 
 /* Reset */
@@ -112,7 +144,7 @@ export default {
   height: 100vh;
   display: grid;
   place-items: center;
-  background-color: #f1f1f1;
+  background-color: #f1f1f1 !important;
   font-weight: 300;
   padding: 0 24px;
 }
@@ -173,12 +205,13 @@ p {
   display: flex;
   flex-direction: column;
   position: relative;
+  border: none !important;
 }
 
 input {
   width: 100%;
   padding: 8px 0;
-  border: none;
+  border: none !important;
   border-bottom: 1px solid #181824;
   transition: 300ms;
   font-size: 14px;
