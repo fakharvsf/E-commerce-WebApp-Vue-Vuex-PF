@@ -1,6 +1,6 @@
 <template>
   <main-products>
-    <form>
+    <form class="add-Product-form">
       <div class="form-group">
         <label for="exampleFormControlInput1">Product Name</label>
         <input
@@ -69,6 +69,10 @@
   </main-products>
 </template>
 <style scoped>
+.add-Product-form {
+  width: 60%;
+  margin: 3rem auto;
+}
 </style>
 
 <script>
@@ -108,8 +112,6 @@ export default {
   },
   mounted() {
     document.title = 'New Product | ShopCart';
-
-    // this.getLatestProducts();
   },
   methods: {
     getLatestProducts() {
@@ -128,16 +130,6 @@ export default {
             type: 'Cart/newProduct',
             value: this.newProduct2,
           });
-
-          // this.$router.push({
-          //   name: 'home',
-          //   // path: '/home',
-          //   params: { NewProduct: this.latestProducts },
-          // });
-          // console.log(
-          //   '🚀 ~ file: AddProduct.vue:80 ~ .then ~ this.latestProducts',
-          //   this.latestProducts
-          // );
         })
         .catch((error) => {
           console.log(error);

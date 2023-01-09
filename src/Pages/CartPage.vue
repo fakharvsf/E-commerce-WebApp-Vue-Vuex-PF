@@ -42,7 +42,6 @@
                           <img
                             :src="`${item.thumbnail}`"
                             class="img-fluid rounded-3"
-                            alt="Cotton T-shirt"
                           />
                         </div>
                         <div class="col-md-3 col-lg-3 col-xl-3">
@@ -99,19 +98,6 @@
                               </button>
                             </div>
                           </div>
-
-                          <!-- :value="item.quantity" -->
-                          <!-- <input
-                            id="form1"
-                            min="0"
-                            name="quantity"
-                            @focus="value = 'item.quantity'"
-                            type="number"
-                            v-model="tempValue"
-                            class="form-control form-control-sm"
-                          />
-
-                           -->
                         </div>
                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                           <h6 class="mb-0">
@@ -124,12 +110,8 @@
                               ) * item.quantity
                             }}
                           </h6>
-                          <!-- <h6>{{ cartTotalLength }}</h6> -->
                         </div>
                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                          <!-- <div
-                          v-if="item.isShow"
-                          ></div> -->
                           <div class="text-muted btn">
                             <i
                               class="fas fa-times"
@@ -160,16 +142,7 @@
                         <h5 class="text-uppercase">
                           Products {{ cartItems.length }}
                         </h5>
-                        <h5>
-                          ${{ cartTotalPrice }}
-
-                          <!-- {{
-                            Math.round(
-                              item.price -
-                                (item.discountPercentage * item.price) / 100
-                            ) * 1
-                          }} -->
-                        </h5>
+                        <h5>${{ cartTotalPrice }}</h5>
                       </div>
 
                       <h5 class="text-uppercase mb-3">Shipping</h5>
@@ -242,11 +215,19 @@ export default {
       );
     },
   },
+  beforeCreate() {
+    this.$store.commit({ type: 'setIsLoading', value: true });
+
+    this.cartItems = this.$store.state.Cart.cart.items;
+
+    this.$store.commit({ type: 'setIsLoading', value: false });
+  },
   created() {
     this.$store.commit({ type: 'setIsLoading', value: true });
 
     this.cartItems = this.$store.state.Cart.cart.items;
     this.$store.commit({ type: 'setIsLoading', value: false });
+    this.checkLength();
 
     console.log(
       '🚀 ~ file: CartPage.vue:175 ~ mounted ~ this.cartItems',
@@ -254,14 +235,15 @@ export default {
     );
   },
   mounted() {
+    this.cartItems = this.$store.state.Cart.cart.items;
+    console.log(
+      '🚀 ~ file: CartPage.vue:248 ~ beforeCreate ~  this.$store.state.Cart.cart.items',
+      this.$store.getters['Cart/cartReturn']
+    );
     document.title = 'Cart | ShopCart';
 
     this.cartTotalPrice;
-    // this.cartTotalLength;
-    // console.log(
-    //   '🚀 ~ file: CartPage.vue:234 ~ mounted ~     this.cartTotalLength',
-    //   this.cartTotalLength
-    // );
+
     console.log(
       '🚀 ~ file: CartPage.vue:271 ~ mounted ~ this.cartTotalPrice',
       this.cartTotalLength
@@ -292,14 +274,6 @@ export default {
       this.updateCart();
 
       console.log(this.cartItems);
-      // isShow = !isShow;
-      // console.log(index);
-      // this.cartItems[index].this.isShow = !this.cartItems[index].this.isShow;
-      // let isShow = this.isShow;
-      // this.cartItems[index].isShow = !this.cartItems[index].isShow;
-      // console.log(this.isShow);
-      // isShow = this.isShow;
-      // console.log(this.isShow);
     },
     incrementQuantity(item) {
       item.quantity += 1;
@@ -324,19 +298,6 @@ export default {
     updateCart() {
       localStorage.setItem('cart', JSON.stringify(this.$store.state.Cart.cart));
     },
-    // decreaseCart(index) {
-    //   this.$store.commit({
-    //     type: 'Cart/cartLengthDecrease',
-    //     value: this.itemQuant,
-    //   });
-
-    //   this.tempValue = this.tempValue - 1;
-    //   console.log(
-    //     '🚀 ~ file: CartPage.vue:191 ~ addToCart ~ this.itemQuant',
-    //     this.tempValue,
-    //     index
-    //   );
-    // },
   },
 };
 </script>

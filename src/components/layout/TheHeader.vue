@@ -78,10 +78,6 @@
                     <strong class="cart-count">{{ getLength }}</strong>
                   </i>
                 </span>
-
-                <!-- <div class="nav-buttons"></div> -->
-
-                <!-- </router-link> -->
               </li>
               <li class="ms-1">
                 <!-- <router-link> -->
@@ -108,15 +104,6 @@
                           </button>
                         </router-link>
                       </div>
-
-                      <!-- <div
-                        class="dropdown-menu"
-                        aria-labelledby="navbarDropdownMenuLink"
-                      >
-                        <button class="dropdown-item" @click="checkAuth">
-                          Login
-                        </button>
-                      </div> -->
                     </li>
                   </ul>
                 </div>
@@ -141,28 +128,10 @@ export default {
   computed: {
     getLength() {
       this.length = this.$store.state.Cart.cartLength;
-      console.log(
-        '🚀 ~ file: TheHeader.vue:142 ~ getLength ~ this.length',
-        this.length
-      );
 
       return this.length;
     },
   },
-  // computed: {
-  //   getStore() {
-  //     console.log(this.$store.state.cart.items.quantity, 'im store');
-  //     return this.$store.state.cart.items.quantity;
-  //   },
-  // },
-
-  // created() {
-  //   window.addEventListener('resize', this.CheckDisplay);
-  //   console.log(this.length);
-  // },
-  // destroyed() {
-  //   window.removeEventListener('resize', this.CheckDisplay);
-  // },
 
   methods: {
     toCart() {
@@ -176,19 +145,6 @@ export default {
         params: { qr: this.searchQuerry },
       });
     },
-
-    // showMe() {
-    //   this.showMenu = !this.showMenu;
-    //   this.showMobileMenu = !this.showMobileMenu;
-    //   console.log(screen.width);
-    // },
-    // CheckDisplay() {
-    //   console.log(this.showMenu);
-    //   if (screen.width > 991) {
-    //     this.showMobileMenu = false;
-    //     console.log(screen.width, this.showMobileMenu);
-    //   }
-    // },
     checkAuth() {
       const Token = localStorage.getItem('token');
       if (Token != null) {

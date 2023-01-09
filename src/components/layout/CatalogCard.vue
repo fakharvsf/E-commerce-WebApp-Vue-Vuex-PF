@@ -45,7 +45,6 @@
                   >
                     View Products
                   </button>
-                  <!-- :to="{name:'CatagoriesProduct',params:{cat:catagory.products[0].category}}" -->
                 </div>
               </div>
             </div>
@@ -64,20 +63,12 @@ export default {
     productCat: null,
     ProductbyCatagories: [],
     ProductCatagories: [],
-    // Areas: [
-    //   'Technology',
-    //   'Beauty Products',
-    //   'Home Accessories',
-    //   'Women-Clothes',
-    //   'Men-Clothes',
-    //   'Fashion Accessories',
-    //   'Others',
-    // ],
   }),
   mounted() {
     this.getProductsCatagories();
   },
   methods: {
+    //Getting Data from Backend
     async getProductsCatagories() {
       this.$store.commit({ type: 'setIsLoading', value: true });
 
@@ -88,6 +79,7 @@ export default {
           console.log(this.ProductCatagories);
           this.getProductsByCatagories(this.ProductCatagories);
           this.$store.commit({ type: 'setIsLoading', value: false });
+          //Renaming Page title
 
           document.title = 'Categories | ShopCart';
         })
@@ -95,6 +87,7 @@ export default {
           console.log(error);
         });
     },
+    //Getting Product from each Catagory to show some results like pics
     async getProductsByCatagories(cat) {
       console.log(cat);
       for (let i = 0; i <= cat.length - 2; i++) {
@@ -108,6 +101,7 @@ export default {
           })
           .catch((error) => {
             console.log(error);
+            //Showing Error using Bulma Toast
             toast({
               message: 'Something went wrong.Please try again! 😒',
               type: 'is-danger',
@@ -120,7 +114,7 @@ export default {
       }
     },
     getPCat() {
-      // this.productid = this.latestProducts.id;
+      //Onclick Redirecting user to page containing only that category ptoducts
       console.log(this.productCat);
       this.$router.push({
         name: 'CatagoriesProduct',

@@ -7,7 +7,7 @@ export default {
 
   //   return state.newProduct;
   // },
-  CartReturn(state) {
+  cartReturn(state) {
     return state.cart;
   },
 };

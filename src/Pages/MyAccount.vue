@@ -8,11 +8,7 @@
       <div class="col-xs-11 col-sm-11 col-md-11 col-lg-9 col-centered">
         <div class="row header">
           <div class="col-sm-4">
-            <img
-              src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
-              alt=""
-              class="img-rounded img-responsive"
-            />
+            <img :src="`${image}`" alt="" class="img-rounded img-responsive" />
           </div>
 
           <div class="col-sm-8 right-text header-box">
@@ -26,7 +22,10 @@
 
             <div class="row h-75">
               <div class="col-12 header-text">
-                <h2>Name: {{ username }}</h2>
+                <h2>User: {{ username }}</h2>
+              </div>
+              <div class="col-12 header-text">
+                <h2>Full Name: {{ fullName }}</h2>
               </div>
             </div>
           </div>
@@ -42,10 +41,14 @@ export default {
   data() {
     return {
       username: null,
+      image: null,
+      fullName: null,
     };
   },
   mounted() {
     this.username = localStorage.getItem('username');
+    this.fullName = localStorage.getItem('fullName');
+    this.image = localStorage.getItem('profileImage');
   },
   methods: {
     logout() {
@@ -53,6 +56,9 @@ export default {
       localStorage.removeItem('token');
       localStorage.removeItem('username');
       localStorage.removeItem('userid');
+      localStorage.removeItem('fullName');
+      localStorage.removeItem('profileImage');
+
       this.$store.commit({
         type: 'Login/removeToken',
       });
@@ -110,6 +116,6 @@ export default {
 
 .btn-login:hover {
   background: black;
-  border-color: $app-green;
+  border-color: green;
 }
 </style>

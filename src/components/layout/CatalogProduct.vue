@@ -96,10 +96,12 @@ export default {
     this.getLatestProducts();
   },
   created() {
+    //When this page is created we get the Catagory
     this.prodCata = this.$route.params.productCata;
-    console.log(this.prodCata, 'wwwwwwww');
+    // console.log(this.prodCata, 'wwwwwwww');
   },
   methods: {
+    //To get products of specific Category
     getLatestProducts() {
       this.$store.commit({ type: 'setIsLoading', value: true });
 
@@ -118,6 +120,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          //Error using bulma toast
           toast({
             message: 'Something went wrong.Please try again! 😒',
             type: 'is-danger',
@@ -128,6 +131,7 @@ export default {
           });
         });
     },
+    //Getting ids to show a specific product on next page
     getIds() {
       console.log(this.productId, this.prodCata);
       this.$router.push({

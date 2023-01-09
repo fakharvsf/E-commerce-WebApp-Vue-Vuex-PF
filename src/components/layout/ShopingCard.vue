@@ -90,20 +90,18 @@
         <a class="pagination-previous">Previous</a>
         <a class="pagination-next">Next page</a>
         <ul class="pagination-list">
-          <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-          <li><span class="pagination-ellipsis">&hellip;</span></li>
-          <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-          <li>
-            <a
-              class="pagination-link is-current"
-              aria-label="Page 46"
-              aria-current="page"
-              >46</a
-            >
-          </li>
-          <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-          <li><span class="pagination-ellipsis">&hellip;</span></li>
-          <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
+          <span v-for="(PageNo, index) in totalProducts" :key="index">
+            <li v-if="index % 10 === 0">
+              <a
+                class="pagination-link"
+                aria-label="Goto page 1"
+                @click="nextPage(Math.ceil(PageNo / 10))"
+                >{{ Math.ceil(PageNo / 10) }}</a
+              >
+            </li>
+          </span>
+
+          <!-- <li><span class="pagination-ellipsis">&hellip;</span></li> -->
         </ul>
       </nav>
     </footer>
@@ -113,7 +111,6 @@
 <script>
 import axios from 'axios';
 import { toast } from 'bulma-toast';
-// import { mapGetters } from 'vuex';
 
 export default {
   data: () => ({
@@ -124,44 +121,45 @@ export default {
     showModal: false,
     addNewProduct: null,
     deletedProduct: null,
+    noOfProducts: null,
+    productsToSkip: null,
+    totalProducts: 100,
+    nextPagea: null,
+    previousPage: null,
   }),
-  // beforeMount() {
-  //   this.newProduct;
-  //   console.log(
-  //     '🚀 ~ file: ShopingCard.vue:98 ~ beforeUnmount ~ this.newProduct;',
-  //     this.newProduct
-  //   );
-  // },
-  // watch: {
-  //   addNewProduct() {
-  //     this.addNewProductToExisting();
-  //   },
-  //   latestProducts() {
-  //     this.CheckProductAddition();
-  //   },
-  // },
+  created() {
+    this.noOfProducts = 9;
+    this.productsToSkip = 0;
+  },
   mounted() {
     this.getLatestProducts();
     document.title = 'Home | ShopCart';
   },
-  // computed: {
-  //   // ...mapGetters(['newAddedProduct']),
-  //   newProducts() {
-  //     const newProd = this.$store.state.Cart.newProduct;
-  //     this.addNewProduct = newProd;
-  //     this.latestProducts.push(newProd);
-  //     console.log(
-  //       '🚀 ~ file: ShopingCard.vue:114 ~ newAddedProduct',
-  //       this.latestProducts,
-  //       this.latestProducts.length,
-  //       'sdd'
-  //     );
-
-  //     return newProd;
-  //   },
-  // },
-
   methods: {
+    nextPage(pageNo) {
+      console.log(pageNo);
+      this.productsToSkip = 0;
+      this.nextPagea = pageNo + 1;
+      console.log(
+        '🚀 ~ file: ShopingCard.vue:142 ~ nextPage ~ this.nextPagea',
+        this.nextPagea
+      );
+
+      this.previousPage = pageNo - 1;
+      console.log(
+        '🚀 ~ file: ShopingCard.vue:145 ~ nextPage ~ this.previousPage',
+        this.previousPage
+      );
+      if (pageNo > 1 && pageNo < 10) {
+        if (pageNo == 2) {
+        }
+        // this.productsToSkip += this.noOfProducts + 0;
+        console.log(
+          '🚀 ~ file: ShopingCard.vue:154 ~ nextPage ~ this.productsToSkip',
+          this.productsToSkip
+        );
+      }
+    },
     async deleteFromCart(prodId, index) {
       await axios
         .delete(`https://dummyjson.com/products/${prodId}`)
@@ -186,15 +184,14 @@ export default {
     async getLatestProducts() {
       this.$store.commit({ type: 'setIsLoading', value: true });
       await axios
-        .get('https://dummyjson.com/products?limit=9')
+        .get(
+          `https://dummyjson.com/products?limit=${this.noOfProducts}&skip=${this.productsToSkip}`
+        )
         .then((response) => {
-          // if (response.data.products.id < 10) {
           this.latestProducts = response.data.products;
 
           console.log(this.latestProducts);
           this.$store.commit({ type: 'setIsLoading', value: false });
-
-          // }
         })
         .catch((error) => {
           console.log(error);
@@ -209,47 +206,11 @@ export default {
         });
     },
     getIds() {
-      // this.productid = this.latestProducts.id;
-      console.log(this.latestProducts.id, this.productid);
       this.$router.push({
         name: 'ProductPage',
         params: { data: this.productid },
       });
     },
-    // newProduct() {
-    //   const newProd = this.$store.state.Cart.newProduct;
-    //   this.addNewProduct = newProd;
-    //   console.log(
-    //     '🚀 ~ file: ShopingCard.vue:158 ~ newProduct ~  this.addNewProduct',
-    //     this.addNewProduct
-    //   );
-    // },
-    // addNewProductToExisting() {
-    //   this.latestProducts.push(newProd);
-    //   console.log(
-    //     '🚀 ~ file: ShopingCard.vue:114 ~ newAddedProduct',
-    //     this.latestProducts,
-    //     this.latestProducts.length,
-    //     'sdd'
-    //   );
-    // },
-    // CheckProductAddition() {
-    //   if (this.latestProducts.length > 0) {
-    //     this.newProduct();
-    //     console.log(
-    //       '🚀 ~ file: ShopingCard.vue:114 ~ newAddedProduct',
-    //       this.latestProducts,
-    //       this.latestProducts.length,
-    //       'sdd'
-    //     );
-    //   } else {
-    //     console.log(
-    //       '🚀 ~ file: ShopingCard.vue:114 ~ newAddedProduct',
-    //       'i am false'
-    //     );
-    //     return false;
-    //   }
-    // },
   },
 };
 </script>

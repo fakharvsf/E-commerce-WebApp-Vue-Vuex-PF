@@ -29,7 +29,9 @@ export default {
   },
 
   beforeCreate() {
-    this.$store.commit('Cart/initializeStore');
+    // this.$store.commit('Cart/initializeStore');
+    this.$store.dispatch('Cart/getCartOfUser');
+    this.$store.dispatch('Cart/checkCartLength');
     this.cart = this.$store.state.Cart.cart;
     console.log(this.cart, 'im cart');
 

@@ -83,6 +83,11 @@ export default {
           const username = response.data.username;
           const userid = response.data.id;
           const token = response.data.token;
+          const profileImage = response.data.image;
+          const firstName = response.data.firstName;
+          const lastName = response.data.lastName;
+          const fullName = firstName + ' ' + lastName;
+          // + ' ' + response.data.lastName;
           this.$store.commit({
             type: 'Login/setToken',
             value: token,
@@ -95,6 +100,8 @@ export default {
           localStorage.setItem('token', token);
           localStorage.setItem('username', username);
           localStorage.setItem('userid', userid);
+          localStorage.setItem('profileImage', profileImage);
+          localStorage.setItem('fullName', fullName);
 
           const toPath = this.$route.query.to || '/cart';
 
