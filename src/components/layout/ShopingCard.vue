@@ -80,39 +80,21 @@
       </div>
     </div>
   </main-products>
-  <div class="main-products">
-    <footer>
-      <nav
-        class="pagination is-centered"
-        role="navigation"
-        aria-label="pagination"
-      >
-        <a class="pagination-previous">Previous</a>
-        <a class="pagination-next">Next page</a>
-        <ul class="pagination-list">
-          <span v-for="(PageNo, index) in totalProducts" :key="index">
-            <li v-if="index % 10 === 0">
-              <a
-                class="pagination-link"
-                aria-label="Goto page 1"
-                @click="nextPage(Math.ceil(PageNo / 10))"
-                >{{ Math.ceil(PageNo / 10) }}</a
-              >
-            </li>
-          </span>
-
-          <!-- <li><span class="pagination-ellipsis">&hellip;</span></li> -->
-        </ul>
-      </nav>
-    </footer>
-  </div>
+  <pagination-card
+    :totalPages="10"
+    :perPage="10"
+    :currentPage="currentPage"
+    @pagechanged="onPageChange"
+  ></pagination-card>
 </template>
 
 <script>
 import axios from 'axios';
 import { toast } from 'bulma-toast';
+import PaginationCard from './PaginationCard.vue';
 
 export default {
+  components: { PaginationCard },
   data: () => ({
     show: false,
     latestProducts: [],
@@ -126,6 +108,7 @@ export default {
     totalProducts: 100,
     nextPagea: null,
     previousPage: null,
+    currentPage: 1,
   }),
   created() {
     this.noOfProducts = 9;
@@ -134,32 +117,48 @@ export default {
   mounted() {
     this.getLatestProducts();
     document.title = 'Home | ShopCart';
+    window.scrollTo(0, 0);
   },
   methods: {
-    nextPage(pageNo) {
-      console.log(pageNo);
-      this.productsToSkip = 0;
-      this.nextPagea = pageNo + 1;
-      console.log(
-        '🚀 ~ file: ShopingCard.vue:142 ~ nextPage ~ this.nextPagea',
-        this.nextPagea
-      );
+    onPageChange(page) {
+      this.latestProducts = [];
+      console.log('🚀 ~ file: ShopingCard.vue:123 ~ onPageChange ~ page', page);
 
-      this.previousPage = pageNo - 1;
-      console.log(
-        '🚀 ~ file: ShopingCard.vue:145 ~ nextPage ~ this.previousPage',
-        this.previousPage
-      );
-      if (pageNo > 1 && pageNo < 10) {
-        if (pageNo == 2) {
-        }
-        // this.productsToSkip += this.noOfProducts + 0;
-        console.log(
-          '🚀 ~ file: ShopingCard.vue:154 ~ nextPage ~ this.productsToSkip',
-          this.productsToSkip
-        );
+      if (page == 1) {
+        this.productsToSkip = 0;
+        this.getLatestProducts();
+      } else if (page > 1) {
+        this.productsToSkip = this.noOfProducts * (page - 1);
+        this.getLatestProducts();
       }
+
+      this.currentPage = page;
     },
+    // nextPage(pageNo) {
+    //   console.log(pageNo);
+
+    //   this.nextPagea = pageNo + 1;
+    //   console.log(
+    //     '🚀 ~ file: ShopingCard.vue:142 ~ nextPage ~ this.nextPagea',
+    //     this.nextPagea
+    //   );
+
+    //   this.previousPage = pageNo - 1;
+    //   console.log(
+    //     '🚀 ~ file: ShopingCard.vue:145 ~ nextPage ~ this.previousPage',
+    //     this.previousPage
+    //   );
+    //   if (pageNo > 1 && pageNo < 10) {
+    //     if (pageNo == 2) {
+    //       this.productsToSkip = 0;
+    //     }
+    //     // this.productsToSkip += this.noOfProducts + 0;
+    //     console.log(
+    //       '🚀 ~ file: ShopingCard.vue:154 ~ nextPage ~ this.productsToSkip',
+    //       this.productsToSkip
+    //     );
+    //   }
+    // },
     async deleteFromCart(prodId, index) {
       await axios
         .delete(`https://dummyjson.com/products/${prodId}`)
@@ -215,12 +214,6 @@ export default {
 };
 </script>
 <style scoped>
-.main-products {
-  margin-top: 3rem;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
 img {
   width: 100%;
 }
