@@ -1,8 +1,6 @@
 {
-  "name": "project-01-e-commerce-front-page",
-  "private": true,
+  "name": "VuePagination",
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,20 +8,22 @@
   },
   "dependencies": {
     "@chenfengyuan/vue-carousel": "^2.0.0",
-
+    "@mdi/font": "7.0.96",
     "axios": "^1.2.2",
     "bootstrap": "^5.2.3",
     "bulma": "^0.9.4",
     "bulma-toast": "^2.4.2",
-    "vue": "^3.2.45",
-
-    "vue-router": "^4.0.13",
-    "vuetify": "^3.0.6",
-    "vuex": "^4.0.2"
+    "roboto-fontface": "*",
+    "router": "^2.0.0-beta.1",
+    "vue": "^3.2.38",
+    "vue-router": "^4.0.0",
+    "vuetify": "^3.0.0",
+    "vuex": "^4.0.2",
+    "webfontloader": "^1.0.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.0.0",
-    "unplugin-vue-components": "^0.22.12",
-    "vite": "^4.0.0"
+    "@vitejs/plugin-vue": "^3.0.3",
+    "vite": "^3.1.9",
+    "vite-plugin-vuetify": "^1.0.0-alpha.12"
   }
 }

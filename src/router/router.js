@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import store from './store/index';
+import store from '../store/index';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -8,16 +8,16 @@ const router = createRouter({
     {
       name: 'home',
       path: '/home',
-      component: () => import('./Pages/HomePage/HomePage.vue'),
+      component: () => import('../Pages/HomePage/HomePage.vue'),
     },
     {
       path: '/catagories',
-      component: () => import('./Pages/Catagories/Catagories.vue'),
+      component: () => import('../Pages/Catagories/Catagories.vue'),
     },
     {
       name: 'CatagoriesProduct',
       path: '/catagories/:productCata',
-      component: () => import('./Pages/Catagories/CatagoryProducts.vue'),
+      component: () => import('../Pages/Catagories/CatagoryProducts.vue'),
     },
     // {
     //   name: 'CatagoriesspecificProduct',
@@ -26,29 +26,29 @@ const router = createRouter({
     // },
     {
       path: '/addproduct',
-      component: () => import('./Pages/AddProduct.vue'),
+      component: () => import('../Pages/AddProduct.vue'),
     },
     {
       name: 'ProductPage',
       path: '/product/:data',
-      component: () => import('./Pages/ProductPage.vue'),
+      component: () => import('../Pages/ProductPage.vue'),
     },
     {
       name: 'SearchPage',
       path: '/search/:qr',
-      component: () => import('./Pages/SearchPage.vue'),
+      component: () => import('../Pages/SearchPage.vue'),
     },
 
     {
       name: 'Login',
 
       path: '/login',
-      component: () => import('./Pages/LoginPage.vue'),
+      component: () => import('../Pages/LoginPage.vue'),
     },
     {
       name: 'MyAccount',
       path: '/my-acount',
-      component: () => import('./Pages/MyAccount.vue'),
+      component: () => import('../Pages/MyAccount.vue'),
       meta: {
         requireLogin: true,
       },
@@ -56,18 +56,21 @@ const router = createRouter({
     {
       name: 'CartPage',
       path: '/cart',
-      component: () => import('./Pages/CartPage.vue'),
+      component: () => import('../Pages/CartPage.vue'),
     },
     {
       name: 'Checkout',
       path: '/cart/checkout',
-      component: () => import('./Pages/CheckoutPage.vue'),
+      component: () => import('../Pages/CheckoutPage.vue'),
       meta: {
         requireLogin: true,
       },
     },
 
-    { path: '/:notFound(.*)', component: () => import('./Pages/NotFound.vue') },
+    {
+      path: '/:notFound(.*)',
+      component: () => import('../Pages/NotFound.vue'),
+    },
   ],
 });
 router.beforeEach((to, _, next) => {

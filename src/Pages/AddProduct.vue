@@ -65,6 +65,7 @@
           Add A Product
         </button>
       </router-link>
+      <v-btn rounded="pill" color="primary"> Pill Button </v-btn>
     </form>
   </main-products>
 </template>
