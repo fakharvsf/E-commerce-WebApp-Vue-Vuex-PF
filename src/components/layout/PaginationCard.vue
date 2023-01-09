@@ -39,8 +39,6 @@
         </button>
       </li>
 
-      <!-- ... -->
-
       <!-- Visible Buttons End -->
 
       <li class="pagination-item pagination-link">

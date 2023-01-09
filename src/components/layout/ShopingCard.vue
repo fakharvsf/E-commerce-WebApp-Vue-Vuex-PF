@@ -105,9 +105,7 @@ export default {
     deletedProduct: null,
     noOfProducts: null,
     productsToSkip: null,
-    totalProducts: 100,
-    nextPagea: null,
-    previousPage: null,
+
     currentPage: 1,
   }),
   created() {
@@ -117,7 +115,6 @@ export default {
   mounted() {
     this.getLatestProducts();
     document.title = 'Home | ShopCart';
-    window.scrollTo(0, 0);
   },
   methods: {
     onPageChange(page) {
@@ -134,31 +131,6 @@ export default {
 
       this.currentPage = page;
     },
-    // nextPage(pageNo) {
-    //   console.log(pageNo);
-
-    //   this.nextPagea = pageNo + 1;
-    //   console.log(
-    //     '🚀 ~ file: ShopingCard.vue:142 ~ nextPage ~ this.nextPagea',
-    //     this.nextPagea
-    //   );
-
-    //   this.previousPage = pageNo - 1;
-    //   console.log(
-    //     '🚀 ~ file: ShopingCard.vue:145 ~ nextPage ~ this.previousPage',
-    //     this.previousPage
-    //   );
-    //   if (pageNo > 1 && pageNo < 10) {
-    //     if (pageNo == 2) {
-    //       this.productsToSkip = 0;
-    //     }
-    //     // this.productsToSkip += this.noOfProducts + 0;
-    //     console.log(
-    //       '🚀 ~ file: ShopingCard.vue:154 ~ nextPage ~ this.productsToSkip',
-    //       this.productsToSkip
-    //     );
-    //   }
-    // },
     async deleteFromCart(prodId, index) {
       await axios
         .delete(`https://dummyjson.com/products/${prodId}`)
