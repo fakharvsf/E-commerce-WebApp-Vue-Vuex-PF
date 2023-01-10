@@ -1,3 +1,5 @@
+# Vue 3 + Vite + Vuetify + Bootstrap + Bulma + Vuex
+
 # default
 
 ## Project setup
