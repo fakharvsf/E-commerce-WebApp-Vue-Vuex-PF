@@ -43,14 +43,6 @@ export default {
       axios.defaults.headers.common['Authorization'] = '';
     }
   },
-  // watch: {
-  //   isOnLoading() {
-  //     console.log(
-  //       '🚀 ~ file: App.vue:30 ~ isOnLoading ~ isOnLoading',
-  //       this.isOnLoading
-  //     );
-  //   },
-  // },
   mounted() {
     this.cart = this.$store.state.Cart.cart;
 
@@ -85,21 +77,7 @@ export default {
   background: #f2f2f2;
   transition: all ease 0.2s;
 }
-/*
-button:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.25);
 
-}
-a:hover {
-  color: #000;
-
-  box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.15),
-    inset 0px 4px 8px rgba(0, 0, 0, 0.15),
-    inset 0px 8px 16px rgba(0, 0, 0, 0.15);
-  transition: 0.2s;
-  transform: translateY(2px);
-}*/
 .navbar {
   background-color: #1e3161 !important;
 }

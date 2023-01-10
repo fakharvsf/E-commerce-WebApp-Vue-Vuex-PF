@@ -36,7 +36,9 @@
                   <h4 class="card-title">
                     {{ catagory.products[0].category }}
                   </h4>
-                  <p class="text-muted">Starting from $499</p>
+                  <p class="text-muted">
+                    Starting from ${{ Math.min(catagory.products[0].price) }}
+                  </p>
                   <button
                     class="btn btn-outline-success btn-sm"
                     data-abc="true"
@@ -59,17 +61,20 @@ import axios from 'axios';
 import { toast } from 'bulma-toast';
 
 export default {
+  //initialize Vriables
   data: () => ({
     productCat: null,
     ProductbyCatagories: [],
     ProductCatagories: [],
   }),
   mounted() {
+    //On Mounting Getting data from API
     this.getProductsCatagories();
   },
   methods: {
     //Getting Data from Backend
     async getProductsCatagories() {
+      //Starting loding component
       this.$store.commit({ type: 'setIsLoading', value: true });
 
       await axios
@@ -78,9 +83,11 @@ export default {
           this.ProductCatagories = response.data;
           console.log(this.ProductCatagories);
           this.getProductsByCatagories(this.ProductCatagories);
-          this.$store.commit({ type: 'setIsLoading', value: false });
-          //Renaming Page title
 
+          //Stoping loding component
+          this.$store.commit({ type: 'setIsLoading', value: false });
+
+          //Renaming Page title
           document.title = 'Categories | ShopCart';
         })
         .catch((error) => {
@@ -89,15 +96,11 @@ export default {
     },
     //Getting Product from each Category to show some results like pics
     async getProductsByCatagories(cat) {
-      console.log(cat);
       for (let i = 0; i <= cat.length - 2; i++) {
-        console.log(cat);
-
         await axios
           .get(`https://dummyjson.com/products/category/${cat[i]}`)
           .then((response) => {
             this.ProductbyCatagories.push(response.data);
-            console.log(this.ProductbyCatagories, 'by');
           })
           .catch((error) => {
             console.log(error);
@@ -115,7 +118,6 @@ export default {
     },
     getPCat() {
       //Onclick Redirecting user to page containing only that category ptoducts
-      console.log(this.productCat);
       this.$router.push({
         name: 'CatagoriesProduct',
         params: { productCata: this.productCat },

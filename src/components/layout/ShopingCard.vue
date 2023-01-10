@@ -81,7 +81,7 @@
     </div>
   </main-products>
   <pagination-card
-    :totalPages="10"
+    :totalPages="12"
     :perPage="10"
     :currentPage="currentPage"
     @pagechanged="onPageChange"
