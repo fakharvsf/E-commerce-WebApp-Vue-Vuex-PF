@@ -25,8 +25,6 @@ export default {
   },
   addToCart(state, item) {
     const exists = state.cart.items.filter((i) => i.id === item.id);
-
-    const exists2 = state.cart.items.filter((i) => i.product === item.product);
     if (exists.length > 0) {
       exists[0].quantity =
         parseInt(exists[0].quantity) + parseInt(item.quantity);

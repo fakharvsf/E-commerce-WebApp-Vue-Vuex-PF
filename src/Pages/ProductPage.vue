@@ -13,7 +13,7 @@
               >
                 <img
                   id="Product-image-show"
-                  :src="`${product.thumbnail}`"
+                  :src="`${src[currentSrc]}`"
                   class="card-img img-fluid"
                   alt="Guide to Web Design"
                   style="padding: 5px; border-radius: 8px"
@@ -27,34 +27,17 @@
                 role="tablist"
               >
                 <img
+                  v-for="(image, index) in src"
+                  :key="index"
                   href="#nav-f01img"
                   data-toggle="tab"
                   id="nav-fa01img-tab"
                   role="tab"
                   aria-controls="nav-f01img"
                   aria-selected="true"
-                  class="p-2 h-100"
-                  :src="`${product.thumbnail}`"
-                />
-                <img
-                  href="#nav-f02img"
-                  data-toggle="tab"
-                  id="nav-fa02img-tab"
-                  role="tab"
-                  aria-controls="nav-f02img"
-                  aria-selected="false"
-                  class="p-2 h-100"
-                  :src="`${product.thumbnail}`"
-                />
-                <img
-                  href="#nav-f03img"
-                  data-toggle="tab"
-                  id="nav-fa03img-tab"
-                  role="tab"
-                  aria-controls="nav-f03img"
-                  aria-selected="false"
-                  class="p-2 h-100"
-                  :src="`${product.thumbnail}`"
+                  class="p-1 h-100"
+                  :src="`${image}`"
+                  @click="changeImage"
                 />
               </div>
             </div>
@@ -253,6 +236,8 @@ export default {
       cartLength: null,
       cart: null,
       product: {},
+      src: [],
+      currentSrc: 0,
       prodId: 1,
       quantity: 1,
       totalExpense: null,
@@ -280,6 +265,13 @@ export default {
     },
   },
   methods: {
+    changeImage() {
+      if (this.currentSrc < this.src.length - 1) {
+        this.currentSrc++;
+      } else {
+        this.currentSrc = 0;
+      }
+    },
     async getProduct() {
       // const category_slug = this.$route.params.category;
       // const product_slug = this.$route.params.product;
@@ -290,7 +282,8 @@ export default {
         .then((response) => {
           // if (response.data.products.id < 10) {
           this.product = response.data;
-          // console.log(this.product);
+          this.src = this.product.images;
+          console.log(this.src, 'sssss');
           this.$store.commit({ type: 'setIsLoading', value: false });
 
           document.title = this.product.title + ' | ShopCart';

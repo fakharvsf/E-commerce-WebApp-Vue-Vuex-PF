@@ -87,7 +87,7 @@ export default {
           console.log(error);
         });
     },
-    //Getting Product from each Catagory to show some results like pics
+    //Getting Product from each Category to show some results like pics
     async getProductsByCatagories(cat) {
       console.log(cat);
       for (let i = 0; i <= cat.length - 2; i++) {

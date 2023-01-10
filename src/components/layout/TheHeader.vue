@@ -1,10 +1,8 @@
 <template>
-  <header>
+  <header class="sticky-top">
     <!--Bootstrap nav bar  toggle  -->
     <div id="nav__bg-color">
-      <nav
-        class="navbar sticky-top navbar-expand-lg navbar-dark nav-bar-container"
-      >
+      <nav class="navbar navbar-expand-lg navbar-dark nav-bar-container">
         <router-link to="/home" class="navbar-brand">ShopCart</router-link>
         <button
           class="navbar-toggler collapsed"
@@ -27,7 +25,7 @@
           <div id="form-Disp">
             <form class="d-flex my-2 my-lg-0">
               <div class="search-bar">
-                <i class="uil uil-search search-api"></i>
+                <i class="uil uil-search"></i>
                 <input
                   type="search"
                   placeholder="Search for anything"

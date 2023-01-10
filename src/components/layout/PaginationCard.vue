@@ -90,6 +90,15 @@ export default {
 
       // When on the last page
       if (this.currentPage === this.totalPages) {
+        console.log(
+          '🚀 ~ file: PaginationCard.vue:93 ~ startPage ~ this.totalPages',
+          this.totalPages
+        );
+
+        console.log(
+          '🚀 ~ file: PaginationCard.vue:95 ~ startPage ~ this.maxVisibleButtons',
+          this.maxVisibleButtons
+        );
         return this.totalPages - this.maxVisibleButtons;
       }
       //When on current and last Page
@@ -103,7 +112,7 @@ export default {
         }
       }
 
-      // When inbetween
+      // When in between
       return this.currentPage - 1;
     },
     pages() {
@@ -168,7 +177,7 @@ export default {
 }
 
 .active {
-  background-color: #4aae9b;
+  background-color: #1e3161;
   color: #ffffff;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <the-header class="sticky-top"></the-header>
+  <the-header class="sticky-top mb-1"></the-header>
   <div v-if="isLoading">
     <base-spinner></base-spinner>
   </div>

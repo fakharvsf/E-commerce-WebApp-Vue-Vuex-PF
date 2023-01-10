@@ -1,6 +1,6 @@
 <template>
   <main-products>
-    <form class="add-Product-form">
+    <!-- <form class="add-Product-form">
       <div class="form-group">
         <label for="exampleFormControlInput1">Product Name</label>
         <input
@@ -10,8 +10,8 @@
           placeholder="Product Name"
           v-model="newProduct.title"
         />
-      </div>
-      <div class="form-group">
+      </div> -->
+    <!-- <div class="form-group">
         <label for="exampleFormControlInput2">Product Stock</label>
         <input
           type="number"
@@ -20,8 +20,8 @@
           placeholder="Product Quantity"
           v-model="newProduct.stock"
         />
-      </div>
-      <div class="form-group">
+      </div> -->
+    <!-- <div class="form-group">
         <label for="exampleFormControlInput3">Product Price(in USD($))</label>
         <input
           type="number"
@@ -30,8 +30,8 @@
           placeholder="Product Price"
           v-model="newProduct.price"
         />
-      </div>
-      <div class="form-group">
+      </div> -->
+    <!-- <div class="form-group">
         <label for="exampleFormControlInput4">Discount Percentage</label>
         <input
           type="number"
@@ -40,18 +40,18 @@
           placeholder="Product Price"
           v-model="newProduct.discountPercentage"
         />
-      </div>
+      </div> -->
 
-      <div class="form-group">
+    <!-- <div class="form-group">
         <label for="exampleFormControlTextarea1">Product Description</label>
         <textarea
           class="form-control"
           id="exampleFormControlTextarea1"
           rows="3"
           v-model="newProduct.description"
-        ></textarea>
-      </div>
-      <div class="form-group">
+        ></textarea> -->
+    <!-- </div> -->
+    <!-- <div class="form-group">
         <label for="exampleFormControlFile1">Image Url</label>
         <input
           type="url"
@@ -59,28 +59,95 @@
           id="exampleFormControlFile1"
           v-model="newProduct.thumbnail"
         />
-      </div>
-      <router-link to="/home">
+      </div> -->
+    <!-- <router-link to="/home">
         <button type="submit" class="btn btn-dark" @click="AddNewProduct">
           Add A Product
         </button>
-      </router-link>
-      <v-btn rounded="pill" color="primary"> Pill Button </v-btn>
-    </form>
+      </router-link> -->
+    <!-- </form> -->
+    <v-form>
+      <v-container>
+        <v-row>
+          <v-col cols="12" sm="6" md="6">
+            <v-text-field
+              label="Product Name"
+              variant="outlined"
+              clearable
+              v-model="newProduct.title"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6" md="6">
+            <v-text-field
+              label="Product Stock"
+              variant="outlined"
+              clearable
+              v-model="newProduct.stock"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6" md="6">
+            <v-text-field
+              label="Product Price"
+              prefix="$"
+              variant="outlined"
+              clearable
+              v-model="newProduct.price"
+            ></v-text-field> </v-col
+          ><v-col cols="12" sm="6" md="6">
+            <v-text-field
+              label="Discount Percentage"
+              variant="outlined"
+              clearable
+              v-model="newProduct.discountPercentage"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <!-- v-model="form.bio" -->
+            <v-textarea
+              color="teal"
+              prepend-icon="mdi-comment"
+              counter="50"
+              :rules="rules"
+              v-model="newProduct.description"
+            >
+              <template v-slot:label>
+                <div>Product Description <small>(Required)</small></div>
+              </template>
+            </v-textarea>
+          </v-col>
+          <v-col cols="12" sm="12">
+            <v-text-field
+              label="image URL"
+              variant="outlined"
+              v-model="newProduct.thumbnail"
+            ></v-text-field>
+          </v-col>
+          <div class="d-flex justify-center align-center w-100">
+            <div>
+              <v-btn
+                variant="outlined"
+                size="large"
+                color="info"
+                rounded="pill"
+                @click="AddNewProduct"
+              >
+                <v-icon>mdi-pencil</v-icon>
+                Add Product
+              </v-btn>
+            </div>
+          </div>
+        </v-row>
+      </v-container>
+    </v-form>
   </main-products>
 </template>
-<style scoped>
-.add-Product-form {
-  width: 60%;
-  margin: 3rem auto;
-}
-</style>
 
 <script>
 import axios from 'axios';
 export default {
   data() {
     return {
+      rules: [(v) => v.length <= 50 || 'Max 50 characters'],
       newProduct: {
         title: null,
         stock: null,
