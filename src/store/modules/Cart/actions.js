@@ -16,16 +16,10 @@ export default {
       );
     }
 
-    // this.cartLength = totalLength;
     context.commit({
       type: 'cartLengthUpdate',
       value: totalLength,
     });
-
-    console.log(
-      '🚀 ~ file: App.vue:48 ~ cartTotalLength ~ this.cartLength',
-      totalLength
-    );
   },
   async getCartOfUser(context) {
     await axios
@@ -39,6 +33,7 @@ export default {
           type: 'initializeStore',
           value: response.data.carts,
         });
+
         context.dispatch('checkCartLength');
       })
       .catch((error) => {

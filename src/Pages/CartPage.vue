@@ -199,7 +199,7 @@ export default {
   name: 'CartPage',
   data() {
     return {
-      isShow: false,
+      // isShow: false,
       cartItems: null,
       prodQuantity: null,
       length: null,
@@ -207,47 +207,18 @@ export default {
       tempValue: null,
     };
   },
-  watch: {
-    isShow() {
-      console.log(
-        '🚀 ~ file: CartPage.vue:198 ~ isShow ~ this.isShow',
-        this.isShow
-      );
-    },
-  },
-  beforeCreate() {
-    this.$store.commit({ type: 'setIsLoading', value: true });
-
-    this.cartItems = this.$store.state.Cart.cart.items;
-
-    this.$store.commit({ type: 'setIsLoading', value: false });
-  },
   created() {
     this.$store.commit({ type: 'setIsLoading', value: true });
 
     this.cartItems = this.$store.state.Cart.cart.items;
     this.$store.commit({ type: 'setIsLoading', value: false });
     this.checkLength();
-
-    console.log(
-      '🚀 ~ file: CartPage.vue:175 ~ mounted ~ this.cartItems',
-      this.cartItems.length
-    );
   },
   mounted() {
-    this.cartItems = this.$store.state.Cart.cart.items;
-    console.log(
-      '🚀 ~ file: CartPage.vue:248 ~ beforeCreate ~  this.$store.state.Cart.cart.items',
-      this.$store.getters['Cart/cartReturn']
-    );
+    // this.cartItems = this.$store.state.Cart.cart.items;
     document.title = 'Cart | ShopCart';
 
     this.cartTotalPrice;
-
-    console.log(
-      '🚀 ~ file: CartPage.vue:271 ~ mounted ~ this.cartTotalPrice',
-      this.cartTotalLength
-    );
   },
 
   computed: {
@@ -268,7 +239,6 @@ export default {
   },
   methods: {
     deleteFromCart(index) {
-      console.log(this.isShow);
       this.cartItems.splice(index, 1);
       this.checkLength();
       this.updateCart();
