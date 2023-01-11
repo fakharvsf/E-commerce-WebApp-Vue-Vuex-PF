@@ -1,23 +1,28 @@
 <template>
+  <!-- Header -->
   <the-header class="sticky-top mb-1"></the-header>
+  <!-- Loading Spinner With Condition -->
   <div v-if="isLoading">
     <base-spinner></base-spinner>
   </div>
-
+  <!-- Router view to be changed between routes -->
   <router-view> </router-view>
-
+  <!-- Footer -->
   <footer-card v-if="!isLoading"></footer-card>
 </template>
 <script>
+// Importingg Axios
 import axios from 'axios';
-
+// Importing Components
 import TheHeader from './components/layout/TheHeader.vue';
 import FooterCard from './components/layout/FooterCard.vue';
 export default {
+  // Registring Components
   components: {
     TheHeader,
     FooterCard,
   },
+  // Data
   data() {
     return {
       cart: {
@@ -27,7 +32,7 @@ export default {
       isOnLoading: false,
     };
   },
-
+  // Before Creation initializing store by committing Mutation
   beforeCreate() {
     // this.$store.commit('Cart/initializeStore');
     this.$store.dispatch('Cart/getCartOfUser');
@@ -43,18 +48,15 @@ export default {
       axios.defaults.headers.common['Authorization'] = '';
     }
   },
+  // On Mount getting Cart from Store
   mounted() {
     this.cart = this.$store.state.Cart.cart;
 
-    this.cartTotalLength;
-
-    console.log(
-      '🚀 ~ file: App.vue:28 ~ mounted ~ this.cartllos',
-      this.$store.state.isLoading
-    );
+    this.cartTotalLength; //to check cart length
   },
 
   computed: {
+    //  /to check cart length
     cartTotalLength() {
       this.$store.dispatch({
         type: 'Cart/checkCartLength',
@@ -63,6 +65,7 @@ export default {
       let totalLength = this.$store.state.Cart.cartLength;
       return totalLength;
     },
+    //To check Loading Status
     isLoading() {
       console.log(this.$store.state.isLoading);
       this.isOnLoading = this.$store.state.isLoading.value;

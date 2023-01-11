@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- /* ------------------------   Card HTML    -------------------------*/ -->
     <footer>
       <div class="main">
         <div class="col1">

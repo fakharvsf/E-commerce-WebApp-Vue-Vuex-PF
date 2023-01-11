@@ -1,7 +1,8 @@
 export default {
+  // initializing Cart Globally
   initializeStore(state, carts) {
     let products = carts.value[0].products;
-
+    // checking if cart already exists or we have to create new in local storage
     if (localStorage.getItem('cart')) {
       state.cart = JSON.parse(localStorage.getItem('cart'));
     } else {
@@ -23,44 +24,44 @@ export default {
       localStorage.setItem('cart', JSON.stringify(state.cart));
     }
   },
+  // Mutation to handle Add to cart process
   addToCart(state, item) {
+    // Checking if the item to be added already exists in Cart
     const exists = state.cart.items.filter((i) => i.id === item.id);
+    // if exists then we will only increase quantity
     if (exists.length > 0) {
       exists[0].quantity =
         parseInt(exists[0].quantity) + parseInt(item.quantity);
     } else {
+      // if does not exists then we will add new one in item array
       state.cart.items.push(item);
       console.log('🚀 ~ file: mutations.js:16 ~ addToCart ~ itemssssss', item);
     }
-    // console.log(
-    //   '🚀 ~ file: mutations.js:25 ~ addToCart ~ state.cart',
-    //   state.cart
-    // );
 
+    // at Last keeping cart in the local storage to keep data even after reload
     localStorage.setItem('cart', JSON.stringify(state.cart));
   },
+  // Mutation to handle Decrease in length of cart
   cartLengthDecrease(state, item) {
     const exists = state.cart.items.filter((i) => i.id === item.id);
     if (exists.length > 0) {
+      // if exists then we will only decrease quantity
       exists[0].quantity =
         parseInt(exists[0].quantity) - parseInt(item.quantity);
     }
+    // at Last keeping cart in the local storage to keep data even after reload
 
     localStorage.setItem('cart', JSON.stringify(state.cart));
   },
+  // Mutation to handle New Product
   newProduct(state, payload) {
     state.newProduct = payload.value;
-    console.log(
-      '🚀 ~ file: mutations.js:45 ~ newProduct ~ payload.value',
-      state.newProduct
-    );
+
     localStorage.setItem('New Product', JSON.stringify(state.newProduct));
   },
+
+  // Mutation to handle Update in length of cart
   cartLengthUpdate(state, payload) {
     state.cartLength = payload.value;
-    console.log(
-      '🚀 ~ file: mutations.js:50 ~ cartLengthUpdate ~ state.cartLength',
-      state.cartLength
-    );
   },
 };

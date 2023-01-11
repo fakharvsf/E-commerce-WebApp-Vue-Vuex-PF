@@ -21,7 +21,7 @@
           class="navbar-collapse Form-content collapse"
           id="navbarTogglerDemo02"
         >
-          <!-- :class="{ 'is-active': showMenu }" -->
+          <!-- SearchBar -->
           <div id="form-Disp">
             <form class="d-flex my-2 my-lg-0">
               <div class="search-bar">
@@ -48,7 +48,7 @@
           <div class="d-flex ms-auto">
             <ul class="navbar-nav align-center">
               <li class="nav-item active">
-                <router-link to="/home" class="nav-link home-bbtn"
+                <router-link to="/home" class="nav-link home-btn"
                   >Home <span class="sr-only">(current)</span></router-link
                 >
               </li>
@@ -78,7 +78,7 @@
                 </span>
               </li>
               <li class="ms-1">
-                <!-- <router-link> -->
+                <!-- User Details and Auth Update -->
                 <div class="collapse navbar-collapse" id="navbar-list-4">
                   <ul class="navbar-nav">
                     <li class="nav-item">
@@ -114,15 +114,17 @@
   </header>
 </template>
 <script>
+// importing
 import axios from 'axios';
 export default {
+  // Data
   data() {
     return {
       searchQuerry: null,
       length: null,
     };
   },
-
+  // getting length of cart from store
   computed: {
     getLength() {
       this.length = this.$store.state.Cart.cartLength;
@@ -130,28 +132,21 @@ export default {
       return this.length;
     },
   },
-
+  //methods
   methods: {
+    //Route to cart
     toCart() {
       this.$router.push({
         path: '/cart',
       });
     },
+    //Route to Search Page
+
     getQuery() {
       this.$router.push({
         name: 'SearchPage',
         params: { qr: this.searchQuerry },
       });
-    },
-    checkAuth() {
-      const Token = localStorage.getItem('token');
-      if (Token != null) {
-        this.$router.replace('/login');
-
-        // alert('you are already signned in');
-      } else {
-        this.$router.replace('/login');
-      }
     },
   },
 };

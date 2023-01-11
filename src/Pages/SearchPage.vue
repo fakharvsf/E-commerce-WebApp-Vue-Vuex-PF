@@ -59,15 +59,15 @@
               <button
                 class="btn btn-dark text-uppercase details-bbtn"
                 @click="getIds"
-                @focus="productid = product.id"
+                @focus="productId = product.id"
               >
                 View Details
               </button>
               <!-- overlay -->
 
               <div class="add">
-                <span class="product_fav"><i class="fa fa-heart"></i></span>
-                <span class="product_fav"
+                <span class="product-del"><i class="fa fa-heart"></i></span>
+                <span class="product-del"
                   ><i class="fa fa-shopping-cart"></i
                 ></span>
               </div>
@@ -83,14 +83,15 @@ import axios from 'axios';
 
 export default {
   name: 'SearchPage',
-
+  // Data
   data: () => ({
     show: false,
     latestProducts: [],
     showModal: false,
     prodQuerry: null,
-    productid: null,
+    productId: null,
   }),
+  // Adding Watcher to quer as if it changes the window should update
   watch: {
     prodQuerry(newQuestion, oldQuestion) {
       if (newQuestion !== oldQuestion) {
@@ -98,9 +99,11 @@ export default {
       }
     },
   },
+  // on Mounted getting querry Products
   mounted() {
     this.getLatestProducts();
   },
+  // on creation passing Routes data
   created() {
     this.prodQuerry = this.$route.params.qr;
     // console.log(this.prodQuerry, 'cc');
@@ -109,27 +112,24 @@ export default {
     this.prodQuerry = this.$route.params.qr;
   },
   methods: {
+    // getting data of related Products and renaming page
     getLatestProducts() {
       const alpha = axios
         .get(`https://dummyjson.com/products/search?q=${this.prodQuerry}`)
         .then((response) => {
-          // if (response.data.products.id < 10) {
           this.latestProducts = response.data.products;
           document.title = this.prodQuerry + ' | ShopCart';
-
-          // console.log(this.latestProducts[6]);
-          // }
         })
         .catch((error) => {
           console.log(error);
         });
     },
+    // function to push user to the selected product page according to id
     getIds() {
-      // this.productid = this.latestProducts.id;
-      console.log(this.latestProducts.id, this.productid);
+      console.log(this.latestProducts.id, this.productId);
       this.$router.push({
         name: 'ProductPage',
-        params: { data: this.productid },
+        params: { data: this.productId },
       });
     },
   },
@@ -143,7 +143,6 @@ img {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  /* gap: 1rem; */
   flex-wrap: wrap;
   overflow: hidden;
 }
@@ -207,13 +206,13 @@ img {
   margin-top: 1.25rem;
 }
 
-.product_fav i {
+.product-del i {
   line-height: 2.5rem;
   color: #343a40;
   font-size: 15px;
 }
 
-.product_fav {
+.product-del {
   display: inline-block;
   width: 2.3rem;
   height: 2.4rem;
@@ -224,14 +223,14 @@ img {
   cursor: pointer;
   margin-left: 3px;
 
-  transition: all 200ms ease;
+  transition: all 700ms ease;
 }
 
-.product_fav:hover {
+.product-del:hover {
   background: #343a40;
 }
 
-.product_fav:hover i {
+.product-del:hover i {
   color: #fff;
 }
 .main-image {

@@ -10,7 +10,7 @@ import vuetify from './vuetify';
 import router from '../router/router';
 import axios from 'axios';
 axios.defaults.baseURL = 'http://127.0.0.1:5173/';
-
+//Registring in main js
 export function registerPlugins(app) {
   loadFonts();
   app.use(vuetify, axios).use(router);

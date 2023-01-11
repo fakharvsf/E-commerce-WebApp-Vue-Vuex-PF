@@ -78,7 +78,7 @@
     </div>
   </main-products>
 </template>
-  
+
   <script>
 import axios from 'axios';
 import { toast } from 'bulma-toast';
@@ -146,6 +146,7 @@ export default {
 img {
   width: 100%;
 }
+/* ------------------------   Card Styling    ----------------------------*/
 .container {
   width: 100%;
   display: flex;

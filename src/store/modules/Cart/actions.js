@@ -1,12 +1,11 @@
+// Importing Dependencies
 import axios from 'axios';
 import { toast } from 'bulma-toast';
 
 export default {
+  // Cart Length checking
   checkCartLength(context) {
-    // console.log(payload);
-
-    // console.log(context.state.cart.items.length);
-    let totalLength = 0;
+    let totalLength = 0; //Initializing it to zero
 
     for (let i = 0; i < context.state.cart.items.length; i++) {
       totalLength += context.state.cart.items[i].quantity;
@@ -15,12 +14,13 @@ export default {
         totalLength
       );
     }
-
+    // Commiting the Mutation to save in state
     context.commit({
       type: 'cartLengthUpdate',
       value: totalLength,
     });
   },
+  // Getting Cart of Specific User
   async getCartOfUser(context) {
     await axios
       .get('https://dummyjson.com/carts/user/15')
@@ -29,15 +29,17 @@ export default {
           '🚀 ~ file: actions.js:29 ~ .then ~ response',
           response.data.carts
         );
+        // Committing initialize store mutation to save it in store
         context.commit({
           type: 'initializeStore',
           value: response.data.carts,
         });
-
+        // Dispatchin aanother action to check length
         context.dispatch('checkCartLength');
       })
       .catch((error) => {
         console.log(error);
+        // Shwoing Error If Failed
         toast({
           message: 'Something went wrong.Please try again! 😒',
           type: 'is-danger',

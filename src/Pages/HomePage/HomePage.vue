@@ -1,6 +1,6 @@
 <template>
   <!-- <img src="../../assets/images/Hero_Image.jfif" alt="asdf" /> -->
-  <!-- Slider -->
+  <!-- -------------------------Slider------------------------- -->
   <div
     id="carouselExampleIndicators"
     class="carousel slide"
@@ -81,15 +81,18 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
-  <!-- Products Card -->
-  <img src="" alt="" />
-  <div class="card-shopping">
+  <!-- ----------------------------Products Card----------------------- -->
+
+  <div class="card-shopping mt-5">
     <shopping-card></shopping-card>
   </div>
 </template>
 <script>
 export default {
+  // Name of Page
   name: 'home',
+
+  // Data
   data() {
     return {
       addNewProduct: null,

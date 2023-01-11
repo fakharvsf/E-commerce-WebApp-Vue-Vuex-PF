@@ -19,11 +19,7 @@ const router = createRouter({
       path: '/catagories/:productCata',
       component: () => import('../Pages/Catagories/CatagoryProducts.vue'),
     },
-    // {
-    //   name: 'CatagoriesspecificProduct',
-    //   path: '/catagories/:productCatagory/:productId',
-    //   component: () => import('./Pages/Catagories/CatagoryproductPage.vue'),
-    // },
+
     {
       path: '/addproduct',
       component: () => import('../Pages/AddProduct.vue'),
@@ -73,6 +69,7 @@ const router = createRouter({
     },
   ],
 });
+// Checking condition before each route for auth
 router.beforeEach((to, _, next) => {
   if (
     to.matched.some((record) => record.meta.requireLogin) &&

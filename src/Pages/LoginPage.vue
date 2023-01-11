@@ -40,11 +40,6 @@
               <label for="password">Password</label>
             </div>
           </div>
-          <!-- <v-alert dense outlined type="error">
-            I'm a dense alert with the <strong>outlined</strong> prop and a
-            <strong>type</strong> of error
-          </v-alert> -->
-
           <button type="submit">Login</button>
         </div>
       </form>
@@ -52,65 +47,73 @@
   </div>
 </template>
 <script>
+// importing Dependencies
 import axios from 'axios';
 import { toast } from 'bulma-toast';
 
 export default {
+  // Data
   name: 'Login',
   data() {
     return {
       userName: '',
       Password: '',
       errors: [],
-      // verificationData: [],
     };
   },
+  // on mount renaming the Page
   mounted() {
     document.title = 'Login | ShopCart';
   },
   methods: {
+    // Login checking Authentication and Updating status
     async logIn() {
+      // removing headers and token if existed
       axios.defaults.headers.common['Authorization'] = '';
       localStorage.removeItem('token');
+      // Getting usernaem and Password
       const formData = {
         username: this.userName,
         password: this.Password,
       };
-
+      // Api requesting by Post method
       await axios
         .post('https://dummyjson.com/auth/login', formData)
         .then((response) => {
+          // storing credentials in variables
           const username = response.data.username;
-          const userid = response.data.id;
+          const userId = response.data.id;
           const token = response.data.token;
           const profileImage = response.data.image;
           const firstName = response.data.firstName;
           const lastName = response.data.lastName;
           const fullName = firstName + ' ' + lastName;
-          // + ' ' + response.data.lastName;
+          // Commiting Mutations
           this.$store.commit({
             type: 'Login/setToken',
             value: token,
           });
-          // this.$store.commit('setToken', token);
+
+          // Setting headers, token and other credentials to local storage
 
           axios.defaults.headers.common['Authorization'] = 'Token ' + token;
-          console.log(response);
-
           localStorage.setItem('token', token);
           localStorage.setItem('username', username);
-          localStorage.setItem('userid', userid);
+          localStorage.setItem('userid', userId);
           localStorage.setItem('profileImage', profileImage);
           localStorage.setItem('fullName', fullName);
 
+          // Sending the user to the page from which they came from
           const toPath = this.$route.query.to || '/cart';
-
           this.$router.push(toPath);
         })
+        // Showing error if failed
         .catch((error) => {
           if (error.response) {
             for (const property in error.response.data) {
+              // Getting errors stored in the data if a property was wrong
               this.errors.push(`${property}: ${error.response.data[property]}`);
+              // using Bulma toast to show Error Message
               toast({
                 message: 'Something went wrong.Please try again! 😒',
                 type: 'is-danger',
@@ -121,6 +124,7 @@ export default {
               });
             }
           } else {
+            // Getting errors stored in the data
             this.errors.push('Something went wrong. Please try again');
             toast({
               message: 'Something went wrong.Please try again! 😒',
@@ -130,23 +134,20 @@ export default {
               duration: 2000,
               position: 'bottom-right',
             });
-
+            // Logging the error in console
             console.log(JSON.stringify(error));
           }
         });
-
-      // console.log(this.verificationData);
-
-      // console.log(this.verificationData);
     },
   },
 };
 </script>
 <style scoped !important>
+/* Importing Fonts */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
 
 /* Reset */
-
 .container {
   height: 100vh;
   display: grid;
@@ -156,6 +157,7 @@ export default {
   padding: 0 24px;
 }
 
+/* ----------------------- Styling sign in form --------------------------- */
 .sign-in-form {
   display: flex;
   flex-direction: column;

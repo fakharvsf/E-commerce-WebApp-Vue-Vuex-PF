@@ -1,11 +1,14 @@
 <template>
+  <!-- Wrapper -->
   <main-products>
     <div id="d-flex">
+      <!-- Heading -->
       <div class="cat-heading"><h1>Featured Catagories</h1></div>
       <div>
         <div class="cat-Title">
           <h1><span>Everything a click away</span></h1>
         </div>
+        <!--  Card for Catagories -->
         <div class="container">
           <div class="row">
             <div
@@ -128,10 +131,10 @@ export default {
 </script>
 
 <style scoped>
+/* ++++++++++++++++++++++++++++Importing Font++++++++++++++++++++++++++++*/
 @import 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css';
-.mt-100 {
-  margin-top: 100px;
-}
+
+/* ++++++++++++++++++++++++++++Card Styling++++++++++++++++++++++++++++*/
 .card {
   border-radius: 7px !important;
   border-color: #e1e7ec;
@@ -150,6 +153,7 @@ a {
   color: #0da9ef;
   text-decoration: none !important;
 }
+/* ++++++++++++++++++++++++++++Card Tyles Styling++++++++++++++++++++++++++++*/
 
 .card-img-tiles > .inner {
   display: table;
@@ -189,24 +193,30 @@ a {
 .thumblist {
   overflow: hidden;
 }
+/* ++++++++++++++++++++++++++++Image transition++++++++++++++++++++++++++++*/
 img {
   transition: transform 0.5s ease;
 }
 img:hover {
   transform: scale(1.5);
 }
+
+/* ++++++++++++++++++++++++++++Side Images Styling++++++++++++++++++++++++++*/
+
 .card-img-tiles .thumblist > img {
   display: block;
   width: 100%;
   margin-bottom: 6px;
 }
-.btn-group-sm > .btn,
+
 .btn-sm {
   padding: 0.45rem 0.5rem !important;
   font-size: 0.875rem;
   line-height: 1.5;
   border-radius: 0.2rem;
 }
+
+/* ++++++++++++++++++++++++++++Header Styling++++++++++++++++++++++++++*/
 
 .cat-Title h1 {
   text-align: center;

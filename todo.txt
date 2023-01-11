@@ -1,0 +1,22 @@
+- Done -Making Routings
+- Done -Header and Footer
+- Done -Home Page
+- Done -Getting data from API in the Home Page
+- Done -Catalog Page according to API
+- Done -Product of Specific Catalog
+- Done -Product Detail Page According to API
+- Done -Search Operation With API
+- Done -Cart Page
+- Done -Add Product to Cart
+            -Done -Update counter globally with Vuex
+            -Done -Showing Product in Cart
+            -Done -CRUD on Cart
+- Done -Adding New Product(done in API but due to dummy API they don't update)
+- Done -Delete Product(API)
+- Done -Checkout Page
+- Done -Login Page
+- Done -Profile Page
+- Done -Creating Protected Routes for Profile and Checkout Page
+- Done -Combining Protected routes with Authentication
+- Done -Pagination 
+- Doing -Reviewing Code for Formatting and Comments

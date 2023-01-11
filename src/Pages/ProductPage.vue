@@ -5,6 +5,7 @@
         <div class="row no-gutters">
           <div class="col-md-4 mt-5">
             <div class="">
+              <!-- Main Image -->
               <figure
                 class="figure-zoom"
                 style="
@@ -19,7 +20,7 @@
                   style="padding: 5px; border-radius: 8px"
                 />
               </figure>
-
+              <!-- Other Images -->
               <div
                 style="height: 100px"
                 class="d-flex nav nav-tabs flex-nowrap overflow-auto"
@@ -225,12 +226,14 @@
   </keep-alive>
 </template>
 <script>
+// importing dependencies
 import axios from 'axios';
 import { toast } from 'bulma-toast';
 
 export default {
   name: 'ProductPage',
-  // props: [''],
+
+  // DATA
   data() {
     return {
       cartLength: null,
@@ -240,31 +243,35 @@ export default {
       currentSrc: 0,
       prodId: 1,
       quantity: 1,
-      totalExpense: null,
+
       productQuantity: null,
-      desprice: null,
+      discountPrice: null,
     };
   },
+  // on creating page getting product Id from route params
   created() {
     this.prodId = this.$route.params.data;
     // console.log(this.prodId);
   },
+  // on Mount calling Function to get product details
   mounted() {
     this.getProduct();
   },
   computed: {
+    // Computing actual price using function
     actualPrice() {
       const price = Math.round(
         this.product.price -
           (this.product.discountPercentage * this.product.price) / 100
       );
-      this.desprice = price;
+      this.discountPrice = price;
       // console.log(price, this.desprice);
 
-      return this.desprice;
+      return this.discountPrice;
     },
   },
   methods: {
+    // Method to change image to main image
     changeImage() {
       if (this.currentSrc < this.src.length - 1) {
         this.currentSrc++;
@@ -272,26 +279,25 @@ export default {
         this.currentSrc = 0;
       }
     },
+    // Method to get product data from API
     async getProduct() {
-      // const category_slug = this.$route.params.category;
-      // const product_slug = this.$route.params.product;
       this.$store.commit({ type: 'setIsLoading', value: true });
 
       await axios
         .get(`https://dummyjson.com/products/${this.prodId}`)
         .then((response) => {
-          // if (response.data.products.id < 10) {
           this.product = response.data;
           this.src = this.product.images;
           console.log(this.src, 'sssss');
           this.$store.commit({ type: 'setIsLoading', value: false });
+          // Renaming page name to Product name accordingly
 
           document.title = this.product.title + ' | ShopCart';
-          // }
         })
         .catch((error) => {
           console.log(error);
           toast({
+            // Bulma Toast to show alert if we fail to fetch data
             message: 'Something went wrong.Please try again! 😒',
             type: 'is-danger',
             dismissible: true,
@@ -301,21 +307,13 @@ export default {
           });
         });
     },
-
-    // ShopatCart() {
-    //   this.totalExpense = this.desprice * this.productQuantity;
-    //   this.$router.push({
-    //     name: 'CartPage',
-    //     params: {
-    //       ProdQant: this.productQuantity,
-    //       totalPrice: this.totalExpense,
-    //     },
-    //   });
-    // },
+    // Add to cart Method
     addToCart() {
+      // to not get a bad value to be on safe side
       if (isNaN(this.productQuantity) || this.productQuantity < 1) {
         this.productQuantity = 1;
       }
+      // storing product details in a single object
       const item = {
         id: this.product.id,
         product: this.product.title,
@@ -325,14 +323,16 @@ export default {
         price: this.product.price,
         discountPercentage: this.product.discountPercentage,
       };
+      // committing mutation to act Accordingly
       this.$store.commit('Cart/addToCart', item);
 
+      // Storing the cart in the data cart of page
       this.cart = this.$store.state.Cart.cart;
-      // console.log(this.cart);
-
+      // Dispatching action to update the cart length to update counter
       this.$store.dispatch({
         type: 'Cart/checkCartLength',
       });
+      // Showing Message after successfully addition to cart
       toast({
         message: 'The Product was added to Cart',
         type: 'is-success',
@@ -341,8 +341,6 @@ export default {
         duration: 2000,
         position: 'bottom-right',
       });
-
-      // this.$store.commit('', );
     },
   },
 };

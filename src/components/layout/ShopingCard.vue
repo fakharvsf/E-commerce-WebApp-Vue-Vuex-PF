@@ -1,8 +1,14 @@
 <template>
+  <!-- Style Wrapper -->
   <main-products>
+    <!-------------------------- Style Wrapper ------------------------------>
+
     <div id="product-container">
+      <!-- Header -->
+
       <span>OnSale</span>
       <div class="container">
+        <!-------------------------- Product Card ------------------------------>
         <div
           class="wrapper"
           v-for="(product, index) in latestProducts"
@@ -80,6 +86,7 @@
       </div>
     </div>
   </main-products>
+  <!------------------------------ Pagination Component --------------------->
   <pagination-card
     :totalPages="12"
     :perPage="10"
@@ -89,12 +96,15 @@
 </template>
 
 <script>
+// Importing Components and Dependencies
 import axios from 'axios';
 import { toast } from 'bulma-toast';
 import PaginationCard from './PaginationCard.vue';
 
 export default {
+  // Defining Components
   components: { PaginationCard },
+  //Data
   data: () => ({
     show: false,
     latestProducts: [],
@@ -108,18 +118,23 @@ export default {
 
     currentPage: 1,
   }),
+
+  //Before creation pages and Product limit define
   created() {
     this.noOfProducts = 9;
     this.productsToSkip = 0;
   },
+  //On Mount Get data from API and Rename Page
   mounted() {
     this.getLatestProducts();
     document.title = 'Home | ShopCart';
   },
+  // Defining different Methods
   methods: {
+    // Function will execute every time when page is changed
     onPageChange(page) {
       this.latestProducts = [];
-      console.log('🚀 ~ file: ShopingCard.vue:123 ~ onPageChange ~ page', page);
+      // console.log('🚀 ~ file: ShopingCard.vue:123 ~ onPageChange ~ page', page);
 
       if (page == 1) {
         this.productsToSkip = 0;
@@ -131,6 +146,7 @@ export default {
 
       this.currentPage = page;
     },
+    // Sending Api Request to delete data
     async deleteFromCart(prodId, index) {
       await axios
         .delete(`https://dummyjson.com/products/${prodId}`)
@@ -142,6 +158,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          // Showing Toast Error on fail
           toast({
             message: 'Something went wrong.Please try again! 😒',
             type: 'is-danger',
@@ -152,7 +169,9 @@ export default {
           });
         });
     },
+    // Getting data from API Function
     async getLatestProducts() {
+      // Setting Loading spinner to true
       this.$store.commit({ type: 'setIsLoading', value: true });
       await axios
         .get(
@@ -162,10 +181,13 @@ export default {
           this.latestProducts = response.data.products;
 
           console.log(this.latestProducts);
+          // Setting Loading spinner to false
+
           this.$store.commit({ type: 'setIsLoading', value: false });
         })
         .catch((error) => {
           console.log(error);
+          // Showing Toast Error on fail
           toast({
             message: 'Something went wrong.Please try again! 😒',
             type: 'is-danger',
@@ -176,6 +198,7 @@ export default {
           });
         });
     },
+    // On clicking detail btn Routing user to ProductPage
     getIds() {
       this.$router.push({
         name: 'ProductPage',

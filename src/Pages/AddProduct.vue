@@ -1,75 +1,12 @@
 <template>
   <main-products>
-    <!-- <form class="add-Product-form">
-      <div class="form-group">
-        <label for="exampleFormControlInput1">Product Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="exampleFormControlInput1"
-          placeholder="Product Name"
-          v-model="newProduct.title"
-        />
-      </div> -->
-    <!-- <div class="form-group">
-        <label for="exampleFormControlInput2">Product Stock</label>
-        <input
-          type="number"
-          class="form-control"
-          id="exampleFormControlInput2"
-          placeholder="Product Quantity"
-          v-model="newProduct.stock"
-        />
-      </div> -->
-    <!-- <div class="form-group">
-        <label for="exampleFormControlInput3">Product Price(in USD($))</label>
-        <input
-          type="number"
-          class="form-control"
-          id="exampleFormControlInput3"
-          placeholder="Product Price"
-          v-model="newProduct.price"
-        />
-      </div> -->
-    <!-- <div class="form-group">
-        <label for="exampleFormControlInput4">Discount Percentage</label>
-        <input
-          type="number"
-          class="form-control"
-          id="exampleFormControlInput4"
-          placeholder="Product Price"
-          v-model="newProduct.discountPercentage"
-        />
-      </div> -->
-
-    <!-- <div class="form-group">
-        <label for="exampleFormControlTextarea1">Product Description</label>
-        <textarea
-          class="form-control"
-          id="exampleFormControlTextarea1"
-          rows="3"
-          v-model="newProduct.description"
-        ></textarea> -->
-    <!-- </div> -->
-    <!-- <div class="form-group">
-        <label for="exampleFormControlFile1">Image Url</label>
-        <input
-          type="url"
-          class="form-control"
-          id="exampleFormControlFile1"
-          v-model="newProduct.thumbnail"
-        />
-      </div> -->
-    <!-- <router-link to="/home">
-        <button type="submit" class="btn btn-dark" @click="AddNewProduct">
-          Add A Product
-        </button>
-      </router-link> -->
-    <!-- </form> -->
+    <!-- --------------Vuetify Form----------------- -->
     <v-form>
       <v-container>
         <v-row>
           <v-col cols="12" sm="6" md="6">
+            <!-- --------------Getting form data----------------- -->
+
             <v-text-field
               label="Product Name"
               variant="outlined"
@@ -124,6 +61,8 @@
           </v-col>
           <div class="d-flex justify-center align-center w-100">
             <div>
+              <!-- --------------Submit Form Button ----------------- -->
+
               <v-btn
                 variant="outlined"
                 size="large"
@@ -143,8 +82,11 @@
 </template>
 
 <script>
+//Importing Modules & Dependencies
 import axios from 'axios';
 export default {
+  //Data
+
   data() {
     return {
       rules: [(v) => v.length <= 50 || 'Max 50 characters'],
@@ -179,10 +121,14 @@ export default {
     };
   },
   mounted() {
+    //Changing Title of Page
+
     document.title = 'New Product | ShopCart';
   },
   methods: {
-    getLatestProducts() {
+    //NewProduct Addition in API
+
+    getLatestProduct() {
       const alpha = axios
         .post('https://dummyjson.com/products/add', {
           title: this.newProduct.title,
@@ -204,7 +150,7 @@ export default {
         });
     },
     AddNewProduct() {
-      this.getLatestProducts();
+      this.getLatestProduct();
     },
   },
 };

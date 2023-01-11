@@ -62,7 +62,7 @@ export default {
     maxVisibleButtons: {
       type: Number,
       required: false,
-      default: 3,
+      default: 4,
     },
     totalPages: {
       type: Number,

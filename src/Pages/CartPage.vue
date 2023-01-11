@@ -1,5 +1,7 @@
 <template>
+  <!-- OverAllWrapper -->
   <main-products>
+    <!-- -----------------------Cart Component------------------------------ -->
     <section class="h-100 h-custom" style="background-color: #d2c9ff">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -26,7 +28,7 @@
                         </h6>
                       </div>
                       <hr class="my-4" />
-
+                      <!-- ---------------------Product Detail-------------- -->
                       <div
                         class="
                           row
@@ -133,6 +135,7 @@
                       </div>
                     </div>
                   </div>
+                  <!-- ------------------------ Summary ---------------- -->
                   <div class="col-lg-4 bg-grey">
                     <div class="p-5">
                       <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
@@ -196,10 +199,10 @@
 </template>
 <script>
 export default {
+  // Name and Data
   name: 'CartPage',
   data() {
     return {
-      // isShow: false,
       cartItems: null,
       prodQuantity: null,
       length: null,
@@ -207,6 +210,7 @@ export default {
       tempValue: null,
     };
   },
+  // On creation getting cart data from store
   created() {
     this.$store.commit({ type: 'setIsLoading', value: true });
 
@@ -214,20 +218,19 @@ export default {
     this.$store.commit({ type: 'setIsLoading', value: false });
     this.checkLength();
   },
+  // When Mounted Renaming the page
   mounted() {
-    // this.cartItems = this.$store.state.Cart.cart.items;
     document.title = 'Cart | ShopCart';
-
-    this.cartTotalPrice;
   },
-
+  // Computed properties to keep track of changes
   computed: {
+    // Check cart length and return sum using reduce
     cartTotalLength() {
       return this.cartItems.reduce((acc, curVal) => {
         return (acc += curVal.quantity);
       }, 0);
     },
-
+    // Check cart total price and return sum  using reduce
     cartTotalPrice() {
       return this.cartItems.reduce((acc, curVal) => {
         let Price = Math.round(
@@ -237,34 +240,38 @@ export default {
       }, 0);
     },
   },
+  // Methods for different purposes
   methods: {
+    // Methods activated to delete the item from cart
     deleteFromCart(index) {
       this.cartItems.splice(index, 1);
-      this.checkLength();
-      this.updateCart();
-
-      console.log(this.cartItems);
+      this.checkLength(); //check length to update it as well
+      this.updateCart(); //check cart to update it as well
     },
+    // Methods activated to increase the item quantity in cart
     incrementQuantity(item) {
       item.quantity += 1;
-      this.checkLength();
-
-      this.updateCart();
+      this.checkLength(); //check length to update it as well
+      this.updateCart(); //check cart to update it as well
     },
+    // Methods activated to check length of cart
     checkLength() {
       this.$store.dispatch({
         type: 'Cart/checkCartLength',
       });
     },
+    // Methods activated to decrease the item quantity in cart
     decrementQuantity(item, index) {
-      item.quantity -= 1;
-      this.checkLength();
+      item.quantity -= 1; //decrease quantity
+      this.checkLength(); //check length to update it as well
       if (item.quantity === 0) {
+        //check if quantity is zero remove it from cart
         this.checkLength();
         this.deleteFromCart(index);
       }
-      this.updateCart();
+      this.updateCart(); //check cart to update it as well
     },
+    // Methods activated to update the items in cart in local storage
     updateCart() {
       localStorage.setItem('cart', JSON.stringify(this.$store.state.Cart.cart));
     },
@@ -275,6 +282,7 @@ export default {
 #form1 {
   width: 1.1rem;
 }
+/* Media query to make Design More responsive jus adjusting border radius*/
 @media (min-width: 992px) {
   .card-registration-2 .bg-grey {
     border-top-right-radius: 16px;
