@@ -80,7 +80,8 @@
 </template>
 
   <script>
-import axios from 'axios';
+// import axios from 'axios';
+import { productsOfCategory } from '../../Services/UserService';
 import { toast } from 'bulma-toast';
 
 export default {
@@ -93,7 +94,7 @@ export default {
     prodCata: null,
   }),
   mounted() {
-    this.getLatestProducts();
+    this.productsOfCategory();
   },
   created() {
     //When this page is created we get the Catagory
@@ -102,11 +103,10 @@ export default {
   },
   methods: {
     //To get products of specific Category
-    getLatestProducts() {
+    productsOfCategory() {
       this.$store.commit({ type: 'setIsLoading', value: true });
 
-      const alpha = axios
-        .get(`https://dummyjson.com/products/category/${this.prodCata}`)
+      productsOfCategory(this.prodCata)
         .then((response) => {
           // if (response.data.products.id < 10) {
           this.latestProducts = response.data.products;

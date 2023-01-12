@@ -50,7 +50,7 @@
 // importing Dependencies
 import axios from 'axios';
 import { toast } from 'bulma-toast';
-
+import { logIn } from '../Services/UserService';
 export default {
   // Data
   name: 'Login',
@@ -77,8 +77,7 @@ export default {
         password: this.Password,
       };
       // Api requesting by Post method
-      await axios
-        .post('https://dummyjson.com/auth/login', formData)
+      logIn(formData)
         .then((response) => {
           // storing credentials in variables
           const username = response.data.username;

@@ -39,7 +39,7 @@ export default {
       })
       .catch((error) => {
         console.log(error);
-        // Shwoing Error If Failed
+        // Showing Error If Failed
         toast({
           message: 'Something went wrong.Please try again! 😒',
           type: 'is-danger',

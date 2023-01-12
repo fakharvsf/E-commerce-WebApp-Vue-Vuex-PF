@@ -61,6 +61,10 @@
 </template>
 <script>
 import axios from 'axios';
+import {
+  getProductsCatagories,
+  getProductsByCatagories,
+} from '../../Services/UserService';
 import { toast } from 'bulma-toast';
 
 export default {
@@ -76,12 +80,11 @@ export default {
   },
   methods: {
     //Getting Data from Backend
-    async getProductsCatagories() {
+    getProductsCatagories() {
       //Starting loding component
       this.$store.commit({ type: 'setIsLoading', value: true });
 
-      await axios
-        .get('https://dummyjson.com/products/categories')
+      getProductsCatagories()
         .then((response) => {
           this.ProductCatagories = response.data;
           console.log(this.ProductCatagories);
@@ -100,8 +103,7 @@ export default {
     //Getting Product from each Category to show some results like pics
     async getProductsByCatagories(cat) {
       for (let i = 0; i <= cat.length - 2; i++) {
-        await axios
-          .get(`https://dummyjson.com/products/category/${cat[i]}`)
+        getProductsByCatagories(cat[i])
           .then((response) => {
             this.ProductbyCatagories.push(response.data);
           })

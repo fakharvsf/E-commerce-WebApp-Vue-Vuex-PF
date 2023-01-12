@@ -97,9 +97,10 @@
 
 <script>
 // Importing Components and Dependencies
-import axios from 'axios';
 import { toast } from 'bulma-toast';
 import PaginationCard from './PaginationCard.vue';
+
+import { getProducts, deleteFromCart } from '../../Services/UserService';
 
 export default {
   // Defining Components
@@ -115,7 +116,6 @@ export default {
     deletedProduct: null,
     noOfProducts: null,
     productsToSkip: null,
-
     currentPage: 1,
   }),
 
@@ -126,35 +126,21 @@ export default {
   },
   //On Mount Get data from API and Rename Page
   mounted() {
-    this.getLatestProducts();
+    this.getProducts();
+    // this.getLatestProducts();
     document.title = 'Home | ShopCart';
   },
   // Defining different Methods
   methods: {
-    // Function will execute every time when page is changed
-    onPageChange(page) {
-      this.latestProducts = [];
-      // console.log('🚀 ~ file: ShopingCard.vue:123 ~ onPageChange ~ page', page);
-
-      if (page == 1) {
-        this.productsToSkip = 0;
-        this.getLatestProducts();
-      } else if (page > 1) {
-        this.productsToSkip = this.noOfProducts * (page - 1);
-        this.getLatestProducts();
-      }
-
-      this.currentPage = page;
-    },
-    // Sending Api Request to delete data
-    async deleteFromCart(prodId, index) {
-      await axios
-        .delete(`https://dummyjson.com/products/${prodId}`)
+    //Calling function to make api request
+    getProducts() {
+      // Setting Loading spinner to true
+      this.$store.commit({ type: 'setIsLoading', value: true });
+      getProducts(this.noOfProducts, this.productsToSkip)
         .then((response) => {
-          this.deletedProduct = response;
-
-          console.log(this.deletedProduct);
-          this.latestProducts.splice(index, 1);
+          this.latestProducts = response.data.products;
+          // Setting Loading spinner to false
+          this.$store.commit({ type: 'setIsLoading', value: false });
         })
         .catch((error) => {
           console.log(error);
@@ -169,21 +155,39 @@ export default {
           });
         });
     },
-    // Getting data from API Function
-    async getLatestProducts() {
-      // Setting Loading spinner to true
-      this.$store.commit({ type: 'setIsLoading', value: true });
-      await axios
-        .get(
-          `https://dummyjson.com/products?limit=${this.noOfProducts}&skip=${this.productsToSkip}`
-        )
+    // Function will execute every time when page is changed
+    onPageChange(page) {
+      this.latestProducts = [];
+      if (page == 1) {
+        this.productsToSkip = 0;
+        this.getProducts();
+
+        // this.getLatestProducts();
+      } else if (page > 1) {
+        this.productsToSkip = this.noOfProducts * (page - 1);
+        this.getProducts();
+
+        // this.getLatestProducts();
+      }
+
+      this.currentPage = page;
+    },
+    // Sending Api Request to delete data
+    deleteFromCart(prodId, index) {
+      deleteFromCart(prodId)
         .then((response) => {
-          this.latestProducts = response.data.products;
-
-          console.log(this.latestProducts);
-          // Setting Loading spinner to false
-
-          this.$store.commit({ type: 'setIsLoading', value: false });
+          this.deletedProduct = response;
+          // console.log(this.deletedProduct);
+          this.latestProducts.splice(index, 1);
+          // Showing Toast Error on fail
+          toast({
+            message: 'Product Deleted ⛔',
+            type: 'is-success',
+            dismissible: true,
+            pauseOnHover: true,
+            duration: 2000,
+            position: 'bottom-right',
+          });
         })
         .catch((error) => {
           console.log(error);
