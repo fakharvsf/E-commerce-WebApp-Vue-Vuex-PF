@@ -1,20 +1,33 @@
 export default {
   // initializing Cart Globally
   initializeStore(state, carts) {
-    let products = carts.value[0].products;
+    console.log(
+      '🚀 ~ file: mutations.js:4 ~ initializeStore ~ carts',
+      carts.value
+    );
+
+    let products = carts.value;
     // checking if cart already exists or we have to create new in local storage
     if (localStorage.getItem('cart')) {
       state.cart = JSON.parse(localStorage.getItem('cart'));
+      console.log(
+        '🚀 ~ file: mutations.js:13 ~ initializeStore ~ state.cart',
+        state.cart
+      );
     } else {
       for (let i = 0; i < products.length; i++) {
         console.log(products[i].id);
+        console.log(
+          '🚀 ~ file: mutations.js:16 ~ initializeStore ~ products[i].id',
+          products[i].id
+        );
 
         let item = {
           id: products[i].id,
           product: products[i].title,
           quantity: products[i].quantity,
-          // thumbnail: products[i].thumbnail,
-          // category: products[i].category,
+          thumbnail: products[i].thumbnail,
+          category: products[i].category,
           price: products[i].price,
           discountPercentage: products[i].discountPercentage,
         };

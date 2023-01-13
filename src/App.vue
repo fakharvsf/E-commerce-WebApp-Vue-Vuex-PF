@@ -7,6 +7,9 @@
   </div>
   <!-- Router view to be changed between routes -->
   <router-view> </router-view>
+  <div v-if="isLoading">
+    <base-spinner></base-spinner>
+  </div>
   <!-- Footer -->
   <footer-card v-if="!isLoading"></footer-card>
 </template>

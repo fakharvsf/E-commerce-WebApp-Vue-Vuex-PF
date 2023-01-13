@@ -25,17 +25,8 @@ export default {
     await axios
       .get('https://dummyjson.com/carts/user/15')
       .then((response) => {
-        console.log(
-          '🚀 ~ file: actions.js:29 ~ .then ~ response',
-          response.data.carts
-        );
-        // Committing initialize store mutation to save it in store
-        context.commit({
-          type: 'initializeStore',
-          value: response.data.carts,
-        });
-        // Dispatchin aanother action to check length
-        context.dispatch('checkCartLength');
+        // Dispatching action to get the thumbnail and category
+        context.dispatch('getCartProductThumbnail', response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -49,5 +40,35 @@ export default {
           position: 'bottom-right',
         });
       });
+  },
+
+  async getCartProductThumbnail(context, payload) {
+    console.log(payload.carts[0].products, 'im length');
+    let products = payload.carts[0].products;
+    for (let i = 0; i < products.length; i++) {
+      await axios
+        .get(`https://dummyjson.com/products/${products[i].id}`)
+        .then((response) => {
+          products[i].thumbnail = response.data.thumbnail;
+          products[i].category = response.data.category;
+
+          console.log(
+            '🚀 ~ file: actions.js:59 ~ awaitaxios.get ~ response',
+            products[i]
+          );
+        });
+    }
+    console.log(
+      '🚀 ~ file: actions.js:59 ~ awaitaxios.get ~ response',
+      products
+    );
+
+    // Committing initialize store mutation to save it in store
+    context.commit({
+      type: 'initializeStore',
+      value: products,
+    });
+    // Dispatchin aanother action to check length
+    context.dispatch('checkCartLength');
   },
 };

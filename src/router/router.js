@@ -68,6 +68,9 @@ const router = createRouter({
       component: () => import('../Pages/NotFound.vue'),
     },
   ],
+  scrollBehavior() {
+    document.getElementById('app').scrollIntoView({ behavior: 'smooth' });
+  },
 });
 // Checking condition before each route for auth
 router.beforeEach((to, _, next) => {

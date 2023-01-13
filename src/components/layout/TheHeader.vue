@@ -106,9 +106,8 @@
                             type="submit"
                             class="btn-dark btn-sm"
                             rounded="pill"
-                            @click.prevent="getQuery"
                           >
-                            Search
+                            Login
                           </v-btn>
                         </router-link>
                       </div>

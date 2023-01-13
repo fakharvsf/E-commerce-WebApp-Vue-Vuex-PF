@@ -180,7 +180,7 @@
                       <router-link to="/cart/checkout">
                         <button
                           type="button"
-                          class="btn btn-dark btn-block btn-lg"
+                          class="btn btn-dark btn-block btn-lg check-out-btn"
                           data-mdb-ripple-color="dark"
                         >
                           Checkout
@@ -279,6 +279,37 @@ export default {
 };
 </script>
 <style scoped>
+/* Animation property */
+.check-out-btn {
+  animation: wiggle 2s linear infinite;
+}
+
+/* Keyframes */
+@keyframes wiggle {
+  0%,
+  7% {
+    transform: rotateZ(0);
+  }
+  15% {
+    transform: rotateZ(-15deg);
+  }
+  20% {
+    transform: rotateZ(10deg);
+  }
+  25% {
+    transform: rotateZ(-10deg);
+  }
+  30% {
+    transform: rotateZ(6deg);
+  }
+  35% {
+    transform: rotateZ(-4deg);
+  }
+  40%,
+  100% {
+    transform: rotateZ(0);
+  }
+}
 #form1 {
   width: 1.1rem;
 }

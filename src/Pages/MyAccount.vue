@@ -14,9 +14,16 @@
           <div class="col-sm-8 right-text header-box">
             <div class="row">
               <div class="col-12 login-button">
-                <button type="submit" class="btn btn-login" @click="logout">
+                <v-btn
+                  variant="outlined"
+                  type="submit"
+                  size="large"
+                  class="btn-dark btn-sm"
+                  rounded="pill"
+                  @click="logout"
+                >
                   Logout
-                </button>
+                </v-btn>
               </div>
             </div>
 

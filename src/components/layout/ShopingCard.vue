@@ -72,13 +72,12 @@
               <!-- overlay -->
 
               <div class="add">
-                <span class="product_fav"><i class="fas fa-edit"></i></span>
-                <span class="product_fav"
-                  ><i
-                    class="fa fa-trash"
-                    @click="deleteFromCart(product.id, index)"
-                  ></i
-                ></span>
+                <v-btn class="product_fav"><i class="fas fa-edit"></i> </v-btn>
+                <v-btn
+                  class="product_fav"
+                  @click="deleteFromCart(product.id, index)"
+                  ><i class="fa fa-trash"></i
+                ></v-btn>
               </div>
             </div>
           </div>
@@ -107,6 +106,7 @@ export default {
   components: { PaginationCard },
   //Data
   data: () => ({
+    dialog: false,
     show: false,
     latestProducts: [],
     imagesrc: [],
