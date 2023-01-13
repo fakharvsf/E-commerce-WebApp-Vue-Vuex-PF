@@ -2,6 +2,7 @@
   <!-- OverAllWrapper -->
   <main-products>
     <!-- -----------------------Cart Component------------------------------ -->
+
     <section class="h-100 h-custom" style="background-color: #d2c9ff">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -28,6 +29,13 @@
                         </h6>
                       </div>
                       <hr class="my-4" />
+                      <!-- Empty cart -->
+                      <section v-if="cartTotalLength == 0">
+                        <img
+                          src="../assets/Images/CartPage/EmptyCart.png"
+                          alt="Empty Cart"
+                        />
+                      </section>
                       <!-- ---------------------Product Detail-------------- -->
                       <div
                         class="
@@ -177,7 +185,10 @@
                         <h5 class="text-uppercase">Total price</h5>
                         <h5>$ {{ cartTotalPrice + 5 }}</h5>
                       </div>
-                      <router-link to="/cart/checkout">
+                      <router-link
+                        to="/cart/checkout"
+                        v-if="cartTotalLength > 0"
+                      >
                         <button
                           type="button"
                           class="btn btn-dark btn-block btn-lg check-out-btn"
