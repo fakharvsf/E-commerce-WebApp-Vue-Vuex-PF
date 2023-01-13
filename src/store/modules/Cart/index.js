@@ -8,7 +8,7 @@ export default {
   namespaced: true,
   state() {
     return {
-      newProduct: null,
+      newProduct: [],
       cart: {
         items: [],
       },

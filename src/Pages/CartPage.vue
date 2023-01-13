@@ -232,6 +232,7 @@ export default {
   // When Mounted Renaming the page
   mounted() {
     document.title = 'Cart | ShopCart';
+    this.cartItems = this.$store.state.Cart.cart.items;
   },
   // Computed properties to keep track of changes
   computed: {

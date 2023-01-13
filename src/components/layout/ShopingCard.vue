@@ -73,9 +73,79 @@
 
               <div class="add">
                 <v-btn class="product_fav"><i class="fas fa-edit"></i> </v-btn>
+                <v-btn class="product_fav"><i class="fa fa-trash"></i></v-btn>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="wrapper"
+          v-for="(product, index) in newProduct"
+          :key="product.id"
+        >
+          <div class="card">
+            <span class="off bg-dark"
+              >-{{ Math.round(product.discountPercentage) }}% OFF</span
+            >
+            <div class="text-center">
+              <img
+                class="main-image"
+                :src="`${product.thumbnail}`"
+                width="200"
+              />
+            </div>
+            <div class="thumbnail text-center">
+              <img
+                onclick="change_image(this)"
+                :src="`${product.images[0]}`"
+                width="70"
+              />
+              <img
+                onclick="change_image(this)"
+                :src="`${product.images[0]}`"
+                width="70"
+              />
+            </div>
+            <div class="about text-center">
+              <h6>{{ product.title }}</h6>
+              <div class="d-flex justify-center">
+                <div>
+                  <del class="text-danger">{{ '$' + product.price }}</del>
+                </div>
+                <strong style="color: green"
+                  >${{
+                    Math.round(
+                      product.price -
+                        (product.discountPercentage * product.price) / 100
+                    )
+                  }}</strong
+                >
+              </div>
+            </div>
+            <div
+              class="
+                cart-button
+                mt-3
+                d-flex
+                justify-content-between
+                align-items-center
+              "
+            >
+              <button
+                class="btn btn-dark text-uppercase details-bbtn"
+                @click="getIds"
+                @focus="productid = product.id"
+              >
+                View Details
+              </button>
+              <!-- overlay -->
+
+              <div class="add">
+                <v-btn class="product_fav"><i class="fas fa-edit"></i> </v-btn>
                 <v-btn
                   class="product_fav"
-                  @click="deleteFromCart(product.id, index)"
+                  @click="deleteNewProduct(product.id, index)"
                   ><i class="fa fa-trash"></i
                 ></v-btn>
               </div>
@@ -110,6 +180,7 @@ export default {
     show: false,
     latestProducts: [],
     imagesrc: [],
+    newProduct: null,
     productid: null,
     showModal: false,
     addNewProduct: null,
@@ -127,6 +198,8 @@ export default {
   //On Mount Get data from API and Rename Page
   mounted() {
     this.getProducts();
+    this.newProduct = JSON.parse(localStorage.getItem('New Product'));
+    console.log(this.newProduct, 'im smdna');
     // this.getLatestProducts();
     document.title = 'Home | ShopCart';
   },
@@ -201,6 +274,20 @@ export default {
             position: 'bottom-right',
           });
         });
+    },
+    deleteNewProduct(prodId, index) {
+      // console.log()
+      // console.log(this.deletedProduct);
+      this.newProduct.splice(index, 1);
+      // Showing Toast Error on fail
+      toast({
+        message: 'Product Deleted ⛔',
+        type: 'is-success',
+        dismissible: true,
+        pauseOnHover: true,
+        duration: 2000,
+        position: 'bottom-right',
+      });
     },
     // On clicking detail btn Routing user to ProductPage
     getIds() {

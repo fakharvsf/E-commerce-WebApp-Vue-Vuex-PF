@@ -68,7 +68,7 @@ export default {
   },
   // Mutation to handle New Product
   newProduct(state, payload) {
-    state.newProduct = payload.value;
+    state.newProduct.push(payload.value);
 
     localStorage.setItem('New Product', JSON.stringify(state.newProduct));
   },
