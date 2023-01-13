@@ -82,7 +82,8 @@ export default {
 }
 
 .navbar {
-  background-color: #1e3161 !important;
+  /*background-color: #1e3161 !important;*/
+  background: #0071dc !important;
 }
 </style>
 

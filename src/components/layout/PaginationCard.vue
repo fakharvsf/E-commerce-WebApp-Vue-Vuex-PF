@@ -177,7 +177,7 @@ export default {
 }
 
 .active {
-  background-color: #1e3161;
+  background-color: #0071dc;
   color: #ffffff;
 }
 </style>

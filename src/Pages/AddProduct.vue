@@ -92,7 +92,7 @@
               <v-btn
                 variant="outlined"
                 size="large"
-                color="info"
+                class="btn-dark"
                 rounded="pill"
                 @click="AddNewProduct"
               >

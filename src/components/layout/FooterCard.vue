@@ -77,17 +77,17 @@
 }
 
 footer {
-  background: #1e3161;
+  background: #0071dc;
   width: 100%;
   margin: 0 auto;
   margin-top: 50px;
   border-radius: 15px;
   box-shadow: #2f4374 0 10px 20px 5px;
-  padding: 30px;
+  padding: 1.875rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 1.875rem;
 }
 
 .main {
@@ -154,5 +154,11 @@ footer {
 }
 .terms a {
   color: #7783a0;
+}
+@media only screen and (max-width: 330px) {
+  footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 </style>

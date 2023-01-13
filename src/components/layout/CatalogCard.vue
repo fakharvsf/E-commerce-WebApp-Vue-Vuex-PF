@@ -42,14 +42,16 @@
                   <p class="text-muted">
                     Starting from ${{ Math.min(catagory.products[0].price) }}
                   </p>
-                  <button
-                    class="btn btn-outline-success btn-sm"
-                    data-abc="true"
+                  <v-btn
+                    variant="outlined"
+                    size="large"
+                    class="btn-dark btn-sm"
+                    rounded="pill"
                     @click="getPCat"
                     @focus="productCat = catagory.products[0].category"
                   >
                     View Products
-                  </button>
+                  </v-btn>
                 </div>
               </div>
             </div>
@@ -242,8 +244,8 @@ img:hover {
 
   display: grid;
   grid-template-columns: 1fr max-content 1fr;
-  grid-template-rows: 27px 0;
-  grid-gap: 20px;
+  grid-template-rows: 1.688rem 0;
+  grid-gap: 1.25rem;
   align-items: center;
 }
 
@@ -267,12 +269,12 @@ img:hover {
   font-weight: 700;
   letter-spacing: 0px;
   text-transform: uppercase;
-  width: 25rem;
+  width: 16rem;
   text-align: center;
   margin: auto;
   white-space: nowrap;
   border: 2px solid #222;
-  padding: 5px 11px 3px 11px;
+  padding: 0.3rem 0.68rem 0.18rem 0.68rem;
 }
 .cat-heading h1:before,
 .cat-heading h1:after {
@@ -286,9 +288,9 @@ img:hover {
   bottom: 12px;
 }
 .cat-heading h1:before {
-  left: -20px;
+  left: -1.25rem;
 }
 .cat-heading h1:after {
-  right: -20px;
+  right: -1.25rem;
 }
 </style>

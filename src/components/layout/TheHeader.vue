@@ -23,7 +23,7 @@
         >
           <!-- SearchBar -->
           <div id="form-Disp">
-            <form class="d-flex my-2 my-lg-0">
+            <form class="d-flex my-2 my-lg-0 my-search-form">
               <div class="search-bar">
                 <i class="uil uil-search"></i>
                 <input
@@ -34,14 +34,18 @@
                 />
               </div>
               <div>
-                <button
-                  class="btn btn-outline-success my-2 my-sm-0"
+                <v-btn
+                  variant="outlined"
                   id="btn__override"
+                  color="white"
+                  size="large"
                   type="submit"
+                  class="btn-dark btn-sm"
+                  rounded="pill"
                   @click.prevent="getQuery"
                 >
                   Search
-                </button>
+                </v-btn>
               </div>
             </form>
           </div>
@@ -94,12 +98,18 @@
                       </div>
                       <div v-else>
                         <router-link to="/login" class="nav-link">
-                          <button
-                            class="btn btn-outline-success my-2 my-sm-0"
+                          <v-btn
+                            variant="outlined"
                             id="btn__override"
+                            color="white"
+                            size="large"
+                            type="submit"
+                            class="btn-dark btn-sm"
+                            rounded="pill"
+                            @click.prevent="getQuery"
                           >
-                            Login
-                          </button>
+                            Search
+                          </v-btn>
                         </router-link>
                       </div>
                     </li>
@@ -156,15 +166,14 @@ header {
   box-shadow: 0 8px 8px -4px black;
 }
 #btn__override {
-  background-color: #1e3161;
   color: whitesmoke;
 }
 #btn__override:hover {
-  background-color: #68aaaa;
+  background-color: #424649;
 }
 
 #nav__bg-color {
-  background-color: #1e3161;
+  background-color: #0071dc;
 }
 .is-active {
   display: none;
@@ -220,8 +229,12 @@ a {
 }
 
 @media only screen and (max-width: 650px) {
-  #form-Disp {
-    display: none;
+  .my-search-form {
+    display: flex;
+    flex-direction: column;
+  }
+  input[type='search'] {
+    width: 25vw;
   }
 }
 @media only screen and (min-width: 990) {

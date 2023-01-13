@@ -142,11 +142,10 @@ export default {
   },
 };
 </script>
-  <style scoped>
+<style scoped>
 img {
   width: 100%;
 }
-/* ------------------------   Card Styling    ----------------------------*/
 .container {
   width: 100%;
   display: flex;
@@ -162,6 +161,14 @@ img {
   justify-content: center;
   font-weight: 900;
   font-size: 2.5rem;
+}
+@media only screen and (max-width: 785px) {
+  .container {
+    justify-content: center;
+    gap: 1rem;
+    --bs-gutter-x: 0;
+    max-width: 625px;
+  }
 }
 .d-flex {
   gap: 1rem;
@@ -194,13 +201,13 @@ img {
 }
 
 .thumbnail {
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 
 .thumbnail img {
   display: inline-block;
-  width: 50px;
-  height: 50px;
+  width: 3.125rem;
+  height: 3.125rem;
   border: 1px solid #eee;
   padding: 5px;
   cursor: pointer;
