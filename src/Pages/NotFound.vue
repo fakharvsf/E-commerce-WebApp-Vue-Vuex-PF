@@ -1,121 +1,77 @@
 <template>
-  <div class="text-center">
-    <v-btn color="primary">
-      Open Dialog
+  <section class="page-404">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 d-flex flex-column justify-center">
+          <div
+            class="
+              col-sm-10 col-sm-offset-1
+              text-center
+              d-flex
+              flex-column
+              justify-center
+            "
+          >
+            <div class="four-zero-four-bg">
+              <h1 class="text-center">404</h1>
+            </div>
 
-      <v-dialog v-model="dialog" activator="parent">
-        <v-card>
-          <div>
-            <div class="form-title mt-3">
-              <h1 class="text-center">Edit Product</h1>
+            <div class="contant-box-404">
+              <h3 class="h2">Look like you're lost</h3>
+
+              <p>the page you are looking for not avaible!</p>
+              <router-link to="/home">
+                <v-btn
+                  variant="outlined"
+                  size="large"
+                  class="btn-dark"
+                  rounded="pill"
+                >
+                  <v-icon>mdi-home</v-icon>
+                  Go to Home
+                </v-btn>
+              </router-link>
             </div>
           </div>
-          <!-- --------------Vuetify Form----------------- -->
-          <v-form>
-            <v-container>
-              <v-row>
-                <v-col cols="12" sm="6" md="6">
-                  <!-- --------------Getting form data----------------- -->
-
-                  <v-text-field
-                    label="Product Name"
-                    variant="outlined"
-                    clearable
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="6">
-                  <v-text-field
-                    label="Product Stock"
-                    variant="outlined"
-                    type="number"
-                    clearable
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="6">
-                  <v-text-field
-                    label="Brand Name"
-                    variant="outlined"
-                    clearable
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="6">
-                  <v-text-field
-                    label="Product Category"
-                    variant="outlined"
-                    clearable
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="6">
-                  <v-text-field
-                    label="Product Price"
-                    type="number"
-                    prefix="$"
-                    variant="outlined"
-                    clearable
-                  ></v-text-field> </v-col
-                ><v-col cols="12" sm="6" md="6">
-                  <v-text-field
-                    label="Discount Percentage"
-                    prefix="%"
-                    type="number"
-                    variant="outlined"
-                    clearable
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <!-- v-model="form.bio" -->
-                  <v-textarea
-                    color="teal"
-                    prepend-icon="mdi-comment"
-                    counter="50"
-                  >
-                    <template v-slot:label>
-                      <div>Product Description <small>(Required)</small></div>
-                    </template>
-                  </v-textarea>
-                </v-col>
-                <v-col cols="12" sm="12">
-                  <v-text-field
-                    label="image URL"
-                    prepend-icon="mdi-link"
-                    variant="outlined"
-                  ></v-text-field>
-                </v-col>
-                <div class="d-flex justify-center align-center w-100">
-                  <div>
-                    <!-- --------------Submit Form Button ----------------- -->
-
-                    <v-btn
-                      variant="outlined"
-                      size="large"
-                      class="btn-dark"
-                      rounded="pill"
-                    >
-                      <v-icon>mdi-pencil</v-icon>
-                      Add Product
-                    </v-btn>
-                  </div>
-                </div>
-              </v-row>
-            </v-container>
-          </v-form>
-          <v-card-actions>
-            <v-btn color="primary" block @click="dialog = false"
-              >Close Dialog</v-btn
-            >
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-btn>
-  </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
+<style scoped>
+/*======================
+    404 page
+=======================*/
 
-<script>
-export default {
-  data() {
-    return {
-      dialog: false,
-    };
-  },
-};
-</script>
+.page-404 {
+  padding: 40px 0;
+  background: #fff;
+  font-family: 'Arvo', serif;
+}
+
+.page-404 img {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.four-zero-four-bg {
+  background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+  height: 400px;
+  background-position: center;
+}
+
+.four-zero-four-bg h1 {
+  font-size: 80px;
+}
+
+.four-zero-four-bg h3 {
+  font-size: 80px;
+}
+
+a {
+  text-decoration: none;
+}
+.contant-box-404 {
+  margin-top: -50px;
+}
+</style>

@@ -5,8 +5,12 @@
 
     <div id="product-container">
       <!-- Header -->
-
-      <span>OnSale</span>
+      <section class="header-content">
+        <div class="content">
+          <h2>Sale</h2>
+          <h2 class="mt-0">Sale</h2>
+        </div>
+      </section>
       <div class="container gx-0">
         <!-------------------------- Product Card ------------------------------>
         <div
@@ -27,12 +31,12 @@
             </div>
             <div class="thumbnail text-center">
               <img
-                onclick="change_image(this)"
+                @click="changeImage(this)"
                 :src="`${product.images[0]}`"
                 width="70"
               />
               <img
-                onclick="change_image(this)"
+                @click="changeImage(this)"
                 :src="`${product.images[0]}`"
                 width="70"
               />
@@ -73,7 +77,11 @@
 
               <div class="add">
                 <v-btn class="product_fav"><i class="fas fa-edit"></i> </v-btn>
-                <v-btn class="product_fav"><i class="fa fa-trash"></i></v-btn>
+                <v-btn
+                  class="product_fav"
+                  @click="deleteFromCart(product.id, index)"
+                  ><i class="fa fa-trash"></i
+                ></v-btn>
               </div>
             </div>
           </div>
@@ -157,6 +165,7 @@
   </main-products>
   <!------------------------------ Pagination Component --------------------->
   <pagination-card
+    class="pagination-copmonent"
     :totalPages="12"
     :perPage="10"
     :currentPage="currentPage"
@@ -205,6 +214,9 @@ export default {
   },
   // Defining different Methods
   methods: {
+    changeImage(image) {
+      console.log(image);
+    },
     //Calling function to make api request
     getProducts() {
       // Setting Loading spinner to true
@@ -300,6 +312,78 @@ export default {
 };
 </script>
 <style scoped>
+/*Header Design*/
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900');
+.pagination-copmonent {
+  width: 90%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header-content {
+  display: flex;
+  min-height: 18vh;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.content {
+  position: relative;
+}
+
+.content h2 {
+  color: #fff;
+  font-size: 8em;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.content h2:nth-child(1) {
+  color: transparent;
+  -webkit-text-stroke: 2px #03a9f4;
+}
+
+.content h2:nth-child(2) {
+  color: #03a9f4;
+  animation: animate 4s ease-in-out infinite;
+}
+
+@keyframes animate {
+  0%,
+  100% {
+    clip-path: polygon(
+      0% 45%,
+      16% 44%,
+      33% 50%,
+      54% 60%,
+      70% 61%,
+      84% 59%,
+      100% 52%,
+      100% 100%,
+      0% 100%
+    );
+  }
+
+  50% {
+    clip-path: polygon(
+      0% 60%,
+      15% 65%,
+      34% 66%,
+      51% 62%,
+      67% 50%,
+      84% 45%,
+      100% 46%,
+      100% 100%,
+      0% 100%
+    );
+  }
+}
+/**/
 img {
   width: 100%;
 }

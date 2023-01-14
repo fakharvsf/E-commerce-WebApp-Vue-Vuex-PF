@@ -25,6 +25,8 @@ export default {
     await axios
       .get('https://dummyjson.com/carts/user/15')
       .then((response) => {
+        // Dispatching another action to check length
+        context.dispatch('checkCartLength');
         // Dispatching action to get the thumbnail and category
         context.dispatch('getCartProductThumbnail', response.data);
       })
@@ -68,7 +70,7 @@ export default {
       type: 'initializeStore',
       value: products,
     });
-    // Dispatchin aanother action to check length
+    // Dispatching another action to check length
     context.dispatch('checkCartLength');
   },
 };
