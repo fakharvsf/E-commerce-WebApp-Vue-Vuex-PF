@@ -39,7 +39,7 @@
                     aria-selected="true"
                     class="p-1 h-100"
                     :src="`${image}`"
-                    @click="changeImage"
+                    @click="changeImage(index)"
                   />
                 </div>
               </div>
@@ -281,9 +281,13 @@ export default {
   },
   methods: {
     // Method to change image to main image
-    changeImage() {
+    changeImage(index) {
+      console.log(
+        '🚀 ~ file: ProductPage.vue:285 ~ changeImage ~ index',
+        index
+      );
       if (this.currentSrc < this.src.length - 1) {
-        this.currentSrc++;
+        this.currentSrc = index;
       } else {
         this.currentSrc = 0;
       }
