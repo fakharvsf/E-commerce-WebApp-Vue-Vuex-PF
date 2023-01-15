@@ -177,8 +177,8 @@
 // Importing Components and Dependencies
 import { toast } from 'bulma-toast';
 import PaginationCard from './PaginationCard.vue';
-
-import { getProducts, deleteFromCart } from '../../Services/UserService';
+import { getProducts } from '../../Services/newServices';
+import { deleteFromCart } from '../../Services/UserService.js';
 
 export default {
   // Defining Components
