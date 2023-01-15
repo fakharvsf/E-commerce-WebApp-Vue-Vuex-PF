@@ -86,7 +86,7 @@
             </div>
           </div>
         </div>
-
+        <!-- New Product Container -->
         <div
           class="wrapper"
           v-for="(product, index) in newProduct"

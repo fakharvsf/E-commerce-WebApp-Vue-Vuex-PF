@@ -6,7 +6,7 @@
           <div class="column is-12">
             <h1 class="title">Checkout</h1>
           </div>
-
+          <!-- CheckOut Summary -->
           <div class="column is-12 box">
             <table class="table is-fullwidth">
               <thead>
@@ -128,7 +128,7 @@
 
                   <div class="d-flex justify-center align-center w-100">
                     <div>
-                      <!-- --------------Submit Form Button ----------------- -->
+                      <!-- --------------Submit Form Button and Validation ----------------- -->
 
                       <v-btn
                         variant="outlined"
@@ -156,8 +156,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   name: 'Checkout',
   data() {
@@ -175,6 +173,7 @@ export default {
       address: '',
       city: '',
       zipCode: '',
+      // Rules for Form Validation
       nameRules: [
         (v) => !!v || 'Name is required',
         (v) => (v && v.length <= 10) || 'Name must be less than 10 characters',
@@ -193,6 +192,7 @@ export default {
     };
   },
   mounted() {
+    // Getting Cart
     document.title = 'Checkout | ShopCart';
     this.cart = this.$store.state.Cart.cart.items;
     console.log(
@@ -202,6 +202,7 @@ export default {
     this.getCart();
   },
   methods: {
+    // Getting Cart function
     getCart() {
       setTimeout(() => {
         this.cart = this.$store.state.Cart.cart.items;
@@ -211,12 +212,14 @@ export default {
         );
       }, 4000);
     },
+    // Sum of total items sum
     getItemTotal(item) {
       return (
         item.quantity *
         Math.round(item.price - (item.discountPercentage * item.price) / 100)
       );
     },
+    // Validation Function
     async validate() {
       const { valid } = await this.$refs.form.validate();
 
@@ -224,6 +227,8 @@ export default {
     },
   },
   computed: {
+    // Sum of total price sum
+
     cartTotalPrice() {
       return this.cart.reduce((acc, curVal) => {
         let Price = Math.round(
@@ -232,6 +237,8 @@ export default {
         return (acc += Price * curVal.quantity);
       }, 0);
     },
+    // Sum of total length sum
+
     cartTotalLength() {
       return this.cart.reduce((acc, curVal) => {
         return (acc += curVal.quantity);
