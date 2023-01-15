@@ -233,6 +233,7 @@ export default {
   mounted() {
     document.title = 'Cart | ShopCart';
     this.cartItems = this.$store.state.Cart.cart.items;
+    this.getCart();
   },
   // Computed properties to keep track of changes
   computed: {
@@ -286,6 +287,15 @@ export default {
     // Methods activated to update the items in cart in local storage
     updateCart() {
       localStorage.setItem('cart', JSON.stringify(this.$store.state.Cart.cart));
+    },
+    getCart() {
+      setTimeout(() => {
+        this.cartItems = this.$store.state.Cart.cart.items;
+        console.log(
+          '🚀 ~ file: CartPage.vue:294 ~ setTimeout ~ this.cartItems',
+          this.cartItems
+        );
+      }, 3000);
     },
   },
 };
