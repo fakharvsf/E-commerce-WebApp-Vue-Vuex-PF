@@ -1,5 +1,5 @@
 # Vue 3 + Vite + Vuetify + Bootstrap + Bulma + Vuex
-# https://shop-cart-store.netlify.app
+# https://shopcart-pk.netlify.app/
 
 # default
 
