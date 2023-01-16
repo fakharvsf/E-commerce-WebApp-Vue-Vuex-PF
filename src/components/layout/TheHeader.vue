@@ -83,7 +83,7 @@
               </li>
               <li class="ms-1">
                 <!-- User Details and Auth Update -->
-                <div class="collapse navbar-collapse" id="navbar-list-4">
+                <div>
                   <ul class="navbar-nav">
                     <li class="nav-item">
                       <div v-if="$store.state.Login.isAuthenticated">

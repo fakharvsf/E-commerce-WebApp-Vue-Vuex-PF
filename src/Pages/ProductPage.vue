@@ -233,14 +233,19 @@
       </div>
     </main-products>
   </keep-alive>
+  <main-products>
+    <product-card :category="smartphones"></product-card>
+  </main-products>
 </template>
 <script>
 // importing dependencies
 import axios from 'axios';
 import { toast } from 'bulma-toast';
+import ProductCard from '../components/UI/ProductCard.vue';
 
 export default {
   name: 'ProductPage',
+  components: { ProductCard },
 
   // DATA
   data() {
@@ -252,6 +257,7 @@ export default {
       currentSrc: 0,
       prodId: 1,
       quantity: 1,
+      propCategory: null,
 
       productQuantity: null,
       discountPrice: null,
@@ -301,7 +307,10 @@ export default {
         .then((response) => {
           this.product = response.data;
           this.src = this.product.images;
-          console.log(this.src, 'sssss');
+          console.log(this.propCategory, 'sssss');
+          this.propCategory = this.product.category;
+          console.log(this.propCategory, 'sssss');
+
           this.$store.commit({ type: 'setIsLoading', value: false });
           // Renaming page name to Product name accordingly
 
