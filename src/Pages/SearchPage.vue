@@ -115,7 +115,6 @@ export default {
   methods: {
     // getting data of related Products and renaming page
     getLatestProducts() {
-      // const alpha = axios
       //   .get(`https://dummyjson.com/products/search?q=${this.prodQuerry}`)
       searchProducts(this.prodQuerry)
         .then((response) => {
