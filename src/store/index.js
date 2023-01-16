@@ -10,6 +10,7 @@ const store = createStore({
   state() {
     return {
       isLoading: false,
+      category: null,
     };
   },
   getters: {},
@@ -20,6 +21,13 @@ const store = createStore({
       console.log(
         '🚀 ~ file: index.js:16 ~ setIsLoading ~ state.isLoading',
         state.isLoading
+      );
+    },
+    getCategory(state, payload) {
+      state.category = payload;
+      console.log(
+        '🚀 ~ file: index.js:28 ~ getCategory ~ state.category',
+        state.category
       );
     },
   },

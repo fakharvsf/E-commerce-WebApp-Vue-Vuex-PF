@@ -86,57 +86,68 @@ import { toast } from 'bulma-toast';
 
 export default {
   props: {
-    category: {
-      type: String,
+    id: {
+      type: Number,
       required: true,
-      default: 'smartphones',
     },
   },
   data: () => ({
-    show: false,
     latestProducts: [],
-    imagesrc: [],
     productId: null,
-    showModal: false,
     prodCata: null,
   }),
   mounted() {
+    this.prodCata = this.$store.state.category;
+    console.log(
+      '🚀 ~ file: ProductCard.vue:105 ~ mounted ~ this.prodCata',
+      this.prodCata
+    );
     this.productsOfCategory();
   },
-  created() {
-    //When this page is created we get the Catagory
-    this.prodCata = this.category;
-    // console.log(this.prodCata, 'wwwwwwww');
-  },
+
   methods: {
     //To get products of specific Category
+
     productsOfCategory() {
-      this.$store.commit({ type: 'setIsLoading', value: true });
+      setTimeout(() => {
+        this.prodCata = this.$store.state.category.value;
+        console.log(
+          '🚀 ~ file: ProductCard.vue:120 ~ productsOfCategory ~ this.prodCata',
+          this.prodCata
+        );
 
-      productsOfCategory(this.prodCata)
-        .then((response) => {
-          // if (response.data.products.id < 10) {
-          this.latestProducts = response.data.products;
-          this.$store.commit({ type: 'setIsLoading', value: false });
+        this.$store.commit({ type: 'setIsLoading', value: true });
 
-          document.title =
-            this.latestProducts[0].category.toUpperCase() + ' | ShopCart';
+        productsOfCategory(this.prodCata)
+          .then((response) => {
+            // if (response.data.products.id < 10) {
+            this.latestProducts = response.data.products;
+            // this.latestProducts.splice(this.id, 1);
+            this.latestProducts = this.latestProducts.filter(
+              (i) => i.id !== this.id
+            );
 
-          console.log(this.latestProducts[0].category);
-          // }
-        })
-        .catch((error) => {
-          console.log(error);
-          //Error using bulma toast
-          toast({
-            message: 'Something went wrong.Please try again! 😒',
-            type: 'is-danger',
-            dismissible: true,
-            pauseOnHover: true,
-            duration: 2000,
-            position: 'bottom-right',
+            this.$store.commit({ type: 'setIsLoading', value: false });
+
+            document.title =
+              this.latestProducts[0].category.toUpperCase() + ' | ShopCart';
+
+            console.log(this.latestProducts[0].category);
+            // }
+          })
+          .catch((error) => {
+            console.log(error);
+            //Error using bulma toast
+            toast({
+              message: 'Something went wrong.Please try again! 😒',
+              type: 'is-danger',
+              dismissible: true,
+              pauseOnHover: true,
+              duration: 2000,
+              position: 'bottom-right',
+            });
           });
-        });
+      }, 1000);
     },
     //Getting ids to show a specific product on next page
     getIds() {

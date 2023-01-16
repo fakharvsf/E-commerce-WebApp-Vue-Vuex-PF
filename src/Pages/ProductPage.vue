@@ -234,7 +234,7 @@
     </main-products>
   </keep-alive>
   <main-products>
-    <product-card :category="smartphones"></product-card>
+    <product-card :id="product.id"></product-card>
   </main-products>
 </template>
 <script>
@@ -266,12 +266,18 @@ export default {
   // on creating page getting product Id from route params
   created() {
     this.prodId = this.$route.params.data;
+    this.getProduct();
     // console.log(this.prodId);
   },
   // on Mount calling Function to get product details
   mounted() {
-    this.getProduct();
+    this.$store.state.category;
+    console.log(
+      '🚀 ~ file: ProductPage.vue:276 ~ mounted ~     this.$store.state.category',
+      this.$store.state.category
+    );
   },
+
   computed: {
     // Computing actual price using function
     actualPrice() {
@@ -309,6 +315,8 @@ export default {
           this.src = this.product.images;
           console.log(this.propCategory, 'sssss');
           this.propCategory = this.product.category;
+          this.$store.commit({ type: 'getCategory', value: this.propCategory });
+
           console.log(this.propCategory, 'sssss');
 
           this.$store.commit({ type: 'setIsLoading', value: false });

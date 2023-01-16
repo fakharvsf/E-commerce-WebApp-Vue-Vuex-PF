@@ -6,9 +6,9 @@
     <base-spinner></base-spinner>
   </div>
   <!-- Router view to be changed between routes -->
-  <router-view v-slot="{ Component }" :key="$route.fullPath">
+  <router-view v-slot="{ Component }">
     <transition name="scale-slide">
-      <component :is="Component" />
+      <component :is="Component" :key="$route.fullPath" />
     </transition>
   </router-view>
   <div v-if="isLoading">
