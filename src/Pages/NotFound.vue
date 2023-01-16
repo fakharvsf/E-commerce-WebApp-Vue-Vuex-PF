@@ -19,7 +19,8 @@
             <div class="contant-box-404">
               <h3 class="h2">Look like you're lost</h3>
 
-              <p>the page you are looking for not avaible!</p>
+              <p>the page you are looking for not available!</p>
+              <!-- Redirecting to home -->
               <router-link to="/home">
                 <v-btn
                   variant="outlined"

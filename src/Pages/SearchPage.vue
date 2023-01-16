@@ -91,7 +91,7 @@ export default {
     prodQuerry: null,
     productId: null,
   }),
-  // Adding Watcher to quer as if it changes the window should update
+  // Adding Watcher to query as if it changes the window should update
   watch: {
     prodQuerry(newQuestion, oldQuestion) {
       if (newQuestion !== oldQuestion) {

@@ -4,12 +4,13 @@ import store from '../store/index';
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/', redirect: '/home' },
     {
       name: 'home',
       path: '/home',
       component: () => import('../Pages/HomePage/HomePage.vue'),
     },
+    { path: '/', redirect: '/home' },
+
     {
       path: '/catagories',
       component: () => import('../Pages/Catagories/Catagories.vue'),
