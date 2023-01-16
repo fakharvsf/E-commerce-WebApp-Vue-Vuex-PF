@@ -1,7 +1,7 @@
 <template>
   <main-products>
     <div id="product-container">
-      <span>OnSale</span>
+      <span>Search Result</span>
       <div class="container">
         <div
           class="wrapper"
@@ -80,6 +80,7 @@
 </template>
   <script>
 import axios from 'axios';
+import { searchProducts } from '../Services/newServices';
 
 export default {
   name: 'SearchPage',
@@ -114,8 +115,9 @@ export default {
   methods: {
     // getting data of related Products and renaming page
     getLatestProducts() {
-      const alpha = axios
-        .get(`https://dummyjson.com/products/search?q=${this.prodQuerry}`)
+      // const alpha = axios
+      //   .get(`https://dummyjson.com/products/search?q=${this.prodQuerry}`)
+      searchProducts(this.prodQuerry)
         .then((response) => {
           this.latestProducts = response.data.products;
           document.title = this.prodQuerry + ' | ShopCart';

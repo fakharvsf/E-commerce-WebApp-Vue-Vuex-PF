@@ -7,3 +7,8 @@ export async function getProducts(limit, skip) {
   return await axios.get(`${baseUrl}products?limit=${limit}&skip=${skip}`);
 }
 
+// Getting data from API Function just tried ts
+export async function searchProducts(query) {
+  return await axios.get(`${baseUrl}products/search?q=${query}`);
+}
+
