@@ -12,7 +12,7 @@
               <thead>
                 <tr>
                   <th>Product</th>
-                  <th>Price</th>
+                  <th class="price">Price</th>
                   <th>Quantity</th>
                   <th class="discount">Discount</th>
                   <th>Total</th>
@@ -22,7 +22,7 @@
               <tbody>
                 <tr v-for="item in cart" :key="item.id">
                   <td>{{ item.product }}</td>
-                  <td>$ {{ item.price }}</td>
+                  <td class="price">$ {{ item.price }}</td>
                   <td>{{ item.quantity }}</td>
                   <td class="discount">{{ item.discountPercentage }}%</td>
                   <td>${{ getItemTotal(item).toFixed(2) }}</td>
@@ -32,8 +32,9 @@
               <tfoot>
                 <tr>
                   <td>Total</td>
+                  <td class="price"></td>
+
                   <td>{{ cartTotalLength }}</td>
-                  <td></td>
                   <td class="discount"></td>
 
                   <td>
@@ -159,6 +160,11 @@
 <style scoped>
 @media only screen and (max-width: 425px) {
   .discount {
+    display: none;
+  }
+}
+@media only screen and (max-width: 330px) {
+  .price {
     display: none;
   }
 }
