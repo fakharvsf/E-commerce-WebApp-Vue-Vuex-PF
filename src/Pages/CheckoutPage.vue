@@ -14,7 +14,7 @@
                   <th>Product</th>
                   <th>Price</th>
                   <th>Quantity</th>
-                  <th>Discount</th>
+                  <th class="discount">Discount</th>
                   <th>Total</th>
                 </tr>
               </thead>
@@ -24,16 +24,18 @@
                   <td>{{ item.product }}</td>
                   <td>$ {{ item.price }}</td>
                   <td>{{ item.quantity }}</td>
-                  <td>{{ item.discountPercentage }}%</td>
+                  <td class="discount">{{ item.discountPercentage }}%</td>
                   <td>${{ getItemTotal(item).toFixed(2) }}</td>
                 </tr>
               </tbody>
 
               <tfoot>
                 <tr>
-                  <td colspan="2">Total</td>
+                  <td>Total</td>
                   <td>{{ cartTotalLength }}</td>
                   <td></td>
+                  <td class="discount"></td>
+
                   <td>
                     <strong>${{ cartTotalPrice.toFixed(2) }}</strong>
                   </td>
@@ -154,6 +156,13 @@
     </v-container>
   </main-products>
 </template>
+<style scoped>
+@media only screen and (max-width: 425px) {
+  .discount {
+    display: none;
+  }
+}
+</style>
 
 <script>
 export default {
