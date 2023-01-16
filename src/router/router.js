@@ -7,9 +7,9 @@ const router = createRouter({
     {
       name: 'home',
       path: '/home',
-      component: () => import('../Pages/HomePage/HomePage.vue'),
+      redirect: '/',
     },
-    { path: '/', redirect: '/home' },
+    { path: '/', component: () => import('../Pages/HomePage/HomePage.vue') },
 
     {
       path: '/catagories',
