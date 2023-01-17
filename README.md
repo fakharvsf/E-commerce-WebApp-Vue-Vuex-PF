@@ -113,24 +113,24 @@ pnpm build
 
 ## The Features of WebApp
 
- -Routes for each page
-  -Header and Footer
-  -Home Page
-  -data from API in the Home Page
-  -Catalog Page according to API
-  -Product of Specific Catalog
-  -Product Detail Page According to API
-  -Search Operation With API
-  -Cart Page
-#### CRUD in Cart
- -Add Product to Cart
-             -Update counter globally with Vuex
-             -Showing Product in Cart
-             -CRUD on Cart
+        -Routes for each page
+        -Header and Footer
+        -Home Page
+        -data from API in the Home Page
+        -Catalog Page according to API
+        -Product of Specific Catalog
+        -Product Detail Page According to API
+        -Search Operation With API
+        -Cart Page
+### CRUD in Cart
+        -Add Product to Cart
+                    -Update counter globally with Vuex
+                    -Showing Product in Cart
+                    -CRUD on Cart
 
--Adding New Product(done in API but due to dummy API they don't update)
+        -Adding New Product(done in API but due to dummy API they don't update)
 
--Delete Product(API)
+        -Delete Product(API)
 ### Protected Routes for checkout, Login Page 
         -Checkout Page
 
