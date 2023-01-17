@@ -1,5 +1,26 @@
 <template>
-  <div class="container">
+  <div class="container mb-2" id="container">
+    <div>
+      <div class="d-flex is-align-self-flex-start">
+        <v-alert
+          v-model="alert"
+          border="start"
+          variant="tonal"
+          closable
+          close-label="Close Alert"
+          color="blue"
+          title="Closable Alert"
+        >
+          <strong>User Name: </strong>--> kminchelle
+          <strong>User Name: </strong>--> 0lelplR
+        </v-alert>
+
+        <div v-if="!alert" class="text-center align-center">
+          <v-btn @click="alert = true"> Account Info </v-btn>
+        </div>
+      </div>
+    </div>
+
     <div class="sign-in-form">
       <!-- Left (Form Image) -->
       <div class="form-image">
@@ -56,6 +77,7 @@ export default {
   name: 'Login',
   data() {
     return {
+      alert: true,
       userName: '',
       Password: '',
       errors: [],
@@ -150,6 +172,8 @@ export default {
 .container {
   height: 100vh;
   display: grid;
+  grid-template-columns: auto;
+  grid-auto-rows: max-content;
   place-items: center;
   background-color: #f1f1f1 !important;
   font-weight: 300;
@@ -280,6 +304,7 @@ button:hover {
   .sign-in-form {
     flex-direction: row;
   }
+  /*Small Mobiles*/
 
   /* Image / Branding */
 
@@ -304,6 +329,11 @@ button:hover {
 
   p {
     font-size: 16px;
+  }
+}
+@media only screen and (max-width: 395px) {
+  #container {
+    height: 130vh !important;
   }
 }
 </style>

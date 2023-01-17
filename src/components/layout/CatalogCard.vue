@@ -65,7 +65,6 @@
   </main-products>
 </template>
 <script>
-import axios from 'axios';
 import {
   getProductsCatagories,
   getProductsByCatagories,
