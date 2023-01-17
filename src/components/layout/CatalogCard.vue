@@ -37,7 +37,10 @@
                 ></a>
                 <div class="card-body text-center">
                   <h4 class="card-title">
-                    {{ catagory.products[0].category }}
+                    {{
+                      catagory.products[0].category[0].toUpperCase() +
+                      catagory.products[0].category.slice(1)
+                    }}
                   </h4>
                   <p class="text-muted">
                     Starting from ${{ Math.min(catagory.products[0].price) }}

@@ -161,6 +161,9 @@ export default {
 };
 </script>
   <style scoped>
+.uil-search {
+  padding-top: 0.5rem;
+}
 header {
   box-shadow: 0 8px 8px -4px black;
 }
