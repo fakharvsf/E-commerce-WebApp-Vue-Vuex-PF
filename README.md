@@ -12,32 +12,32 @@ The ShopCart can be [viewed online here](https://shopcart-pk.netlify.app/).
 Here are screenshots that show the E-commerce demo application in use.
 
 **Home Page**
-![Home Page](/screenshots/homePage.png?raw=true "Optional Title")
+![Home Page](/src//assets//Readme/HomePage.png?raw=true "Optional Title")
 ---
 
 **Catalog Page**
-![Shopping Cart](/screenshots/shoppingCart.png?raw=true "Shopping Cart")
+![Shopping Cart](/src//assets//Readme/HomePage.png?raw=true "Shopping Cart")
 ---
 
 **Catagories Product Page**
-![Shopping Cart](/screenshots/shoppingCart.png?raw=true "Shopping Cart")
+![Shopping Cart](/src//assets//Readme/HomePage.png?raw=true "Shopping Cart")
 ---
 
 **Item Detail Page**
-![Item Detail](/screenshots/itemDetail.png?raw=true "Optional Title")
+![Item Detail](/src//assets//Readme/HomePage.png?raw=true "Optional Title")
 
 ---
 
 **Shopping Cart**
-![Shopping Cart](/screenshots/shoppingCart.png?raw=true "Shopping Cart")
+![Shopping Cart](/src//assets//Readme/HomePage.png?raw=true "Shopping Cart")
 ---
 
 **Checkout Page**
-![Shopping Cart](/screenshots/shoppingCart.png?raw=true "Shopping Cart")
+![Shopping Cart](/src//assets//Readme/HomePage.png?raw=true "Shopping Cart")
 ---
 
 **Login Page**
-![Shopping Cart](/screenshots/shoppingCart.png?raw=true "Shopping Cart")
+![Shopping Cart](/src//assets//Readme/HomePage.png?raw=true "Shopping Cart")
 
 ## Getting Started
 To get started  you can simply clone this `ShopCart Repo` repository and install the dependencies.
