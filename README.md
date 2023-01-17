@@ -29,7 +29,7 @@ Here are screenshots that show the E-commerce demo application in use.
 ---
 
 **Shopping Cart**
-![Shopping Cart](/src//assets//Readme/?raw=true "Shopping Cart")
+![Shopping Cart](/src//assets//Readme/CartPage.png?raw=true "Shopping Cart")
 ---
 
 **Checkout Page**
