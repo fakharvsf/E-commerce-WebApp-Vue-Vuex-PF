@@ -9,7 +9,7 @@
           closable
           close-label="Close Alert"
           color="blue"
-          title="Closable Alert"
+          title="User Information"
         >
           <div><strong>User Name: </strong>--> kminchelle</div>
           <strong>User Name: </strong>--> 0lelplR
