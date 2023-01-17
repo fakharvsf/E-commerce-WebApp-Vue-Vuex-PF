@@ -11,7 +11,7 @@
           color="blue"
           title="Closable Alert"
         >
-          <strong>User Name: </strong>--> kminchelle
+          <div><strong>User Name: </strong>--> kminchelle</div>
           <strong>User Name: </strong>--> 0lelplR
         </v-alert>
 
