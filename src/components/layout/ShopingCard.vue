@@ -259,48 +259,61 @@ export default {
     },
     // Sending Api Request to delete data
     deleteFromCart(prodId, index) {
-      deleteFromCart(prodId)
-        .then((response) => {
-          this.deletedProduct = response;
-          // console.log(this.deletedProduct);
-          this.latestProducts.splice(index, 1);
-          // Showing Toast Error on fail
-          toast({
-            message: 'Product Deleted ⛔',
-            type: 'is-success',
-            dismissible: true,
-            pauseOnHover: true,
-            duration: 2000,
-            position: 'bottom-right',
+      if (this.$store.state.Login.isAuthenticated) {
+        deleteFromCart(prodId)
+          .then((response) => {
+            this.deletedProduct = response;
+            // console.log(this.deletedProduct);
+            this.latestProducts.splice(index, 1);
+            // Showing Toast Error on fail
+            toast({
+              message: 'Product Deleted ⛔',
+              type: 'is-success',
+              dismissible: true,
+              pauseOnHover: true,
+              duration: 2000,
+              position: 'bottom-right',
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+            // Showing Toast Error on fail
+            toast({
+              message: 'Something went wrong.Please try again! 😒',
+              type: 'is-danger',
+              dismissible: true,
+              pauseOnHover: true,
+              duration: 2000,
+              position: 'bottom-right',
+            });
           });
-        })
-        .catch((error) => {
-          console.log(error);
-          // Showing Toast Error on fail
-          toast({
-            message: 'Something went wrong.Please try again! 😒',
-            type: 'is-danger',
-            dismissible: true,
-            pauseOnHover: true,
-            duration: 2000,
-            position: 'bottom-right',
-          });
+      } else {
+        // Showing Toast Error on fail
+        toast({
+          message:
+            'Something went wrong.Please Login to Access this Feature! 😒',
+          type: 'is-danger',
+          dismissible: true,
+          pauseOnHover: true,
+          duration: 2000,
+          position: 'bottom-right',
         });
+      }
     },
-    deleteNewProduct(prodId, index) {
-      // console.log()
-      // console.log(this.deletedProduct);
-      this.newProduct.splice(index, 1);
-      // Showing Toast Error on fail
-      toast({
-        message: 'Product Deleted ⛔',
-        type: 'is-success',
-        dismissible: true,
-        pauseOnHover: true,
-        duration: 2000,
-        position: 'bottom-right',
-      });
-    },
+    // deleteNewProduct(prodId, index) {
+    //   // console.log()
+    //   // console.log(this.deletedProduct);
+    //   this.newProduct.splice(index, 1);
+    //   // Showing Toast Error on fail
+    //   toast({
+    //     message: 'Product Deleted ⛔',
+    //     type: 'is-success',
+    //     dismissible: true,
+    //     pauseOnHover: true,
+    //     duration: 2000,
+    //     position: 'bottom-right',
+    //   });
+    // },
     // On clicking detail btn Routing user to ProductPage
     getIds() {
       this.$router.push({
