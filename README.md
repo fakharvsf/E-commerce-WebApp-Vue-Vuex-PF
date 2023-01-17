@@ -16,28 +16,36 @@ Here are screenshots that show the E-commerce demo application in use.
 ---
 
 **Catalog Page**
-![Shopping Cart](/src//assets//Readme/HomePage.png?raw=true "Shopping Cart")
+![Shopping Cart](/src//assets//Readme/CatalogPage.png?raw=true "Shopping Cart")
 ---
 
 **Catagories Product Page**
-![Shopping Cart](/src//assets//Readme/HomePage.png?raw=true "Shopping Cart")
+![Shopping Cart](/src//assets//Readme/Catalog%20Product%20Page.png?raw=true "Shopping Cart")
 ---
 
 **Item Detail Page**
-![Item Detail](/src//assets//Readme/HomePage.png?raw=true "Optional Title")
+![Item Detail](/src//assets//Readme/ProductDetailPage.png?raw=true "Optional Title")
 
 ---
 
 **Shopping Cart**
-![Shopping Cart](/src//assets//Readme/HomePage.png?raw=true "Shopping Cart")
+![Shopping Cart](/src//assets//Readme/?raw=true "Shopping Cart")
 ---
 
 **Checkout Page**
-![Shopping Cart](/src//assets//Readme/HomePage.png?raw=true "Shopping Cart")
+![Shopping Cart](/src//assets//Readme/Checkout%20Page.png?raw=true "Shopping Cart")
 ---
 
 **Login Page**
-![Shopping Cart](/src//assets//Readme/HomePage.png?raw=true "Shopping Cart")
+![Shopping Cart](/src//assets//Readme/LoginPage.png?raw=true "Shopping Cart")
+---
+
+**Add Product Page**
+![Shopping Cart](/src//assets//Readme/AddProductPage.png?raw=true "Shopping Cart")
+---
+
+**Search Product Page**
+![Shopping Cart](/src//assets//Readme/SearchPage.png?raw=true "Shopping Cart")
 
 ## Getting Started
 To get started  you can simply clone this `ShopCart Repo` repository and install the dependencies.
@@ -45,32 +53,10 @@ To get started  you can simply clone this `ShopCart Repo` repository and install
 Clone the `ecommerce-demo` repository using git:
 
 ```bash
-git clone https://github.com/ratracegrad/ecommerce-demo
-cd ecommerce-demo
+git clone https://github.com/fakharvsf/E-commerce-WebApp-Vue-Vuex-PF.git
+cd E-commerce-WebApp-Vue-Vuex-PF
 ```
 
-Install dependencies with this command:
-```bash
-npm install
-```
-
-Run the application with this command:
-```bash
-npm start
-```
-
-## Tech Stack
-* Node.js
-* Node.js
-* Node.js
-* Node.js
-* Bootstrap
-* 
-
-# Vue 3 + Vite + Vuetify + Bootstrap + Bulma + Vuex
-# https://shopcart-pk.netlify.app/
-
-# default
 
 ## Project setup
 
@@ -111,6 +97,19 @@ npm run build
 pnpm build
 ```
 
+
+## Tech Stack
+* Node.js
+* Vue
+* Vuetify
+* Vuex
+* Bootstrap
+* Github
+* Git
+* Js(E6)
+* CSS3
+* HTML
+* Bulma
 ### Customize configuration
 
 See [Configuration Reference](https://vitejs.dev/config/).
